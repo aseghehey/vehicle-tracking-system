@@ -1,7 +1,7 @@
 from status import *
 
 class Car ():
-    def __init__(self, vin, model, make, mileage, year, color, performance={}, design={}, handling=[], comfort=[], entertainment=[], protection={}, package='', price=0):
+    def __init__(self, vin, model, make, mileage, year, color, performance={}, design={}, handling=[], comfort=[], entertainment=[], protection={}, package='', status=None, price=0):
         self.vin = vin
         self.make = make
         self.mileage = mileage
@@ -14,6 +14,8 @@ class Car ():
         self.entertainment = entertainment
         self.protection = protection
         self.package = package
+        if not status: status = Status.AVAILABLE
+        self.status = status
         self.price = price
     
     def __str__(self):
