@@ -1,12 +1,9 @@
 from status import *
 
 class Car ():
-    def __init__(self, vin, model, make, mileage, year, color, performance={}, design={}, handling=[], comfort=[], entertainment=[], protection={}, package='', status=None, price=0):
+    def __init__(self, vin, info={}, performance={}, design={}, handling=[], comfort=[], entertainment=[], protection={}, package='', status=None, price=0):
         self.vin = vin
-        self.make = make
-        self.mileage = mileage
-        self.year = year
-        self.color = color
+        self.info = info
         self.performance = performance
         self.design = design
         self.handling = handling
@@ -17,10 +14,6 @@ class Car ():
         if not status: status = Status.AVAILABLE
         self.status = status
         self.price = price
-    
-    def __str__(self):
-        return f"Car {self.make} {self.model} {self.year} ${self.price}"
-    
-
-if __name__ == "__main__":
-    pass
+     
+    def __str__(self) -> str:
+        return f"{self.info['model']}"
