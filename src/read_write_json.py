@@ -14,7 +14,7 @@ def loadInventory():
             cars.append(current_car)
     return cars
 
-def loadUsers():
+def loadUsers(session):
     customers, admins = [], []
     with open('data/users.json', 'r') as usr_file:
         json_user = json.load(usr_file)
@@ -25,16 +25,17 @@ def loadUsers():
             if user == 'customer':
                 customer = Customer(username=cur['username'], password=cur['password'],
                                 first_name=name['firstName'], last_name=name['lastName'], 
-                                date_joined=cur['dateJoined'])
+                                date_joined=cur['dateJoined'], session=session)
                 customers.append(customer)
             else:
                 admin = Admin(username=cur['username'], password=cur['password'],
                                 first_name=name['firstName'], last_name=name['lastName'], 
-                                date_joined=cur['dateJoined'])
+                                date_joined=cur['dateJoined'], session=session)
                 admins.append(admin)
     return customers, admins
                 
 def loadOrders():
+    # use username_to_User
     pass
 
 def writeJson(file): # for orders and users
