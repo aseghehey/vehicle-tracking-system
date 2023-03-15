@@ -80,7 +80,9 @@ def loadOrders():
             orders.append(current_order)
     return orders
 
-
-def writeJson():  # for orders and users
-
-    pass
+def writeJson(file, data): 
+    '''
+    This function writes data to a json file (either inventory, orders, or users)
+    '''
+    with open(file, 'w') as f:
+        json.dump(data, f)
