@@ -27,7 +27,14 @@ ERROR HANDLING:
 import sys
 import os
 from interface import *
+from read_write_json import *
 
 if __name__ == "__main__":
     usr_name = input("Enter username: ")
     pwd = input("Enter password: ")
+
+    loadOrders()
+
+
+
+
