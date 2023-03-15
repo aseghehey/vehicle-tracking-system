@@ -1,29 +1,3 @@
-"""
-####################################################################################################################
-[replace text and delete in bracket]
-PROGRAM [name]:  [purpose of code and function. brief]
-
-PROGRAMMER: [firstName] [lastName] [email]
-
-VERSION 1: written [day] [month] 2023 by [firstInitial]. [lastName]
-REVISION [revision# ex: 1.1]: [day] [month] 2023 by [firstInitial]. [lastName] to [purpose of revision]
-
-
-PURPOSE:
-[general purpose of code and each functionality. thorough description]
-
-DATA STRUCTURES:
-[major data structures and variables]
-[ex: variable LENGTH - integer]
-
-ALGORITHM:
-[brief description of logic flow]
-
-ERROR HANDLING:
-[brief description error handling]
-
-####################################################################################################################
-"""
 from vehicles import *
 from user import *
 import json 
@@ -47,7 +21,7 @@ def loadUsers():
         for i in range(len(json_user)):
             cur = json_user[i]
             name = cur['name'][0]
-            user = {0:'employee', 1:'admin'}[i % 2] # dividing them equally (temporary; for testing)
+            user = {0:'employee', 1:'admin'}[i % 2] # dividing them equally (temporary; for testing) -- useful if we add customer user
             if user == 'employee':
                 customer = Employee(username=cur['username'], password=cur['password'],
                                 first_name=name['firstName'], last_name=name['lastName'], 
