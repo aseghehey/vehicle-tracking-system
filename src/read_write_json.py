@@ -31,7 +31,7 @@ import json
 
 def loadInventory():
     cars = []
-    with open('data/inventory.json', 'r') as file:
+    with open('src/data/inventory.json', 'r') as file:
         json_file = json.load(file)
         for car in json_file:
             current_car = Car(vin=car['vin'], info=car['info'][0], performance=car['performance'][0],
@@ -44,7 +44,7 @@ def loadInventory():
 
 def loadUsers():
     customers, admins = [], []
-    with open('data/users.json', 'r') as usr_file:
+    with open('src/data/users.json', 'r') as usr_file:
         json_user = json.load(usr_file)
         for i in range(len(json_user)):
             cur = json_user[i]
@@ -71,12 +71,13 @@ def loadOrders():
     it returns the array of type Order
     '''
     orders = []
-    with open('data/orders.json', 'r') as ord_file:
+    with open('src/data/orders.json', 'r') as ord_file:
         json_order = json.load(ord_file)
-        for i in range(len(ord_file)):
+        for i in range(len(json_order)):
             cur = json_order[i]
             current_order = Order(
-                car=cur['vin'], user=cur['user'],  dateBought=cur['dateBought'])
+                #I had to instantiate to a car object because the orders.py expects it as a car object 
+                car=Car(vin=cur['vin']), buyer=cur['user'],  dateBought=cur['dateBought'])
             orders.append(current_order)
     return orders
 
