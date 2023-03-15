@@ -29,6 +29,7 @@ import random
 class Order():
     def __init__(self, car=None, buyer=None, dateBought=None) -> None:
         self.id = random.randint(1, 1000)
+        #this is expected to be a car object, so i added extra functionality in the loadOrders function 
         if car: car.setStatus('ordered')
         self.car = car
         self.buyer = buyer
