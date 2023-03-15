@@ -26,10 +26,13 @@ ERROR HANDLING:
 """
 import sys
 import os
-
 from interface import *
+
 if __name__ == "__main__":
     usr_name = input("Enter username: ")
     pwd = input("Enter password: ")
+<<<<<<< HEAD
     # verify
     # run = System()
+=======
+>>>>>>> fbd9dbd (deleted customer and worked on interface)

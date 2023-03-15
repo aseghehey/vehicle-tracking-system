@@ -25,17 +25,17 @@ ERROR HANDLING:
 ####################################################################################################################
 """
 from datetime import date
+from interface import *
 from orders import *
 from status import *
 class User():
-    def __init__(self, username='', password='', first_name='',last_name='', date_joined=None, session=None) -> None:
+    def __init__(self, username='', password='', first_name='',last_name='', date_joined=None) -> None:
         self.username = username
         self.password = password
         self.first_name = first_name
         self.last_name = last_name
         if not date_joined: date_joined = date.today()
         self.date_joined = date_joined
-        self.system = session
 
     def changePassword(self, newpassword):
         # MAYBE add verifiers? 
@@ -48,53 +48,17 @@ class User():
         print('username changed successfully')
         # write username to json
 
-    def username_to_User():
-        # map to User object
-        pass
-
     def __eq__(self, __o):
-        if isinstance(__o, User) or isinstance(__o, Admin) or isinstance(__o, Customer):
+        if isinstance(__o, User) or isinstance(__o, Admin) or isinstance(__o,Employee):
             return __o.username == self.username
         
     def __str__(self):
         return f"User {self.first_name} {self.last_name} Joined in {self.date_joined}"
 
-class Admin(User):
-    # def addInventory(self) -> None:
-    
-    def removeInventory(self, vehicle) -> None:
-        if not self.system.inInventory(vehicle) or not self.system.available(vehicle): return
-        self.system.pop(vehicle)
-        
-    def UpdateInventory(self, vehicle):
-        if not self.system.inInventory(vehicle) or not self.system.available(vehicle): return
-
-        price_or_status = input('Would you like to update the price (input "1") or status ("2")?')
-        while price_or_status not in {1,2}: 
-            price_or_status = input('Would you like to update the price (input "1") or status ("2")?')
-        
-        if price_or_status == 1:
-            newprice = input(f'Enter new price for {vehicle}')
-            if newprice < 0: return
-            vehicle.updatePrice(newprice)
-            return
-        
-        new_status = input('Enter updated status (Available, Ordered, Backorder, Delivered)')
-        while new_status.lower() not in {'available', 'ordered', 'backorder', 'delivered'}:
-            new_status = input('Enter updated status (available, ordered, backorder, delivered)')
-        vehicle.setStatus(new_status)
-
+class Admin(User): # can delete and add inventory
     def __str__(self):
         return f"Admin {self.first_name} {self.last_name} Joined in {self.date_joined}"
 
-class Customer(User):
-    def __init__(self, order=[], username='', password='', first_name='',last_name='', date_joined=None):
-        self.orders = order
-        super().__init__(username, password, first_name, last_name, date_joined)
-
-    def order(self, vehicle) -> None:
-        if not self.system.inInventory(vehicle) or not self.system.available(vehicle): return
-        self.orders[self.system.makeOrder(self, vehicle)] # revisit...
-
+class Employee(User): # can sell cars
     def __str__(self):
-        return f"Customer {self.first_name} {self.last_name} Joined in {self.date_joined}"
+        return f"Employee {self.first_name} {self.last_name} Joined in {self.date_joined}"

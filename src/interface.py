@@ -26,22 +26,35 @@ ERROR HANDLING:
 """
 # keep list of admins, customers, cars and where they are etc...
 from read_write_json import *
+from status import *
+from orders import *
 
-class System(object):
+class Session(object):
     def __init__(self):
         self.inventory = loadInventory()
-        self.customers, self.admins = loadUsers(self)
         self.orders = loadOrders()
-        
-        # not sure if necessary
-        self.all_users = self.customers
-        self.all_users.extend(self.admins)
         
     def inInventory(self, vehicle):
         for v in self.inventory:
             if v == vehicle:
                 return True
         return False 
+    
+    def viewOrders(self):
+        for order in self.orders:
+            print(order)
+    
+    def viewStatus(self, status):
+        if (status.lower() == 'available'):
+            self.viewAvailableInventory()
+            return
+        stat = {'backorder': Status.BACKORDER, 'delivered': Status.DELIVERED}[status.lower()]
+        i = 0
+        for car in self.inventory:
+            if car.status == stat:
+                i += 1
+                print(car)
+        if i == 0: print('None to show')
 
     def available(self, vehicle):
         return vehicle.status == Status.AVAILABLE
@@ -51,16 +64,35 @@ class System(object):
         self.orders.append(order)
         return order
     
+    def viewInventory(self):
+        print('Current cars on the inventory\n')
+        for v in self.inventory:
+            print(v)
+    
+    def viewAvailableInventory(self):
+        print('Available inventory\n')
+        for v in self.inventory:
+            if v.status == Status.AVAILABLE:
+                print(v)
+    
     def logOut(self):
         """ Write changes to inventory, orders and users """
         pass
 
     # at end of session, update inventory -> write json
 
+
 #  Testing 
+<<<<<<< HEAD
 '''
 s = System()
 c, a = loadUsers()
 print(c[0])
 print(s.isUser(a[-1]))
 '''
+=======
+if __name__ == "__main__":
+    pass
+    # sesh = Session()
+    # sesh.viewInventory()
+>>>>>>> fbd9dbd (deleted customer and worked on interface)
