@@ -43,6 +43,21 @@ class Interface:
     def viewInventory(self):
         return self.inventory
     
+    def searchInventory(self, model, make, year):
+        for car in self.inventory:
+            info = car.info
+            if model == info['model'] and make == info['make'] and year == info['year']:
+                return car
+        return
+    
+    def printCarInfo(self, vehicle):
+        info = vehicle.info
+        print()
+        print(vehicle)
+        print(f"VIN: {vehicle.vin}\nYear: {info['year']}\nMileage: {info['mileage']} mi")
+        print(f"\nEngine: {vehicle.performance['engine']} and {vehicle.performance['transmission']} transmission")
+
+    
     def viewAvailableInventory(self):
         avail = []
         for v in self.inventory:
