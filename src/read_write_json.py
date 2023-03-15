@@ -3,7 +3,7 @@
 [replace text and delete in bracket]
 PROGRAM [name]:  [purpose of code and function. brief]
 
-PROGRAMMER: [firstName] [lastName] [email]
+PROGRAMMER: Kate Anderson katemakenzie@usf.edu
 
 VERSION 1: written [day] [month] 2023 by [firstInitial]. [lastName]
 REVISION [revision# ex: 1.1]: [day] [month] 2023 by [firstInitial]. [lastName] to [purpose of revision]
@@ -65,7 +65,11 @@ def loadUsers():
 
 
 def loadOrders():
-    # use username_to_User
+    '''
+    Reads the orders from orders.json and formats 
+    the objects into an array of type Order. Then,
+    it returns the array of type Order
+    '''
     orders = []
     with open('data/orders.json', 'r') as ord_file:
         json_order = json.load(ord_file)
