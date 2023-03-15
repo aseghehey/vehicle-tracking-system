@@ -64,10 +64,5 @@ def loadOrders():
     # use username_to_User
     pass
 
-<<<<<<< HEAD
-def writeJson(file): # for orders and users
-    pass
-=======
 def writeJson(): # for orders and users
     pass
->>>>>>> fbd9dbd (deleted customer and worked on interface)

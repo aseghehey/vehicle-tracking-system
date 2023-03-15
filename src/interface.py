@@ -83,16 +83,7 @@ class Session(object):
 
 
 #  Testing 
-<<<<<<< HEAD
-'''
-s = System()
-c, a = loadUsers()
-print(c[0])
-print(s.isUser(a[-1]))
-'''
-=======
 if __name__ == "__main__":
     pass
     # sesh = Session()
     # sesh.viewInventory()
->>>>>>> fbd9dbd (deleted customer and worked on interface)
