@@ -1,12 +1,12 @@
 """
 ####################################################################################################################
 [replace text and delete in bracket]
-PROGRAM [name]:  [purpose of code and function. brief]
+PROGRAM interface:  load users, inheritance, info as dict param in Car
 
-PROGRAMMER: [firstName] [lastName] [email]
+PROGRAMMER: Emanuel Aseghehey [email]
 
-VERSION 1: written [day] [month] 2023 by [firstInitial]. [lastName]
-REVISION [revision# ex: 1.1]: [day] [month] 2023 by [firstInitial]. [lastName] to [purpose of revision]
+VERSION 1: written 13 March 2023 by E. Aseghehey
+REVISION 1.1: 14 March 2023 by E. Aseghehey to add system, orderes and more functionality
 
 
 PURPOSE:
