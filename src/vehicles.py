@@ -1,4 +1,5 @@
 from status import *
+import locale
 class Car ():
     def __init__(self, vin='', info={}, performance={}, design={}, handling=[], comfort=[], entertainment=[], protection={}, package='', status=None, price=0):
         self.vin = vin
@@ -31,5 +32,6 @@ class Car ():
             return self.vin == __o.vin
     
     def __str__(self) -> str:
-        return f"{self.info['model']} {self.info['make']} priced at ${self.price}"
+        locale.setlocale( locale.LC_ALL, '' )
+        return f"{self.info['model']} {self.info['make']} {locale.currency(self.price, grouping=True )}"
 
