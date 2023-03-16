@@ -15,8 +15,8 @@ class Car ():
         self.status = status
         self.price = price
     
-    def availability(self):
-        return self.status
+    def isAvailable(self):
+        return self.status == Status.AVAILABLE
         
     def setStatus(self, updated_status):
         self.status = {'available':Status.AVAILABLE,

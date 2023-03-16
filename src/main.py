@@ -22,11 +22,10 @@ def displayCars(data):
         print('No cars match given criteria')
         return
 
-    print('\nCars:')
     for i, car in enumerate(data):
         print(f"{i + 1}: {car}")
 
-def inventory_menu(interface):
+def inventory_menu(interface, user_in_session):
     print('\nINVENTORY MENU')
 
     inventory = interface.viewInventory()
@@ -52,8 +51,16 @@ def inventory_menu(interface):
                 print('\nNo car match given criteria')
                 break
             interface.printCarInfo(car)
-            print('\nWould you like to order this car? [y/n]')
+            order = input('\nWould you like to order this car? [y/n]\n')
+            #TODO
             # finish orders
+            if order not in {"yes", "y"}: break
+            # ask for user input
+            proc = interface.makeOrder(user_in_session, car)
+            if not proc:
+                print('Order unsuccessful')
+                break
+            print(proc)
 
         elif decision == '2':
             print("\nFilter by Status:\n1. Available\n2. Ordered\n3. Backorder\n4. Delivered")
@@ -69,11 +76,30 @@ def inventory_menu(interface):
                 break
         else: return
 
-def order_menu(interface):
-    print('in order')
-    pass
+def order_menu(interface, user):
+    print('\nORDER MENU')
+    print('\nOrders:\n')
+    displayCars(interface.orders)
+    while True:
+        print('\n1. Add order\n2. Remove order\n3. View order details\nType "q" to go back to main menu')
+        action = input("\nEnter action: ")
+        if action not in {"1", "2", "3"}: break
+        if action == "2":
+            # delete
+            to_rem = input("\nPick index of order to remove")
+            if not to_rem.isnumeric(): 
+                print('Invalid option')
+                break
+            to_rem = int(to_rem) - 1
+            #TODO
+            if to_rem >= len(interface.orders):
+                print('Invalid index')
+                break
+            # interface.orders[to_rem].remOrder()
+            
 
-def employee_menu(interface):
+
+def employee_menu(interface, user):
     print('in emp')
     pass
 
@@ -96,9 +122,9 @@ def menu():
         if not decision in {"1","2","3"}: break
         {"1": inventory_menu,
          "2": order_menu,
-         "3": employee_menu}[decision](interface)
+         "3": employee_menu}[decision](interface, user)
         
-    interface.logOut()
+    # interface.logOut()
 
 if __name__ == "__main__":
     menu() # gkubach0 2nBztx3qzXV

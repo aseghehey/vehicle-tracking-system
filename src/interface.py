@@ -17,17 +17,11 @@ class Interface:
                 return True
         return False 
     
-    def viewOrders(self):
-        return self.orders
-            
     def viewByStatus(self, status):
         if (status.lower() == 'available'):
             return self.viewAvailableInventory()
-        
-        if (status.lower() == 'ordered'):
-            return self.viewOrders()
 
-        stat = {'backorder': Status.BACKORDER, 'delivered': Status.DELIVERED}[status.lower()]
+        stat = {'ordered': Status.ORDERED, 'backorder': Status.BACKORDER, 'delivered': Status.DELIVERED}[status.lower()]
         by_status = []
         for car in self.inventory:
             if car.status == stat:
@@ -35,6 +29,7 @@ class Interface:
         return by_status
     
     def makeOrder(self, user, vehicle):
+        if not vehicle.isAvailable(): return
         order = Order(vehicle, user)
         self.orders.append(order)
         self.updates[1] = True
