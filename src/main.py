@@ -32,8 +32,8 @@ from read_write_json import *
 if __name__ == "__main__":
     usr_name = input("Enter username: ")
     pwd = input("Enter password: ")
-
-    loadOrders()
+    
+    updateInventory('data/mock_data.json')
 
 
 
