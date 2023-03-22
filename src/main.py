@@ -97,10 +97,17 @@ def order_menu(interface, user):
                 break
             # interface.orders[to_rem].remOrder()
             
-
-
 def employee_menu(interface, user):
     print('in emp')
+    pass
+
+def add_remove_customer(interface, user):
+    pass
+
+def add_remove_employee(interface, user):
+    pass
+
+def car_sales_menu(interface, user):
     pass
 
 def menu():
@@ -108,22 +115,24 @@ def menu():
     if not user: return
     
     interface = None
-    options = "1. View Inventory\n2. View Orders"
+    options = ["1. Customer Orders","2. Car Sales","3. Search Cars","4. Add/Remove Customers"]
     if isinstance(user, Employee): interface = Interface()
     else: 
         interface = AdminInterface()
-        options += '\n3. Add/Remove Employees'
+        options.append("5. Add/Remove Employees")
     
     while True:
-        print('\nWhat do you wish to do?')
-        print(options)
-        print('\nType "q" to log off')
+        print('\nWhat do you wish to do?\n')
+        print("\n".join(options))
+        print('\nType any key besides the options to log off')
         decision = input('Enter choice here: ')
         if not decision in {"1","2","3"}: break
-        {"1": inventory_menu,
-         "2": order_menu,
-         "3": employee_menu}[decision](interface, user)
-        
+        {"1": order_menu,
+         "2": car_sales_menu,
+         "3": inventory_menu,
+         "4": add_remove_customer,
+         "5": add_remove_employee}[decision](interface, user)
+    
     # interface.logOut()
 
 if __name__ == "__main__":

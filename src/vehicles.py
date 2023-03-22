@@ -33,5 +33,5 @@ class Car ():
     
     def __str__(self) -> str:
         locale.setlocale( locale.LC_ALL, '' )
-        return f"{self.info['model']} {self.info['make']} {locale.currency(self.price, grouping=True )}"
+        return f"{self.info['model']} {self.info['make']} {locale.currency(self.price, grouping=True )} year: {self.info['year']}"
 

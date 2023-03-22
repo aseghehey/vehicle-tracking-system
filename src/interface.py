@@ -59,6 +59,12 @@ class Interface:
             if v.status == Status.AVAILABLE:
                 avail.append(v)
         return avail
+
+    def addInventory(self) -> None:
+        pass
+
+    def removeInventory(self) -> None:
+        pass
     
     def logOut(self):
         close = EndSession(self.updates, inventory=self.inventory, orders=self.orders)
@@ -68,12 +74,6 @@ class AdminInterface(Interface):
     def __init__(self, users):
         super().__init__()
         self.__usrs__ = Session.returnEmployees()
-    
-    def addInventory(self) -> None:
-        pass
-    
-    def removeInventory(self) -> None:
-        pass
 
     def addEmployee(self) -> None:
         self.updates[2] = True
