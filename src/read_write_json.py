@@ -1,29 +1,3 @@
-"""
-####################################################################################################################
-[replace text and delete in bracket]
-PROGRAM [name]:  [purpose of code and function. brief]
-
-PROGRAMMER: Kate Anderson katemakenzie@usf.edu
-
-VERSION 1: written [day] [month] 2023 by [firstInitial]. [lastName]
-REVISION [revision# ex: 1.1]: [day] [month] 2023 by [firstInitial]. [lastName] to [purpose of revision]
-
-
-PURPOSE:
-[general purpose of code and each functionality. thorough description]
-
-DATA STRUCTURES:
-[major data structures and variables]
-[ex: variable LENGTH - integer]
-
-ALGORITHM:
-[brief description of logic flow]
-
-ERROR HANDLING:
-[brief description error handling]
-
-####################################################################################################################
-"""
 from vehicles import *
 from user import *
 import json
@@ -48,25 +22,28 @@ def loadInventory():
 
 
 def loadUsers():
-    # customers, admins = [], []
-    # with open('data/users.json', 'r') as usr_file:
-    #     json_user = json.load(usr_file)
-    #     for i in range(len(json_user)):
-    #         cur = json_user[i]
-    #         name = cur['name'][0]
-    #         # dividing them equally (temporary; for testing)
-    #         user = {0: 'employee', 1: 'admin'}[i % 2]
-    #         if user == 'employee':
-    #             customer = Employee(username=cur['username'], password=cur['password'],
-    #                                 first_name=name['firstName'], last_name=name['lastName'],
-    #                                 date_joined=cur['dateJoined'])
-    #             customers.append(customer)
-    #         else:
-    #             admin = Admin(username=cur['username'], password=cur['password'],
-    #                           first_name=name['firstName'], last_name=name['lastName'],
-    #                           date_joined=cur['dateJoined'])
-    #             admins.append(admin)
-    # return customers, admins
+    customers, admins = [], []
+    with open('data/users.json', 'r') as usr_file:
+        json_user = json.load(usr_file)
+        for i in range(len(json_user)):
+            cur = json_user[i]
+            name = cur['name'][0]
+            user = {0:'employee', 1:'admin'}[i % 2] # dividing them equally (temporary; for testing) -- useful if we add customer user
+            if user == 'employee':
+                customer = Employee(username=cur['username'], password=cur['password'],
+                                first_name=name['firstName'], last_name=name['lastName'], 
+                                date_joined=cur['dateJoined'])
+                customers.append(customer)
+            else:
+                admin = Admin(username=cur['username'], password=cur['password'],
+                                first_name=name['firstName'], last_name=name['lastName'], 
+                                date_joined=cur['dateJoined'])
+                admins.append(admin)
+    return customers, admins
+                
+def loadOrders():
+    # use username_to_User
+    pass
 
     with open('data/users.json', 'r') as file:
         users = json.load(file)

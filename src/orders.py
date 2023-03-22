@@ -1,31 +1,6 @@
-"""
-####################################################################################################################
-[replace text and delete in bracket]
-PROGRAM [name]:  [purpose of code and function. brief]
-
-PROGRAMMER: [firstName] [lastName] [email]
-
-VERSION 1: written [day] [month] 2023 by [firstInitial]. [lastName]
-REVISION [revision# ex: 1.1]: [day] [month] 2023 by [firstInitial]. [lastName] to [purpose of revision]
-
-
-PURPOSE:
-[general purpose of code and each functionality. thorough description]
-
-DATA STRUCTURES:
-[major data structures and variables]
-[ex: variable LENGTH - integer]
-
-ALGORITHM:
-[brief description of logic flow]
-
-ERROR HANDLING:
-[brief description error handling]
-
-####################################################################################################################
-"""
 from datetime import date
 import random
+from status import *
 class Order():
     def __init__(self, car=None, buyer=None, dateBought=None) -> None:
         self.id = random.randint(1, 1000)
@@ -35,6 +10,9 @@ class Order():
         self.buyer = buyer
         if not dateBought: dateBought = date.today()
         self.when = dateBought
+
+    def remOrder(self):
+        self.car.setStatus(Status.AVAILABLE)
     
     def __str__(self):
-        return f"Order {self.id} by {self.buyer.username}"
+        return f"Order #{self.id} by {self.buyer.username}"
