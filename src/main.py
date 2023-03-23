@@ -25,6 +25,13 @@ def displayCars(data):
     for i, car in enumerate(data):
         print(f"{i + 1}: {car}")
 
+def displayOrders(data):
+    if not data:
+        print("no orders")
+        return
+    for i, order in enumerate(data):
+        print(f"{i + 1}: {order}")
+
 def inventory_menu(interface, user_in_session):
     print('\nINVENTORY MENU')
 
@@ -79,7 +86,7 @@ def inventory_menu(interface, user_in_session):
 def order_menu(interface, user):
     print('\nORDER MENU')
     print('\nOrders:\n')
-    displayCars(interface.orders)
+    displayOrders(interface.orders)
     while True:
         print('\n1. Add order\n2. Remove order\n3. View order details\nType "q" to go back to main menu')
         action = input("\nEnter action: ")

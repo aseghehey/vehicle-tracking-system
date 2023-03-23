@@ -10,6 +10,21 @@ class User():
         self.last_name = last_name
         if not date_joined: date_joined = date.today()
         self.date_joined = date_joined
+
+    def to_dict(self):
+        return {
+            "username": self.username,
+            "password": self.password,
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+            "date_joined": self.date_joined
+        }
+
+
+    def serialize(user):
+        if isinstance(user, User):
+            return user.to_dict()
+        raise TypeError("Object of type 'User' is not JSON serializable")
     '''
     def changePassword(self, newpassword):
         self.password = newpassword

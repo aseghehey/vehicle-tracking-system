@@ -8,7 +8,7 @@ from typing import Type
 class Interface:
     def __init__(self):
         self.inventory = loadInventory()
-        self.orders = [] # loadOrders()
+        self.orders = loadOrders()
         self.updates = [False, False, False]
         
     def inInventory(self, vehicle):
