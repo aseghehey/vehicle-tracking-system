@@ -37,7 +37,8 @@ class Employee(User): # manages sales and can update inventory but cannot add or
         return f"Employee {self.first_name} {self.last_name} Joined in {self.date_joined}"
     
 class Customer:
-    def __init__(self, first, last, card, email, addr) -> None:
+    def __init__(self, first, last, card, email, addr, id=0) -> None:
+        self.id = id
         self.fn = first
         self.ln = last
         self.card = card
@@ -59,7 +60,12 @@ class Customer:
         return self.__str__() + f"\nEmail: {self.email} \nAddress: {self.address}\nList of all orders: {self.orders}"
 
     def __str__(self) -> str:
-        return f"Name: {self.ln}, {self.fn}"
+        return f"{self.ln}, {self.fn}"
 
     def __repr__(self) -> str:
         return f"{self.fn} {self.ln}"
+    
+    def __eq__(self, value) -> bool:
+        if isinstance(value, Customer):
+            return value.id == self.id
+        return False

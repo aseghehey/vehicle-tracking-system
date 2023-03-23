@@ -4,12 +4,12 @@ from status import *
 from users import *
 from orders import *
 from session import Session, EndSession
-from typing import Type
+
 class Interface:
     def __init__(self):
-        self.inventory = loadInventory()
-        self.customers = loadCustomers()
-        self.orders = [] # loadOrders()
+        self.inventory = LoadInventory()
+        self.customers = LoadCustomers()
+        self.orders = [] # LoadOrders() # have to pass customers and car functionality to correctly add to buyers list and such
         # for inventory, 
         self.updates = [False] * 4
         
@@ -19,9 +19,9 @@ class Interface:
                 return True
         return False 
     
-    def viewByStatus(self, status):
+    def ViewByStatus(self, status):
         if (status.lower() == 'available'):
-            return self.viewAvailableInventory()
+            return self.ViewAvailableInventory()
 
         stat = {'ordered': Status.ORDERED, 'backorder': Status.BACKORDER, 'delivered': Status.DELIVERED}[status.lower()]
         by_status = []
@@ -30,7 +30,7 @@ class Interface:
                 by_status.append(car)
         return by_status
     
-    def makeOrder(self, user, vehicle):
+    def MakeOrder(self, user, vehicle):
         if not vehicle.isAvailable(): return
         order = Order(vehicle, user)
         self.orders.append(order)
@@ -40,9 +40,9 @@ class Interface:
     
     def UndoOrder(self, order):
         self.orders.remove(order)
-        order.remOrder()
+        order.RemoveOrder()
     
-    def viewInventory(self):
+    def ViewInventory(self):
         return self.inventory
     
     def searchInventory(self, model, make, year):
@@ -52,25 +52,17 @@ class Interface:
                 return car
         return
     
-    def printCarInfo(self, vehicle):
-        info = vehicle.info
-        print()
-        print(vehicle)
-        print(f"VIN: {vehicle.vin}\nYear: {info['year']}\nMileage: {info['mileage']} mi")
-        print(f"\nEngine: {vehicle.performance['engine']} and {vehicle.performance['transmission']} transmission")
-
-    
-    def viewAvailableInventory(self):
+    def ViewAvailableInventory(self):
         avail = []
         for v in self.inventory:
             if v.status == Status.AVAILABLE:
                 avail.append(v)
         return avail
 
-    def addInventory(self) -> None:
+    def AddInventory(self) -> None:
         pass
 
-    def removeInventory(self) -> None:
+    def RemoveInventory(self) -> None:
         pass
 
     def AddCustomer(self, first, last, card, email, address):
@@ -78,27 +70,44 @@ class Interface:
         self.customers.append(new_customer)
         return new_customer
 
-        
+    def RemoveCustomer(self, customer):
+        # delete from orders if they exist
+        # set car to available if customer has been deleted
+        order_to_rem = None
+        for order in self.orders:
+            if order.buyer == customer:
+                car = order.car
+                if car.status == Status.ORDERED:
+                    car.SetStatus('available')
+                else:
+                    car.SetStatus('backorder')
+                order_to_rem = order
+                break
+        if order_to_rem: 
+            self.orders.remove(order_to_rem)
+            del order_to_rem
+        self.customers.remove(customer)
+        del customer
 
-    def logOut(self):
+    def LogOut(self):
         close = EndSession(self.updates, inventory=self.inventory, orders=self.orders)
-        close.terminate()
+        close.Terminate()
 
 class AdminInterface(Interface):
     def __init__(self, users):
         super().__init__()
-        self.__usrs__ = Session.returnEmployees()
+        self.__usrs__ = Session.ReturnEmployees()
 
-    def addEmployee(self) -> None:
+    def AddEmployee(self) -> None:
         self.updates[2] = True
         pass
 
-    def removeEmployee(self, usr_to_remove) -> None:
+    def RemoveEmployee(self, usr_to_remove) -> None:
         self.updates[2] = True
         pass
 
-    def logOut(self):
+    def LogOut(self):
         close = EndSession(self.updates, inventory=self.inventory, orders=self.orders, users=self.__usrs__)
-        close.terminate()
+        close.Terminate()
 
 

@@ -2,7 +2,7 @@ from vehicles import *
 from users import *
 import json 
 
-def loadInventory():
+def LoadInventory():
     cars = []
     with open('data/inventory.json', 'r') as file:
         json_file = json.load(file)
@@ -14,7 +14,7 @@ def loadInventory():
             cars.append(current_car)
     return cars
 
-def loadUsers():
+def LoadUsers():
     employees, admins = [], []
     with open('data/users.json', 'r') as usr_file:
         json_user = json.load(usr_file)
@@ -34,7 +34,7 @@ def loadUsers():
                 admins.append(admin)
     return employees, admins
 
-def loadCustomers():
+def LoadCustomers():
     customers = []
     with open('data/customers.json', 'r') as customer_file:
         json_customers = json.load(customer_file)
@@ -50,10 +50,10 @@ def loadCustomers():
             customers.append(customer)
     return customers
        
-def loadOrders():
+def LoadOrders():
     # use username_to_User
     pass
 
-def writeJson(): # for orders and users
+def WriteJson(): # for orders and users
     pass
 

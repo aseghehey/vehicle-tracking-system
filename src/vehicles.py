@@ -18,13 +18,13 @@ class Car ():
     def isAvailable(self):
         return self.status == Status.AVAILABLE
         
-    def setStatus(self, updated_status):
+    def SetStatus(self, updated_status):
         self.status = {'available':Status.AVAILABLE,
                        'ordered': Status.ORDERED,
                        'backorder':Status.BACKORDER,
                        'delivered': Status.DELIVERED}[updated_status.lower()]
     
-    def updatePrice(self, newprice):
+    def UpdatePrice(self, newprice):
         self.price = newprice
 
     def Details(self):
