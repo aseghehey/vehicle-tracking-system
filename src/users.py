@@ -2,6 +2,7 @@ from datetime import date
 from interface import *
 from orders import *
 from status import *
+
 class User():
     def __init__(self, username='', password='', first_name='',last_name='', date_joined=None) -> None:
         self.username = username
@@ -35,22 +36,25 @@ class Employee(User): # manages sales and can update inventory but cannot add or
     def __str__(self):
         return f"Employee {self.first_name} {self.last_name} Joined in {self.date_joined}"
     
-class Customer(User):
-    def __init__(self, username='', password='', first_name='', last_name='', date_joined=None, credit_card=0, address='', telephone_number='') -> None:
-        super().__init__(username, password, first_name, last_name, date_joined)
-        self.card = credit_card
-        self.address = address
-        self.number = telephone_number
-    
+class Customer:
+    def __init__(self, first, last, card, email, addr) -> None:
+        self.fn = first
+        self.ln = last
+        self.card = card
+        self.email = email
+        self.address = addr
+
     def UpdateCard(self, new_card):
         self.card = new_card
-
+    
     def UpdateAddress(self, new_address):
         self.address = new_address
-
-    def UpdateNumber(self, new_number):
-        self.number = new_number
-
-    def __str__(self):
-        return f"Customer {self.first_name} {self.last_name}"
     
+    def UpdateEmail(self, new_email):
+        self.email = new_email
+
+    def __str__(self) -> str:
+        return f"{self.ln}"
+
+    def __repr__(self) -> str:
+        return f"{self.fn} {self.ln}"

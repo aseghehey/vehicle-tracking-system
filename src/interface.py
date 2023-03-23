@@ -1,13 +1,14 @@
 # keep list of admins, customers, cars and where they are etc...
 from read_write_json import *
 from status import *
-from user import *
+from users import *
 from orders import *
 from session import Session, EndSession
 from typing import Type
 class Interface:
     def __init__(self):
         self.inventory = loadInventory()
+        self.customers = loadCustomers()
         self.orders = [] # loadOrders()
         self.updates = [False, False, False]
         

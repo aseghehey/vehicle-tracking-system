@@ -1,5 +1,5 @@
 from vehicles import *
-from user import *
+from users import *
 import json 
 
 def loadInventory():
@@ -15,7 +15,7 @@ def loadInventory():
     return cars
 
 def loadUsers():
-    customers, admins = [], []
+    employees, admins = [], []
     with open('data/users.json', 'r') as usr_file:
         json_user = json.load(usr_file)
         for i in range(len(json_user)):
@@ -26,17 +26,34 @@ def loadUsers():
                 customer = Employee(username=cur['username'], password=cur['password'],
                                 first_name=name['firstName'], last_name=name['lastName'], 
                                 date_joined=cur['dateJoined'])
-                customers.append(customer)
+                employees.append(customer)
             else:
                 admin = Admin(username=cur['username'], password=cur['password'],
                                 first_name=name['firstName'], last_name=name['lastName'], 
                                 date_joined=cur['dateJoined'])
                 admins.append(admin)
-    return customers, admins
-                
+    return employees, admins
+
+def loadCustomers():
+    customers = []
+    with open('data/customers.json', 'r') as customer_file:
+        json_customers = json.load(customer_file)
+        for i in range(len(json_customers)):
+            cur_json = json_customers[i]
+            email = cur_json['email']
+            name = cur_json['name'][0]
+            fn, ln = name['first'], name['last']
+            cc = cur_json['card']
+            addy = cur_json['address']
+            
+            customer = Customer(fn, ln, cc, email, addy)
+            customers.append(customer)
+    return customers
+       
 def loadOrders():
     # use username_to_User
     pass
 
 def writeJson(): # for orders and users
     pass
+
