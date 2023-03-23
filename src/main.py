@@ -1,6 +1,6 @@
 from interface import *
 from session import Auth
-# maybe make interface global
+from users import *
 
 ''' Input colors '''
 class bcolors:
@@ -64,7 +64,7 @@ def car_search(interface) -> None:
     # finish orders
     # make_order()
 
-def inventory_menu(interface, user_in_session):
+def inventory_menu():
     print('\nCars in the inventory')
 
     inventory = interface.viewInventory()
@@ -94,13 +94,25 @@ def inventory_menu(interface, user_in_session):
              "2": displayData,
              "3": displayData,
              "4": displayData}[filter_decision](interface.viewByStatus(statuses[filter_decision]))
-        elif decision == '3': order_menu(interface, user_in_session)
+        elif decision == '3': order_menu()
         elif decision == '4':
             if not isinstance(interface, AdminInterface):
                 break
         else: return
 
-def order_menu(interface, user):
+def AddCustomer():
+    print_with_colors("Important", "\nEnter customer details\n")
+    fn = input('First Name: ')
+    ln = input('Last Name: ')
+    email = input('Email address: ')
+    cc = input('Credit Card #: ')
+    add = input('Home address: ')
+    # validate input
+    customer = interface.AddCustomer(fn, ln, cc, email, add)
+    print_with_colors('Success',f"\nAdded {customer} with success")
+    return customer
+
+def order_menu():
     print('\nORDER MENU')
     print('Current Orders:\n')
     displayData(interface.orders)
@@ -118,8 +130,11 @@ def order_menu(interface, user):
             print_with_colors('Action', '\nPick an index for the car you want to order')
             print(interface.inventory)
             inv_len = len(interface.inventory) - 1
-            idx = int(input(f"\nEnter index [0-{inv_len}]: "))
-
+            idx = input(f"\nEnter index [0-{inv_len}]: ")
+            if not idx.isnumeric():
+                print_with_colors('Invalid', 'Input must be a number')
+                break
+            idx = int(idx)
             if idx > inv_len or idx < 0:
                 print_with_colors('Invalid', 'Invalid index')
                 break
@@ -129,10 +144,24 @@ def order_menu(interface, user):
             print(car_to_order)
             confirm = input("Enter y/n: ")
             if confirm not in {"yes", "y", "Y"}: break
-            new_customer = input("\nEnter 'yes' if this order is for a new Customer:")
-            if new_customer != 'yes':
-                # old customer case
-                continue
+            new_customer = input("\nEnter 'yes' if this order is for a new Customer: ")
+            customer = None
+
+            if new_customer == 'yes':
+                customer = AddCustomer()
+            else:
+                print_with_colors('Action', '\nPick the index from the customers in the system\n')
+                print(interface.customers)
+                cust_len = len(interface.customers) - 1
+                idx = input(f"\nEnter index [0-{cust_len}]: ")
+                # validate idx
+                idx = int(idx)
+                customer = interface.customers[idx]
+                print_with_colors('Success',f"\n{customer}")
+            print('Next steps')
+            
+            # Make order
+            
             #new customer case
             
         elif action == "2":
@@ -148,25 +177,27 @@ def order_menu(interface, user):
                 break
             # interface.orders[to_rem].remOrder()
             
-def employee_menu(interface, user):
+def employee_menu():
     print('in emp')
     pass
 
-def add_remove_customer(interface, user):
+def add_remove_customer():
     pass
 
-def add_remove_employee(interface, user):
+def manage_customers():
     pass
 
-def car_sales_menu(interface, user):
+def car_sales_menu():
     pass
 
 def menu():
+    global user
+    global interface
+
     user = login_page()
     if not user: return
     
-    interface = None
-    options = ["1. Customer Orders","2. Car Sales","3. Search Cars","4. Add/Remove Customers"]
+    options = ["1. Customer Orders","2. Car Sales","3. Search Cars","4. Manage Customers"]
     if isinstance(user, Employee): interface = Interface()
     else: 
         interface = AdminInterface()
@@ -182,7 +213,7 @@ def menu():
          "2": car_sales_menu,
          "3": inventory_menu,
          "4": add_remove_customer,
-         "5": add_remove_employee}[decision](interface, user)
+         "5": manage_customers}[decision]()
     
     # interface.logOut()
 

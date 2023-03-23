@@ -66,7 +66,14 @@ class Interface:
 
     def removeInventory(self) -> None:
         pass
-    
+
+    def AddCustomer(self, first, last, card, email, address):
+        new_customer = Customer(first, last, card, email, address)
+        self.customers.append(new_customer)
+        return new_customer
+
+        
+
     def logOut(self):
         close = EndSession(self.updates, inventory=self.inventory, orders=self.orders)
         close.terminate()

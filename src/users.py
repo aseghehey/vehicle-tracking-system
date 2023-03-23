@@ -54,7 +54,7 @@ class Customer:
         self.email = new_email
 
     def __str__(self) -> str:
-        return f"{self.ln}"
+        return f"{self.ln}, {self.fn}"
 
     def __repr__(self) -> str:
         return f"{self.fn} {self.ln}"
