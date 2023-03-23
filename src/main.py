@@ -112,13 +112,34 @@ def AddCustomer():
     print_with_colors('Success',f"\nAdded {customer} with success")
     return customer
 
+def PickIndex(arr):
+    arr_len = len(arr) - 1
+    while True:
+        print(arr)
+        print_with_colors('Action', '\nPick index from the dislayed list above\n')
+        idx = input(f"\nEnter index [0-{arr_len}]: ")
+        if not idx.isnumeric():
+            print_with_colors('Invalid',f"Invalid index! Must be a number")
+            continue
+        idx = int(idx)
+        if idx < 0 or idx > arr_len:
+            print_with_colors('Invalid',f"Invalid index! Must be greater than 0 AND smaller than maximum length")
+            continue
+        return idx
+
+def SelectObject(obj_arr):
+    idx = PickIndex(obj_arr)
+    obj = obj_arr[idx]
+    print_with_colors('Success',f"\n{obj}")
+    return obj
+
 def order_menu():
     print('\nORDER MENU')
-    print('Current Orders:\n')
-    displayData(interface.orders)
     options = ["\nWhat would you like to do?","1. Add order","2. Remove order","3. View order details","Type 'q' to go back to main menu"]
     str_options = "\n".join(options)
     while True:
+        print('Current Orders:\n')
+        displayData(interface.orders)
         print_with_colors("Action", str_options)
         action = input("\nEnter action: ")
 
@@ -126,56 +147,30 @@ def order_menu():
             print_with_colors('Invalid', 'Invalid choice')
             break
 
-        if action == "1":
-            print_with_colors('Action', '\nPick an index for the car you want to order')
-            print(interface.inventory)
-            inv_len = len(interface.inventory) - 1
-            idx = input(f"\nEnter index [0-{inv_len}]: ")
-            if not idx.isnumeric():
-                print_with_colors('Invalid', 'Input must be a number')
-                break
-            idx = int(idx)
-            if idx > inv_len or idx < 0:
-                print_with_colors('Invalid', 'Invalid index')
-                break
-            
-            car_to_order = interface.inventory[idx]
+        if action == "1":            
+            car_to_order = SelectObject(interface.inventory)
             print_with_colors('Important', "\nYou are about to order this car:")
             print(car_to_order)
             confirm = input("Enter y/n: ")
             if confirm not in {"yes", "y", "Y"}: break
             new_customer = input("\nEnter 'yes' if this order is for a new Customer: ")
-            customer = None
 
+            customer = None
             if new_customer == 'yes':
                 customer = AddCustomer()
             else:
-                print_with_colors('Action', '\nPick the index from the customers in the system\n')
-                print(interface.customers)
-                cust_len = len(interface.customers) - 1
-                idx = input(f"\nEnter index [0-{cust_len}]: ")
-                # validate idx
-                idx = int(idx)
-                customer = interface.customers[idx]
-                print_with_colors('Success',f"\n{customer}")
-            print('Next steps')
-            
-            # Make order
-            
-            #new customer case
-            
+                customer = SelectObject(interface.customers)
+            print_with_colors("Success",interface.makeOrder(customer, car_to_order))
         elif action == "2":
-            # delete
-            to_rem = input("\nPick index of order to remove")
-            if not to_rem.isnumeric(): 
-                print('Invalid option')
-                break
-            to_rem = int(to_rem) - 1
-            #TODO
-            if to_rem >= len(interface.orders):
-                print_with_colors("Invalid", "Invalid index")
-                break
-            # interface.orders[to_rem].remOrder()
+            order_to_remove = SelectObject(interface.orders)
+            interface.UndoOrder(order_to_remove)
+        elif action == "3":
+            if not interface.orders:
+                print("None to show")
+                continue
+            order_to_view = SelectObject(interface.orders)
+            print_with_colors("Success",f"\nCar details:\n{order_to_view.car.Details()}\n\nCustomer details:\n{order_to_view.buyer.Details()}\n")
+            # implement view more details option for both
             
 def employee_menu():
     print('in emp')

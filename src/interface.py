@@ -10,7 +10,8 @@ class Interface:
         self.inventory = loadInventory()
         self.customers = loadCustomers()
         self.orders = [] # loadOrders()
-        self.updates = [False, False, False]
+        # for inventory, 
+        self.updates = [False] * 4
         
     def inInventory(self, vehicle):
         for v in self.inventory:
@@ -33,8 +34,13 @@ class Interface:
         if not vehicle.isAvailable(): return
         order = Order(vehicle, user)
         self.orders.append(order)
+        self.customers[self.customers.index(user)].orders.append(order)
         self.updates[1] = True
         return order
+    
+    def UndoOrder(self, order):
+        self.orders.remove(order)
+        order.remOrder()
     
     def viewInventory(self):
         return self.inventory

@@ -43,6 +43,7 @@ class Customer:
         self.card = card
         self.email = email
         self.address = addr
+        self.orders = []
 
     def UpdateCard(self, new_card):
         self.card = new_card
@@ -52,9 +53,13 @@ class Customer:
     
     def UpdateEmail(self, new_email):
         self.email = new_email
+    
+    def Details(self):
+        print(self)
+        return self.__str__() + f"\nEmail: {self.email} \nAddress: {self.address}\nList of all orders: {self.orders}"
 
     def __str__(self) -> str:
-        return f"{self.ln}, {self.fn}"
+        return f"Name: {self.ln}, {self.fn}"
 
     def __repr__(self) -> str:
         return f"{self.fn} {self.ln}"

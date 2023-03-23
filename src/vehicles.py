@@ -27,6 +27,9 @@ class Car ():
     def updatePrice(self, newprice):
         self.price = newprice
 
+    def Details(self):
+        return self.__str__() + f"\nVIN: {self.vin}\nPerformance: {self.performance}\nInterior design: {self.design['interior']}\nExterior design: {self.design['exterior']}\nComfort: {self.comfort}\nPackage: {self.package}"
+
     def __eq__(self, __o: object) -> bool:
         if isinstance(__o, Car): 
             return self.vin == __o.vin
