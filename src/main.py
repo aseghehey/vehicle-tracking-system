@@ -1,13 +1,34 @@
 from interface import *
 from session import Auth
+# maybe make interface global
 
+''' Input colors '''
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+def print_with_colors(color_status, print_info):
+    color_options = {"Invalid": bcolors.FAIL, "Success": bcolors.OKGREEN, "Action": bcolors.OKBLUE, "Important": bcolors.BOLD, "Warning": bcolors.WARNING}
+    color_status = color_options[color_status]
+    print(f"{color_status}{print_info}{bcolors.ENDC}")
+
+''' Command line interface '''
 def login_page():
     print('Welcome to PigeonBOX')
     user, attempt = None, 0
     while (user is None and attempt < 3):
         attempt+=1
-        usr_name = input("\nEnter username: ")
-        pwd = input("Enter password: ")
+        # usr_name = input("\nEnter username: ")
+        # pwd = input("Enter password: ")
+        usr_name = "gkubach0"
+        pwd = "2nBztx3qzXV"
         user = Auth().authenticate(usr_name, pwd)
 
     if not user: 
@@ -17,74 +38,104 @@ def login_page():
     print(f'\nHi {user.first_name} you have successfully logged in')
     return user
 
-def displayCars(data):
+def displayData(data):
     if not data:
-        print('No cars match given criteria')
+        print_with_colors("Warning",'No matches for given criteria')
         return
 
-    for i, car in enumerate(data):
-        print(f"{i + 1}: {car}")
+    for i, val in enumerate(data):
+        print(f"{i + 1}: {val}")
+
+def car_search(interface) -> None:
+    print('\nSearch car in inventory')
+    search_decision = input("Enter model, make and year separated by commas\n")
+    search_decision = list(map(lambda x: x.strip(), search_decision.split(',')))
+    if len(search_decision) != 3: return
+    model, make, year = search_decision[0], search_decision[1], search_decision[2]
+    if not year.isnumeric(): 
+        print('\nInvalid input')
+        return
+    car = interface.searchInventory(model, make, int(year))
+    if not car: 
+        print('\nNo car match given criteria')
+        return
+    interface.printCarInfo(car)
+    #TODO
+    # finish orders
+    # make_order()
 
 def inventory_menu(interface, user_in_session):
-    print('\nINVENTORY MENU')
+    print('\nCars in the inventory')
 
     inventory = interface.viewInventory()
-    displayCars(inventory)
+    displayData(inventory)
 
-    options = "\n1. Search\n2. Filter\n3. Sort"
-    if isinstance(interface, AdminInterface): options += '\n4. Add inventory\n5. Remove inventory'
+    options = ["1. Search","2. Filter by", "3. Make a customer order"]
+    if isinstance(interface, AdminInterface): 
+        options.append("4. Add/Remove Cars")
+
+    options.append("Type 'q' to exit inventory menu")
+    opt_str = "\n" + "\n".join(options)
+
     while True:
-        print(options)
-        decision = input("\nType 'q' to exit inventory menu\nEnter action: ")
+        print_with_colors("Action", opt_str)
+        decision = input("Enter action: ")
         if decision == '1':
-            # search
-            print('\nSearch car in inventory')
-            search_decision = input("Enter model, make and year separated by commas\n")
-            search_decision = list(map(lambda x: x.strip(), search_decision.split(',')))
-            if len(search_decision) != 3: break
-            model, make, year = search_decision[0], search_decision[1], search_decision[2]
-            if not year.isnumeric(): 
-                print('\nInvalid input')
-                break 
-            car = interface.searchInventory(model, make, int(year))
-            if not car: 
-                print('\nNo car match given criteria')
-                break
-            interface.printCarInfo(car)
-            order = input('\nWould you like to order this car? [y/n]\n')
-            #TODO
-            # finish orders
-            if order not in {"yes", "y"}: break
-            # ask for user input
-            proc = interface.makeOrder(user_in_session, car)
-            if not proc:
-                print('Order unsuccessful')
-                break
-            print(proc)
-
+            car_search(interface)
         elif decision == '2':
-            print("\nFilter by Status:\n1. Available\n2. Ordered\n3. Backorder\n4. Delivered")
+            filter_options = ["\nFilter by Status:","1. Available","2. Ordered","3. Backorder","4. Delivered"]
+            print_with_colors("Action", "\n".join(filter_options))
             statuses = {"1": "available", "2": "ordered", "3": "backorder", "4": "delivered"}
             filter_decision = input("\nEnter here: ")
-            if filter_decision not in statuses: break
-            {"1": displayCars,
-             "2": displayCars,
-             "3": displayCars,
-             "4": displayCars}[filter_decision](interface.viewByStatus(statuses[filter_decision]))
-        elif decision == '3':
+            if filter_decision not in statuses:
+                print_with_colors("Invalid", "Invalid input") 
+                continue
+            {"1": displayData,
+             "2": displayData,
+             "3": displayData,
+             "4": displayData}[filter_decision](interface.viewByStatus(statuses[filter_decision]))
+        elif decision == '3': order_menu(interface, user_in_session)
+        elif decision == '4':
             if not isinstance(interface, AdminInterface):
                 break
         else: return
 
 def order_menu(interface, user):
     print('\nORDER MENU')
-    print('\nOrders:\n')
-    displayCars(interface.orders)
+    print('Current Orders:\n')
+    displayData(interface.orders)
+    options = ["\nWhat would you like to do?","1. Add order","2. Remove order","3. View order details","Type 'q' to go back to main menu"]
+    str_options = "\n".join(options)
     while True:
-        print('\n1. Add order\n2. Remove order\n3. View order details\nType "q" to go back to main menu')
+        print_with_colors("Action", str_options)
         action = input("\nEnter action: ")
-        if action not in {"1", "2", "3"}: break
-        if action == "2":
+
+        if action not in {"1", "2", "3"}: 
+            print_with_colors('Invalid', 'Invalid choice')
+            break
+
+        if action == "1":
+            print_with_colors('Action', '\nPick an index for the car you want to order')
+            print(interface.inventory)
+            inv_len = len(interface.inventory) - 1
+            idx = int(input(f"\nEnter index [0-{inv_len}]: "))
+
+            if idx > inv_len or idx < 0:
+                print_with_colors('Invalid', 'Invalid index')
+                break
+            
+            car_to_order = interface.inventory[idx]
+            print_with_colors('Important', "\nYou are about to order this car:")
+            print(car_to_order)
+            confirm = input("Enter y/n: ")
+            if confirm not in {"yes", "y", "Y"}: break
+            new_customer = input("\nEnter 'yes' if this order is for a new Customer:")
+            if new_customer != 'yes':
+                # old customer case
+                continue
+            #new customer case
+            
+        elif action == "2":
             # delete
             to_rem = input("\nPick index of order to remove")
             if not to_rem.isnumeric(): 
@@ -93,7 +144,7 @@ def order_menu(interface, user):
             to_rem = int(to_rem) - 1
             #TODO
             if to_rem >= len(interface.orders):
-                print('Invalid index')
+                print_with_colors("Invalid", "Invalid index")
                 break
             # interface.orders[to_rem].remOrder()
             
@@ -124,9 +175,9 @@ def menu():
     while True:
         print('\nWhat do you wish to do?\n')
         print("\n".join(options))
-        print('\nType any key besides the options to log off')
+        print('\nType any key (besides the options) to log off')
         decision = input('Enter choice here: ')
-        if not decision in {"1","2","3"}: break
+        if not decision in {"1","2","3","4","5"}: break
         {"1": order_menu,
          "2": car_sales_menu,
          "3": inventory_menu,

@@ -23,6 +23,9 @@ class User():
         
     def __str__(self):
         return f"User {self.first_name} {self.last_name} Joined in {self.date_joined}"
+    
+    def __repr__(self) -> str:
+        return f"{self.first_name} {self.last_name}"
 
 class Admin(User): # can delete or add inventory, add or delete employees
     def __str__(self):
@@ -31,3 +34,23 @@ class Admin(User): # can delete or add inventory, add or delete employees
 class Employee(User): # manages sales and can update inventory but cannot add or delete
     def __str__(self):
         return f"Employee {self.first_name} {self.last_name} Joined in {self.date_joined}"
+    
+class Customer(User):
+    def __init__(self, username='', password='', first_name='', last_name='', date_joined=None, credit_card=0, address='', telephone_number='') -> None:
+        super().__init__(username, password, first_name, last_name, date_joined)
+        self.card = credit_card
+        self.address = address
+        self.number = telephone_number
+    
+    def UpdateCard(self, new_card):
+        self.card = new_card
+
+    def UpdateAddress(self, new_address):
+        self.address = new_address
+
+    def UpdateNumber(self, new_number):
+        self.number = new_number
+
+    def __str__(self):
+        return f"Customer {self.first_name} {self.last_name}"
+    
