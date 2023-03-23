@@ -9,9 +9,10 @@ class Interface:
     def __init__(self):
         self.inventory = LoadInventory()
         self.customers = LoadCustomers()
+        #TODO
         self.orders = [] # LoadOrders() # have to pass customers and car functionality to correctly add to buyers list and such
         # for inventory, 
-        self.updates = [False] * 4
+        self.updates = [False] * 4 # TODO
         
     def inInventory(self, vehicle):
         for v in self.inventory:
@@ -60,9 +61,11 @@ class Interface:
         return avail
 
     def AddInventory(self) -> None:
+        #TODO
         pass
 
     def RemoveInventory(self) -> None:
+        #TODO
         pass
 
     def AddCustomer(self, first, last, card, email, address):
@@ -71,15 +74,14 @@ class Interface:
         return new_customer
 
     def RemoveCustomer(self, customer):
-        # delete from orders if they exist
-        # set car to available if customer has been deleted
+        """delete from orders if they exist AND set car to available if customer has been deleted """
         order_to_rem = None
         for order in self.orders:
             if order.buyer == customer:
                 car = order.car
-                if car.status == Status.ORDERED:
+                if car.status == Status.ORDERED: 
                     car.SetStatus('available')
-                else:
+                else: # if car has been delivered to that customer!
                     car.SetStatus('backorder')
                 order_to_rem = order
                 break
