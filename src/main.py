@@ -20,24 +20,6 @@ def PrintFormat(color_status, print_info):
     print(f"{color_status}{print_info}{bcolors.ENDC}")
 
 ''' Command line interface '''
-def LoginPage():
-    print('Welcome to PigeonBOX')
-    user, attempt = None, 0
-    while (user is None and attempt < 3):
-        attempt+=1
-        # usr_name = input("\nEnter username: ")
-        # pwd = input("Enter password: ")
-        usr_name = "gkubach0"
-        pwd = "2nBztx3qzXV"
-        user = Auth().Authenticate(usr_name, pwd)
-
-    if not user: 
-        print('\nFailed all 3 attempts, sorry')
-        return
-    
-    PrintFormat("Success",f'\nHi {user.first_name} you have successfully logged in')
-    return user
-
 def displayData(data):
     if not AvailableToShow(data): return
     for i, val in enumerate(data):
@@ -68,42 +50,6 @@ def CarSearch() -> None:
 
 def Stall():
     _ = input("\nPress enter to continue\n")
-
-def InventoryMenu():
-    print('\nCars in the inventory')
-
-    inventory = interface.ViewInventory()
-    options = ["1. Search","2. Filter by", "3. Make a customer order"]
-    if isinstance(interface, AdminInterface): 
-        options.append("4. Add/Remove Cars")
-
-    options.append("Type 'q' to exit inventory menu")
-    opt_str = "\n" + "\n".join(options)
-
-    while True:
-        displayData(inventory)
-        PrintFormat("Action", opt_str)
-        decision = input("Enter action: ")
-        if decision == '1':
-            CarSearch()
-        elif decision == '2':
-            filter_options = ["\nFilter by Status:","1. Available","2. Ordered","3. Backorder","4. Delivered"]
-            PrintFormat("Action", "\n".join(filter_options))
-            statuses = {"1": "available", "2": "ordered", "3": "backorder", "4": "delivered"}
-            filter_decision = input("\nEnter here: ")
-            if filter_decision not in statuses:
-                PrintFormat("Invalid", "Invalid input") 
-                continue
-            {"1": displayData,
-             "2": displayData,
-             "3": displayData,
-             "4": displayData}[filter_decision](interface.ViewByStatus(statuses[filter_decision]))
-        elif decision == '3': OrderMenu()
-        elif decision == '4':
-            if not isinstance(interface, AdminInterface):
-                break
-        else: return
-        Stall()
 
 def ValidateUserInput(action="action"):
     usr_input = input(f"Enter {action}: ")
@@ -174,6 +120,63 @@ def AvailableToShow(arr):
         PrintFormat("Invalid","None available to display")
         return False
     return True
+
+''' Menus '''
+def LoginPage():
+    print('Welcome to PigeonBOX')
+    user, attempt = None, 0
+    while (user is None and attempt < 3):
+        attempt+=1
+        # usr_name = input("\nEnter username: ")
+        # pwd = input("Enter password: ")
+        usr_name = "gkubach0"
+        pwd = "2nBztx3qzXV"
+        user = Auth().Authenticate(usr_name, pwd)
+
+    if not user: 
+        print('\nFailed all 3 attempts, sorry')
+        return
+    
+    PrintFormat("Success",f'\nHi {user.first_name} you have successfully logged in')
+    return user
+
+def InventoryMenu():
+    print('\nCars in the inventory')
+
+    inventory = interface.ViewInventory()
+    options = ["1. Search","2. Filter by", "3. Make a customer order"]
+    if isinstance(interface, AdminInterface): 
+        options.append("4. Add/Remove Cars")
+
+    options.append("Type 'q' to exit inventory menu")
+    opt_str = "\n" + "\n".join(options)
+
+    while True:
+        displayData(inventory)
+        PrintFormat("Action", opt_str)
+        decision = input("Enter action: ")
+        if decision not in {"1", "2", "3", "4"}: return
+        if decision == '1':
+            CarSearch()
+        elif decision == '2':
+            filter_options = ["\nFilter by Status:","1. Available","2. Ordered","3. Backorder","4. Delivered"]
+            PrintFormat("Action", "\n".join(filter_options))
+            statuses = {"1": "available", "2": "ordered", "3": "backorder", "4": "delivered"}
+            filter_decision = input("\nEnter here: ")
+            # validate input
+            if filter_decision not in statuses:
+                PrintFormat("Invalid", "Invalid input") 
+                continue
+            {"1": displayData,
+             "2": displayData,
+             "3": displayData,
+             "4": displayData}[filter_decision](interface.ViewByStatus(statuses[filter_decision]))
+        elif decision == '3': OrderMenu()
+        elif decision == '4':
+            if not isinstance(interface, AdminInterface):
+                break
+            #TODO: add/remove cars
+        Stall()
 
 def OrderMenu():
     print('\nORDERS MENU')
