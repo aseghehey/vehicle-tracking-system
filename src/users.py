@@ -56,14 +56,13 @@ class Customer:
         self.email = new_email
     
     def Details(self):
-        print(self)
-        return self.__str__() + f"\nEmail: {self.email} \nAddress: {self.address}\nList of all orders: {self.orders}"
+        return f"\nEmail: {self.email} \nAddress: {self.address}\nList of all orders: {self.orders}"
 
     def __str__(self) -> str:
         return f"{self.ln}, {self.fn}"
 
     def __repr__(self) -> str:
-        return f"{self.fn} {self.ln}"
+        return f"{self.fn} {self.ln} ID {self.id}"
     
     def __eq__(self, value) -> bool:
         if isinstance(value, Customer):
