@@ -33,9 +33,10 @@ class Interface:
     
     def MakeOrder(self, user, vehicle):
         if not vehicle.isAvailable(): return
-        order = Order(vehicle, user)
+        id = len(self.orders) + 1
+        order = Order(id, vehicle, user)
         self.orders.append(order)
-        self.customers[self.customers.index(user)].orders.append(order)
+        user.orders.append(order)
         self.updates[1] = True
         return order
     
@@ -69,25 +70,29 @@ class Interface:
         pass
 
     def AddCustomer(self, first, last, card, email, address):
-        new_customer = Customer(first, last, card, email, address)
+        id = len(self.customers) + 1
+        new_customer = Customer(first, last, card, email, address, id)
         self.customers.append(new_customer)
         return new_customer
 
     def RemoveCustomer(self, customer):
         """delete from orders if they exist AND set car to available if customer has been deleted """
         order_to_rem = None
+        flag = False # will tell us if order has been processed
+        # check if customer has any orders
         for order in self.orders:
             if order.buyer == customer:
-                car = order.car
-                if car.status == Status.ORDERED: 
-                    car.SetStatus('available')
-                else: # if car has been delivered to that customer!
-                    car.SetStatus('backorder')
+                if order.car.status != Status.ORDERED: 
+                    flag = True
                 order_to_rem = order
                 break
-        if order_to_rem: 
-            self.orders.remove(order_to_rem)
-            del order_to_rem
+        # delete order and update car statuses
+        if order_to_rem:
+            car = order_to_rem.car
+            self.UndoOrder(order_to_rem)
+            if flag: # if order was already processed 
+                car.setStatus('backorder')
+        # delete customer
         self.customers.remove(customer)
         del customer
 

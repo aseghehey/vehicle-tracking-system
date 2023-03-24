@@ -45,8 +45,9 @@ def LoadCustomers():
             fn, ln = name['first'], name['last']
             cc = cur_json['card']
             addy = cur_json['address']
+            id = cur_json['id']
             
-            customer = Customer(fn, ln, cc, email, addy)
+            customer = Customer(fn, ln, cc, email, addy, id)
             customers.append(customer)
     return customers
        
