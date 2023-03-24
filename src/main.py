@@ -39,10 +39,7 @@ def LoginPage():
     return user
 
 def displayData(data):
-    if not data:
-        PrintFormat("Warning",'No matches for given criteria')
-        return
-
+    if not AvailableToShow(data): return
     for i, val in enumerate(data):
         print(f"{i}: {val}")
 
@@ -50,26 +47,32 @@ def CarSearch() -> None:
     print('\nSearch car in inventory')
     search_decision = input("Enter model, make and year separated by commas\n")
     search_decision = list(map(lambda x: x.strip(), search_decision.split(',')))
-    if len(search_decision) != 3: return
+
+    if len(search_decision) != 3: 
+        PrintFormat('Invalid', '\nCar not found, make sure you entered the correct model, make and year')
+        return
+
     model, make, year = search_decision[0], search_decision[1], search_decision[2]
+    # validate input
     if not year.isnumeric(): 
         print('\nInvalid input')
         return
+
     car = interface.searchInventory(model, make, int(year))
+    # check car exists
     if not car: 
         print('\nNo car match given criteria')
         return
+    
     PrintFormat('Success', f"\nCar details:\n{car.Details()}")
-    #TODO
-    # finish orders
-    # make_order()
+
+def Stall():
+    _ = input("\nPress enter to continue\n")
 
 def InventoryMenu():
     print('\nCars in the inventory')
 
     inventory = interface.ViewInventory()
-    displayData(inventory)
-
     options = ["1. Search","2. Filter by", "3. Make a customer order"]
     if isinstance(interface, AdminInterface): 
         options.append("4. Add/Remove Cars")
@@ -78,6 +81,7 @@ def InventoryMenu():
     opt_str = "\n" + "\n".join(options)
 
     while True:
+        displayData(inventory)
         PrintFormat("Action", opt_str)
         decision = input("Enter action: ")
         if decision == '1':
@@ -99,30 +103,48 @@ def InventoryMenu():
             if not isinstance(interface, AdminInterface):
                 break
         else: return
+        Stall()
+
+def ValidateUserInput(action="action"):
+    usr_input = input(f"Enter {action}: ")
+    while not usr_input:
+        PrintFormat("Invalid", "Bad input")
+        usr_input = input(f"Enter valid {action}: ")
+    return usr_input
 
 def AddCustomer():
     PrintFormat("Important", "\nEnter customer details\n")
-    fn = input('First Name: ')
-    ln = input('Last Name: ')
-    email = input('Email address: ')
+    fn = ValidateUserInput("First Name")
+    ln = ValidateUserInput("Last Name")
+    email = ValidateUserInput("email")
     cc = input('Credit Card #: ')
-    add = input('Home address: ')
-    #TODO
-    # validate input
+    # validate credit card
+    while len(cc) != 16:
+        PrintFormat("Invalid", "Credit card # needs 16 digits and needs to be numbers only")
+        cc = input('Credit Card #: ')
+        if not cc.isnumeric():
+            continue
+
+    add = ValidateUserInput("Home address")
     customer = interface.AddCustomer(fn, ln, cc, email, add)
     PrintFormat('Success',f"\nAdded {customer} with success")
     return customer
+
+def ConfirmSelection(response = {"y", "yes"}, msg="") -> bool:
+    if not msg: msg = "\nAre you sure you want to proceed?\n"
+    PrintFormat("Warning", msg)
+    confirm = input("Enter [y/n] to confirm: ")
+    if confirm.lower() not in response:
+        PrintFormat("Success", "Cancelled deletion")
+        return False
+    return True
 
 def RemoveCustomer():
     if not interface.customers:
         PrintFormat("Invalid", "No Available Customer to display")
         return
     cust_to_delete = SelectObject(interface.customers)
-    PrintFormat("Warning", f"\nAre you sure you want to delete {cust_to_delete}")
-    confirm = input("\nEnter [y/n]: ")
-    if confirm.lower() not in {"y", "yes"}:
-        PrintFormat("Success", "Cancelled deletion")
-        return
+    if not ConfirmSelection(msg=f"\nAre you sure you want to delete {cust_to_delete}"): return
     interface.RemoveCustomer(cust_to_delete)
     PrintFormat("Success", "Removed customer successfully")
 
@@ -147,10 +169,17 @@ def SelectObject(obj_arr):
     PrintFormat('Success',f"\n{obj}")
     return obj
 
+def AvailableToShow(arr):
+    if not arr:
+        PrintFormat("Invalid","None available to display")
+        return False
+    return True
+
 def OrderMenu():
-    print('\nORDER MENU')
+    print('\nORDERS MENU')
     options = ["\nWhat would you like to do?","1. Add order","2. Remove order","3. View order details","Type 'q' to go back to main menu"]
     str_options = "\n".join(options)
+
     while True:
         print('Current Orders:\n')
         displayData(interface.orders)
@@ -165,32 +194,26 @@ def OrderMenu():
             car_to_order = SelectObject(interface.inventory)
             PrintFormat('Important', "\nYou are about to order this car:")
             print(car_to_order)
-
-            confirm = input("Enter y/n: ")
-            if confirm not in {"yes", "y", "Y"}: 
-                PrintFormat("Success","Cancelled")
-                break
-            
-            new_customer = input("\nEnter 'yes' if this order is for a new Customer: ")
+            if not ConfirmSelection(): break
+            # check new customer
             customer = None
-            if new_customer == 'yes':
+            if ConfirmSelection(msg="Is this order for a new customer?"):
                 customer = AddCustomer()
             else:
                 customer = SelectObject(interface.customers)
-            PrintFormat("Success",interface.MakeOrder(customer, car_to_order))
-        elif action == "2":
-            if not interface.orders:
-                PrintFormat("Invalid","None to show")
-                continue
-            order_to_remove = SelectObject(interface.orders)
-            interface.UndoOrder(order_to_remove)
-        elif action == "3":
-            if not interface.orders:
-                PrintFormat("Invalid","None to show")
-                continue
-            order_to_view = SelectObject(interface.orders)
-            PrintFormat("Success",f"\nCar details:\n{order_to_view.car.Details()}\n\nCustomer details:\n{order_to_view.buyer.Details()}\n")
-            
+            customer = interface.MakeOrder(customer, car_to_order)
+            PrintFormat("Success", customer)
+        else:
+            # checker for empty orders
+            if AvailableToShow(interface.orders): 
+                if action == "2":
+                    order_to_remove = SelectObject(interface.orders)
+                    interface.UndoOrder(order_to_remove)
+                else:
+                    order_to_view = SelectObject(interface.orders)
+                    PrintFormat("Success",f"\nCar details:\n{order_to_view.car.Details()}\n\nCustomer details:\n{order_to_view.buyer.Details()}\n")
+        Stall()
+                
 def ManageCustomersMenu():
     options = ["1. View Customer details","2. Add Customer", "3. Remove Customer"]
     str_opt = "\n".join(options)
@@ -198,19 +221,22 @@ def ManageCustomersMenu():
         print("\nCustomer list\n")
         displayData(interface.customers)
         PrintFormat("Action",f"\nWhat would you like to do?\n{str_opt}")
-
-        action = input("\nEnter Action here: ")
+        # validate input
+        action = ValidateUserInput()
         if action not in {"1","2","3"}:
             PrintFormat("Invalid", "Invalid option!")
             break
-        if action == "1":
-            customer = SelectObject(interface.customers)
-            print(customer.Details())
-            _ = input("\nPress any key to exit: ")
-        elif action == "2":
+        
+        if action == "2":
             AddCustomer()
-        elif action == "3":
-            RemoveCustomer()
+        else:
+            if AvailableToShow(interface.customers): 
+                if action == "1":
+                    customer = SelectObject(interface.customers)
+                    print(customer.Details())
+                else:
+                    RemoveCustomer()
+        Stall()
 
 def ManageEmployees():
     # display employees
@@ -241,6 +267,7 @@ def menu():
         PrintFormat('Action','\nWhat do you wish to do?\n')
         print(opt_str)
         PrintFormat('Warning','\nType any key (besides the options) to log off')
+
         decision = input('Enter choice here: ')
         if not decision in {"1","2","3","4","5"}: break
 
