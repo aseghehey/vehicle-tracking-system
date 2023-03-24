@@ -14,7 +14,7 @@ class bcolors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
-def PrintWithColor(color_status, print_info):
+def PrintFormat(color_status, print_info):
     color_options = {"Invalid": bcolors.FAIL, "Success": bcolors.OKGREEN, "Action": bcolors.OKBLUE, "Important": bcolors.BOLD, "Warning": bcolors.WARNING}
     color_status = color_options[color_status]
     print(f"{color_status}{print_info}{bcolors.ENDC}")
@@ -35,16 +35,16 @@ def LoginPage():
         print('\nFailed all 3 attempts, sorry')
         return
     
-    PrintWithColor("Success",f'\nHi {user.first_name} you have successfully logged in')
+    PrintFormat("Success",f'\nHi {user.first_name} you have successfully logged in')
     return user
 
 def displayData(data):
     if not data:
-        PrintWithColor("Warning",'No matches for given criteria')
+        PrintFormat("Warning",'No matches for given criteria')
         return
 
     for i, val in enumerate(data):
-        print(f"{i + 1}: {val}")
+        print(f"{i}: {val}")
 
 def CarSearch() -> None:
     print('\nSearch car in inventory')
@@ -59,7 +59,7 @@ def CarSearch() -> None:
     if not car: 
         print('\nNo car match given criteria')
         return
-    PrintWithColor('Success', f"\nCar details:\n{car.Details()}")
+    PrintFormat('Success', f"\nCar details:\n{car.Details()}")
     #TODO
     # finish orders
     # make_order()
@@ -78,17 +78,17 @@ def InventoryMenu():
     opt_str = "\n" + "\n".join(options)
 
     while True:
-        PrintWithColor("Action", opt_str)
+        PrintFormat("Action", opt_str)
         decision = input("Enter action: ")
         if decision == '1':
             CarSearch()
         elif decision == '2':
             filter_options = ["\nFilter by Status:","1. Available","2. Ordered","3. Backorder","4. Delivered"]
-            PrintWithColor("Action", "\n".join(filter_options))
+            PrintFormat("Action", "\n".join(filter_options))
             statuses = {"1": "available", "2": "ordered", "3": "backorder", "4": "delivered"}
             filter_decision = input("\nEnter here: ")
             if filter_decision not in statuses:
-                PrintWithColor("Invalid", "Invalid input") 
+                PrintFormat("Invalid", "Invalid input") 
                 continue
             {"1": displayData,
              "2": displayData,
@@ -101,44 +101,50 @@ def InventoryMenu():
         else: return
 
 def AddCustomer():
-    PrintWithColor("Important", "\nEnter customer details\n")
+    PrintFormat("Important", "\nEnter customer details\n")
     fn = input('First Name: ')
     ln = input('Last Name: ')
     email = input('Email address: ')
     cc = input('Credit Card #: ')
     add = input('Home address: ')
+    #TODO
     # validate input
     customer = interface.AddCustomer(fn, ln, cc, email, add)
-    PrintWithColor('Success',f"\nAdded {customer} with success")
+    PrintFormat('Success',f"\nAdded {customer} with success")
     return customer
 
 def RemoveCustomer():
+    if not interface.customers:
+        PrintFormat("Invalid", "No Available Customer to display")
+        return
     cust_to_delete = SelectObject(interface.customers)
-    # PrintWithColor("Warning", f"\nAre you sure you want to delete {cust_to_delete}")
-    # confirm = input("\nEnter [y/n]: ")
-    # if confirm.lower() not in {"y", "yes"}: return
+    PrintFormat("Warning", f"\nAre you sure you want to delete {cust_to_delete}")
+    confirm = input("\nEnter [y/n]: ")
+    if confirm.lower() not in {"y", "yes"}:
+        PrintFormat("Success", "Cancelled deletion")
+        return
     interface.RemoveCustomer(cust_to_delete)
-    PrintWithColor("Success", "Removed customer successfully")
+    PrintFormat("Success", "Removed customer successfully")
 
 def PickIndex(arr):
     arr_len = len(arr) - 1
     while True:
-        print(arr)
-        PrintWithColor('Action', '\nPick index from the dislayed list above\n')
+        displayData(arr)
+        PrintFormat('Action', '\nPick index from the dislayed list above\n')
         idx = input(f"\nEnter index [0-{arr_len}]: ")
         if not idx.isnumeric():
-            PrintWithColor('Invalid',f"Invalid index! Must be a number")
+            PrintFormat('Invalid',f"Invalid index! Must be a number")
             continue
         idx = int(idx)
         if idx < 0 or idx > arr_len:
-            PrintWithColor('Invalid',f"Invalid index! Must be greater than 0 AND smaller than maximum length")
+            PrintFormat('Invalid',f"Invalid index! Must be greater than 0 AND smaller than maximum length")
             continue
         return idx
 
 def SelectObject(obj_arr):
     idx = PickIndex(obj_arr)
     obj = obj_arr[idx]
-    PrintWithColor('Success',f"\n{obj}")
+    PrintFormat('Success',f"\n{obj}")
     return obj
 
 def OrderMenu():
@@ -148,36 +154,42 @@ def OrderMenu():
     while True:
         print('Current Orders:\n')
         displayData(interface.orders)
-        PrintWithColor("Action", str_options)
+        PrintFormat("Action", str_options)
         action = input("\nEnter action: ")
 
         if action not in {"1", "2", "3"}: 
-            PrintWithColor('Invalid', 'Invalid choice')
+            PrintFormat('Invalid', 'Invalid choice')
             break
 
         if action == "1":            
             car_to_order = SelectObject(interface.inventory)
-            PrintWithColor('Important', "\nYou are about to order this car:")
+            PrintFormat('Important', "\nYou are about to order this car:")
             print(car_to_order)
-            confirm = input("Enter y/n: ")
-            if confirm not in {"yes", "y", "Y"}: break
-            new_customer = input("\nEnter 'yes' if this order is for a new Customer: ")
 
+            confirm = input("Enter y/n: ")
+            if confirm not in {"yes", "y", "Y"}: 
+                PrintFormat("Success","Cancelled")
+                break
+            
+            new_customer = input("\nEnter 'yes' if this order is for a new Customer: ")
             customer = None
             if new_customer == 'yes':
                 customer = AddCustomer()
             else:
                 customer = SelectObject(interface.customers)
-            PrintWithColor("Success",interface.MakeOrder(customer, car_to_order))
+            PrintFormat("Success",interface.MakeOrder(customer, car_to_order))
         elif action == "2":
+            if not interface.orders:
+                PrintFormat("Invalid","None to show")
+                continue
             order_to_remove = SelectObject(interface.orders)
             interface.UndoOrder(order_to_remove)
         elif action == "3":
             if not interface.orders:
-                print("None to show")
+                PrintFormat("Invalid","None to show")
                 continue
             order_to_view = SelectObject(interface.orders)
-            PrintWithColor("Success",f"\nCar details:\n{order_to_view.car.Details()}\n\nCustomer details:\n{order_to_view.buyer.Details()}\n")
+            PrintFormat("Success",f"\nCar details:\n{order_to_view.car.Details()}\n\nCustomer details:\n{order_to_view.buyer.Details()}\n")
             
 def ManageCustomersMenu():
     options = ["1. View Customer details","2. Add Customer", "3. Remove Customer"]
@@ -185,14 +197,16 @@ def ManageCustomersMenu():
     while True:
         print("\nCustomer list\n")
         displayData(interface.customers)
-        print(f"\nWhat would you like to do?\n{str_opt}")
+        PrintFormat("Action",f"\nWhat would you like to do?\n{str_opt}")
+
         action = input("\nEnter Action here: ")
         if action not in {"1","2","3"}:
-            PrintWithColor("Invalid", "Invalid option!")
+            PrintFormat("Invalid", "Invalid option!")
             break
         if action == "1":
             customer = SelectObject(interface.customers)
             print(customer.Details())
+            _ = input("\nPress any key to exit: ")
         elif action == "2":
             AddCustomer()
         elif action == "3":
@@ -204,6 +218,8 @@ def ManageEmployees():
     pass
 
 def CarSalesMenu():
+    # display orders
+    # Set order statuses to delivered 
     pass
 
 def menu():
@@ -222,9 +238,9 @@ def menu():
 
     opt_str = "\n".join(options)
     while True:
-        PrintWithColor('Action','\nWhat do you wish to do?\n')
+        PrintFormat('Action','\nWhat do you wish to do?\n')
         print(opt_str)
-        PrintWithColor('Warning','\nType any key (besides the options) to log off')
+        PrintFormat('Warning','\nType any key (besides the options) to log off')
         decision = input('Enter choice here: ')
         if not decision in {"1","2","3","4","5"}: break
 
@@ -238,4 +254,3 @@ def menu():
 
 if __name__ == "__main__":
     menu() # gkubach0 2nBztx3qzXV
-    
