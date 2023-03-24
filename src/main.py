@@ -38,6 +38,11 @@ def ChangeUsername():
     if new_username == user.username:
         PrintFormat("Invalid", "New username cannot be the same as old username")
         return
+    
+    for usr in interface.ViewUsers():
+        if usr.username == new_username:
+            PrintFormat("Invalid", "Username already taken")
+            return
     user.UpdateUserName(new_username)
     PrintFormat("Success", "Username changed successfully")
 
@@ -145,6 +150,7 @@ def LoginPage():
         attempt+=1
         # usr_name = input("\nEnter username: ")
         # pwd = input("Enter password: ")
+        # Admin: crapinett1 KcZy6yQfn
         usr_name = "gkubach0"
         pwd = "2nBztx3qzXV"
         user = Auth().Authenticate(usr_name, pwd)
@@ -268,7 +274,7 @@ def CarSalesMenu():
     pass
 
 def AccountSettings():
-    options = ["1. Change password","2. Change username", "Press any other key to go back"]
+    options = ["1. Change password","2. Change username", "3. View Account Details","Press any other key to go back"]
     str_opt = "\n".join(options)
 
     while True:
@@ -276,14 +282,16 @@ def AccountSettings():
         PrintFormat("Action",f"\nWhat would you like to do?\n{str_opt}")
         # validate input
         action = input("Enter action: ")
-        if action not in {"1","2"}:
+        if action not in {"1","2", "3"}:
             PrintFormat("Invalid", "Invalid option!")
             break
 
         if action == "1":
             ChangePassword()
-        else:
+        elif action == "2":
             ChangeUsername()
+        else:
+            print(f"\nUser {user.username} details:\n{user}")
         Stall()
 
 def menu():
@@ -319,4 +327,6 @@ def menu():
     # interface.LogOut()
 
 if __name__ == "__main__":
-    menu() # gkubach0 2nBztx3qzXV
+    menu() 
+    # Employee: gkubach0 2nBztx3qzXV
+    # Admin: crapinett1 KcZy6yQfn

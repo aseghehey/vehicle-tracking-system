@@ -9,10 +9,14 @@ class Interface:
     def __init__(self):
         self.inventory = LoadInventory()
         self.customers = LoadCustomers()
+        self.__users__ = Session().ReturnEmployees() + Session().ReturnAdmins()
         #TODO
         self.orders = [] # LoadOrders() # have to pass customers and car functionality to correctly add to buyers list and such
         # for inventory, 
         self.updates = [False] * 4 # TODO
+    
+    def ViewUsers(self):
+        return self.__users__
         
     def inInventory(self, vehicle):
         for v in self.inventory:
@@ -101,7 +105,7 @@ class Interface:
         close.Terminate()
 
 class AdminInterface(Interface):
-    def __init__(self, users):
+    def __init__(self):
         super().__init__()
         self.__usrs__ = Session.ReturnEmployees()
 

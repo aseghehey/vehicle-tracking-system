@@ -11,6 +11,9 @@ class Session:
     
     def ReturnEmployees(self):
         return self.__employees__
+    
+    def ReturnAdmins(self):
+        return self.__admins__
 
 class Auth(Session):
     def __init__(self) -> None:
