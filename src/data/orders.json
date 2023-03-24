@@ -1,32 +1,32 @@
 [
   {
     "vin": "SAJWA4EC5BM103106",
-    "id": 2,
+    "user_id": 2,
     "dateBought": "2022-09-07"
   },
   {
     "vin": "JTJHY7AX1E4512122",
-    "id": 2,
+    "user_id": 2,
     "dateBought": "2023-09-07"
   },
   {
     "vin": "1D7RE5GK1BS514059",
-    "id": 4,
+    "user_id": 4,
     "dateBought": "2023-11-07"
   },
   {
     "vin": "WDDHF5KB3FB718643",
-    "id": 2,
+    "user_id": 2,
     "dateBought": "2023-09-02"
   },
   {
     "vin": "KL4CJHSB1FB225364",
-    "id": "bhenriquesc",
+    "user_id": "bhenriquesc",
     "dateBought": "2021-10-07"
   },
   {
     "vin": "bscadinge",
-    "id": 3,
+    "user_id": 3,
     "dateBought": "2023-10-07"
   }
 ]

@@ -11,13 +11,13 @@ class User():
         self.last_name = last_name
         if not date_joined: date_joined = date.today()
         self.date_joined = date_joined
-    '''
-    def changePassword(self, newpassword):
+    
+    def UpdatePassword(self, newpassword):
         self.password = newpassword
     
-    def changeUserName(self, newusername):
+    def UpdateUserName(self, newusername):
         self.username = newusername
-    '''
+    
     def __eq__(self, __o):
         if isinstance(__o, User) or isinstance(__o, Admin) or isinstance(__o,Employee):
             return __o.username == self.username

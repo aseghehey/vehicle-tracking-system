@@ -25,6 +25,22 @@ def displayData(data):
     for i, val in enumerate(data):
         print(f"{i}: {val}")
 
+def ChangePassword():
+    new_password = ValidateUserInput('new password')
+    if new_password == user.password:
+        PrintFormat("Invalid", "New password cannot be the same as old password")
+        return
+    user.UpdatePassword(new_password)
+    PrintFormat("Success", "Password changed successfully")
+
+def ChangeUsername():
+    new_username = ValidateUserInput('new username')
+    if new_username == user.username:
+        PrintFormat("Invalid", "New username cannot be the same as old username")
+        return
+    user.UpdateUserName(new_username)
+    PrintFormat("Success", "Username changed successfully")
+
 def CarSearch() -> None:
     print('\nSearch car in inventory')
     search_decision = input("Enter model, make and year separated by commas\n")
@@ -251,6 +267,25 @@ def CarSalesMenu():
     # Set order statuses to delivered 
     pass
 
+def AccountSettings():
+    options = ["1. Change password","2. Change username", "Press any other key to go back"]
+    str_opt = "\n".join(options)
+
+    while True:
+        print("\nAccount settings\n")
+        PrintFormat("Action",f"\nWhat would you like to do?\n{str_opt}")
+        # validate input
+        action = input("Enter action: ")
+        if action not in {"1","2"}:
+            PrintFormat("Invalid", "Invalid option!")
+            break
+
+        if action == "1":
+            ChangePassword()
+        else:
+            ChangeUsername()
+        Stall()
+
 def menu():
     global user
     global interface
@@ -264,7 +299,7 @@ def menu():
     else: 
         interface = AdminInterface()
         options.append("5. Add/Remove Employees")
-
+    options.append("\nA: Account settings")
     opt_str = "\n".join(options)
     while True:
         PrintFormat('Action','\nWhat do you wish to do?\n')
@@ -272,13 +307,14 @@ def menu():
         PrintFormat('Warning','\nType any key (besides the options) to log off')
 
         decision = input('Enter choice here: ')
-        if not decision in {"1","2","3","4","5"}: break
+        if not decision in {"1","2","3","4","5", "A"}: break
 
         {"1": OrderMenu,
          "2": CarSalesMenu,
          "3": InventoryMenu,
          "4": ManageCustomersMenu,
-         "5": ManageEmployees}[decision]()
+         "5": ManageEmployees,
+         "A": AccountSettings}[decision]()
     
     # interface.LogOut()
 
