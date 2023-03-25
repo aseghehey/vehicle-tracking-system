@@ -5,11 +5,12 @@ from users import *
 from orders import *
 from session import Session, EndSession
 
-class Interface:
+class Interface():
     def __init__(self):
         self.inventory = LoadInventory()
         self.customers = LoadCustomers()
-        self.__users__ = Session().ReturnEmployees() + Session().ReturnAdmins()
+        self.__employees__ = Session().ReturnEmployees()
+        self.__users__ = self.__employees__ + Session().ReturnAdmins()
         #TODO
         self.orders = [] # LoadOrders() # have to pass customers and car functionality to correctly add to buyers list and such
         # for inventory, 
@@ -105,10 +106,6 @@ class Interface:
         close.Terminate()
 
 class AdminInterface(Interface):
-    def __init__(self):
-        super().__init__()
-        self.__usrs__ = Session.ReturnEmployees()
-
     def AddEmployee(self) -> None:
         self.updates[2] = True
         pass
