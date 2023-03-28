@@ -15,16 +15,27 @@ class bcolors:
     UNDERLINE = '\033[4m'
 
 def PrintFormat(color_status, print_info):
+    """ Will print with color and make everything pretty for the user
+        There are various colors and formatting for one to choose from, like bold, underline, etc.
+        Works exactly like print() """
+    
     color_options = {"Invalid": bcolors.FAIL, "Success": bcolors.OKGREEN, "Action": bcolors.OKBLUE, "Important": bcolors.BOLD, "Warning": bcolors.WARNING}
     color_status = color_options[color_status]
     print(f"{color_status}{print_info}{bcolors.ENDC}")
 
 ''' Command line interface '''
 def displayData(data):
+    """ Given an array, display each element in the array along with the index"""
     if not AvailableToShow(data): return
     for i, val in enumerate(data):
         print(f"{i}: {val}")
 
+def Stall():
+    """ stalls the program, waits for user to press enter, to let them view whatever output was printed post an action"""
+    input("\nPress enter to continue\n")
+
+
+''' User account details'''
 def ChangePassword():
     new_password = ValidateUserInput('new password')
     if new_password == user.password:
@@ -46,6 +57,85 @@ def ChangeUsername():
     user.UpdateUserName(new_username)
     PrintFormat("Success", "Username changed successfully")
 
+def AccountSettings():
+    """ This is the menu users interact with when they want to change their account details such as password or username """
+
+    options = ["1. Change password","2. Change username", "3. View Account Details","Press any other key to go back"]
+    str_opt = "\n".join(options)
+
+    while True:
+        print("\nAccount settings\n")
+        PrintFormat("Action",f"\nWhat would you like to do?\n{str_opt}")
+        # validate input
+        action = input("Enter action: ")
+        if action not in {"1","2", "3"}:
+            PrintFormat("Invalid", "Invalid option!")
+            break
+
+        if action == "1":
+            ChangePassword()
+        elif action == "2":
+            ChangeUsername()
+        else:
+            # will display relevant info kept in the json file, like first name, last name, username, etc
+            print(f"\nUser {user.username} details:\n{user}")
+        Stall()
+
+''' Checkers and validators '''
+def ConfirmSelection(response = {"y", "yes"}, msg="") -> bool:
+    if not msg: msg = "\nAre you sure you want to proceed?\n"
+    PrintFormat("Warning", msg)
+    confirm = input("Enter [y/n] to confirm: ")
+    if confirm.lower() not in response:
+        PrintFormat("Success", "OK")
+        return False
+    return True
+
+def ValidateUserInput(action="action"):
+    usr_input = input(f"Enter {action}: ")
+    while not usr_input:
+        PrintFormat("Invalid", "Bad input")
+        usr_input = input(f"Enter valid {action}: ")
+    return usr_input
+
+''' General helper functions '''
+def PickIndex(arr):
+    """  Will display elements in array and ask user to pick one, will return the index of the element picked
+        Useful for when choosing an element to view or remove. Like when removing a car, this will point to its index in the list
+        and the user will be able to remove it by index."""
+    
+    arr_len = len(arr) - 1 # length to give user bounds to pick from
+    while True:
+        displayData(arr) # displays with (index: element) pair
+        PrintFormat('Action', '\nPick index from the dislayed list above\n')
+        idx = input(f"\nEnter index [0-{arr_len}] OR enter 'q' to exit: ")
+        if idx == 'q': return # exitting
+        # validation
+        if not idx.isnumeric():
+            PrintFormat('Invalid',f"Invalid index! Must be a number")
+            continue
+        idx = int(idx)
+        if idx < 0 or idx > arr_len:
+            PrintFormat('Invalid',f"Invalid index! Must be greater than 0 AND smaller than maximum length")
+            continue
+        return idx
+
+def SelectObject(obj_arr):
+    """ selects and returns an object once user chooses it from a list (calls on PickIndex)"""
+    idx = PickIndex(obj_arr)
+    if not idx: return # exitting
+    obj = obj_arr[idx]
+    PrintFormat('Success',f"\n{obj}") # success message for user
+    return obj
+
+def AvailableToShow(arr):
+    """ Check if array is empty, if it is, print error message and return False, else return True"""
+    if not arr:
+        PrintFormat("Invalid","None available to display")
+        return False
+    return True
+
+''' Inventory menu'''
 def CarSearch() -> None:
     print('\nSearch car in inventory')
     search_decision = input("Enter model, make and year separated by commas\n")
@@ -69,16 +159,7 @@ def CarSearch() -> None:
     
     PrintFormat('Success', f"\nCar details:\n{car.Details()}")
 
-def Stall():
-    _ = input("\nPress enter to continue\n")
-
-def ValidateUserInput(action="action"):
-    usr_input = input(f"Enter {action}: ")
-    while not usr_input:
-        PrintFormat("Invalid", "Bad input")
-        usr_input = input(f"Enter valid {action}: ")
-    return usr_input
-
+''' Customer Management helper functions'''
 def AddCustomer():
     PrintFormat("Important", "\nEnter customer details\n")
     fn = ValidateUserInput("First Name")
@@ -91,20 +172,10 @@ def AddCustomer():
         cc = input('Credit Card #: ')
         if not cc.isnumeric():
             continue
-
     add = ValidateUserInput("Home address")
     customer = interface.AddCustomer(fn, ln, cc, email, add)
     PrintFormat('Success',f"\nAdded {customer} with success")
     return customer
-
-def ConfirmSelection(response = {"y", "yes"}, msg="") -> bool:
-    if not msg: msg = "\nAre you sure you want to proceed?\n"
-    PrintFormat("Warning", msg)
-    confirm = input("Enter [y/n] to confirm: ")
-    if confirm.lower() not in response:
-        PrintFormat("Success", "OK")
-        return False
-    return True
 
 def RemoveCustomer():
     if not interface.customers:
@@ -115,52 +186,24 @@ def RemoveCustomer():
     interface.RemoveCustomer(cust_to_delete)
     PrintFormat("Success", "Removed customer successfully")
 
-def PickIndex(arr):
-    arr_len = len(arr) - 1
-    while True:
-        displayData(arr)
-        PrintFormat('Action', '\nPick index from the dislayed list above\n')
-        idx = input(f"\nEnter index [0-{arr_len}] OR enter 'q' to exit: ")
-        if idx == 'q': return
-        if not idx.isnumeric():
-            PrintFormat('Invalid',f"Invalid index! Must be a number")
-            continue
-        idx = int(idx)
-        if idx < 0 or idx > arr_len:
-            PrintFormat('Invalid',f"Invalid index! Must be greater than 0 AND smaller than maximum length")
-            continue
-        return idx
-
-def SelectObject(obj_arr):
-    idx = PickIndex(obj_arr)
-    if not idx: return
-    obj = obj_arr[idx]
-    PrintFormat('Success',f"\n{obj}")
-    return obj
-
-def AvailableToShow(arr):
-    if not arr:
-        PrintFormat("Invalid","None available to display")
-        return False
-    return True
-
 ''' Menus '''
 def LoginPage():
+    """ This function takes care of the login page,
+      it will ask for username and password and will return the user object if the user is authenticated"""
+    
     print('Welcome to PigeonBOX')
     user, attempt = None, 0
+    # give the user 3 attempts to get the correct username and password
     while (user is None and attempt < 3):
         attempt+=1
-        # usr_name = input("\nEnter username: ")
-        # pwd = input("Enter password: ")
-        # Admin: crapinett1 KcZy6yQfn
-        usr_name = "crapinett1"
-        pwd = "KcZy6yQfn"
+        usr_name = input("\nEnter username: ")
+        pwd = input("Enter password: ")
         user = Auth().Authenticate(usr_name, pwd)
 
-    if not user: 
-        print('\nFailed all 3 attempts, sorry')
+    if not user: # if user is still None, then the user failed all 3 attempts
+        PrintFormat("Invalid",'\nFailed all 3 attempts, sorry')
         return
-    
+    # user has successfully logged in
     PrintFormat("Success",f'\nHi {user.first_name} you have successfully logged in')
     return user
 
@@ -207,11 +250,13 @@ def InventoryMenu():
         Stall()
 
 def InputToArr(inpt):
+    """ Takes in a string and returns an array of the string separated by commas"""
     inpt = inpt.split(',')
     inpt = list(map(lambda x: x.strip(), inpt))
     return inpt
 
 def AddCar():
+    """ Will get user input for a new car and add it to the inventory"""
     vin = input("Enter new car's VIN: ")
     make_model_year = None
     while True:
@@ -351,17 +396,14 @@ def AddEmployee():
     pwd = ValidateUserInput(f"Enter password for new user {usr_name}")
     fn = ValidateUserInput("Enter first name")
     ln = ValidateUserInput("Enter last name")
-
     add_emp = interface.AddEmployee(usr_name, pwd, fn, ln)
+    # check if employee was added and notify user
     if not add_emp:
         PrintFormat("Invalid", "Employee already exists")
         return
     PrintFormat("Success", "Employee successfully added")
 
 def RemoveEmployee():
-    if not interface.employees:
-        PrintFormat("Invalid", "No employees")
-        return
     employee_to_delete = SelectObject(interface.employees)
     if not ConfirmSelection(msg=f"\nAre you sure you want to delete {employee_to_delete}"): return
     rem = interface.RemoveEmployee(employee_to_delete)
@@ -370,8 +412,12 @@ def RemoveEmployee():
         return
     PrintFormat("Invalid", "Employee not found")
 
-
 def ManageEmployees():
+
+    # if not admin, return AS they do not have permissions to view this menu
+    if isinstance(user, Employee):
+        return
+
     options = ["1. View Employee details", "2. Add Employee", "3. Remove Employee"]
     str_opt = "\n".join(options)
     while True:
@@ -380,23 +426,23 @@ def ManageEmployees():
         PrintFormat("Action",f"\nWhat would you like to do?\n{str_opt}")
 
         action = input("\nEnter action: ")
+        # input validation
         if action not in {"1","2","3"}:
-            PrintFormat("Invalid", "Invalid option!")
             break
 
         if action == "2":
             AddEmployee()
         else:
-            if AvailableToShow(interface.employees): 
+            if AvailableToShow(interface.employees):  # check if there are employees to show, if not, just skip
                 if action == "1":
                     employee = SelectObject(interface.employees)
                     if not employee: 
                         PrintFormat("Invalid","No Employee")
                         break
-                    print(employee.Details())
+                    print(employee.Details()) # print info like when employee joined
                 else:
                     RemoveEmployee()
-        Stall()
+        Stall() # to get user time to read message before going back to next iteration of menu
 
 def ManageCustomersMenu():
     options = ["1. View Customer details","2. Add Customer", "3. Remove Customer"]
@@ -414,7 +460,7 @@ def ManageCustomersMenu():
         if action == "2":
             AddCustomer()
         else:
-            if AvailableToShow(interface.customers): 
+            if AvailableToShow(interface.customers): # check there's a list of customers, else skip
                 if action == "1":
                     customer = SelectObject(interface.customers)
                     if not customer: break
@@ -424,57 +470,46 @@ def ManageCustomersMenu():
         Stall()
 
 def CarSalesMenu():
+    #TODO: Assigned to Dariya
     # display orders
     # Set order statuses to delivered 
     pass
 
-def AccountSettings():
-    options = ["1. Change password","2. Change username", "3. View Account Details","Press any other key to go back"]
-    str_opt = "\n".join(options)
-
-    while True:
-        print("\nAccount settings\n")
-        PrintFormat("Action",f"\nWhat would you like to do?\n{str_opt}")
-        # validate input
-        action = input("Enter action: ")
-        if action not in {"1","2", "3"}:
-            PrintFormat("Invalid", "Invalid option!")
-            break
-
-        if action == "1":
-            ChangePassword()
-        elif action == "2":
-            ChangeUsername()
-        else:
-            print(f"\nUser {user.username} details:\n{user}")
-        Stall()
 
 def menu():
-    global user
+    """ Main menu that the users will first interact with. Calls on otther menus """
+    # made these global because almost all menus need it
+    global user 
     global interface
 
+    # authenticate user
     user = LoginPage()
-    if not user: return
+    if not user: return # if failed login, do not let them access the rest
     
+    # the options are stored as list, so its easier to add/remove options
     options = ["1. Customer Orders","2. Car Sales","3. Search Cars","4. Manage Customers"]
     
+    # creating the interface based on the user type
+    # employees, get the regular interface, whereas admins get the admin interface which gives them more options
     if isinstance(user, Employee): 
         interface = Interface()
     else: 
         interface = AdminInterface()
         options.append("5. Manage Employees")
 
-    options.append("\nA: Account settings")
-    opt_str = "\n".join(options)
+    options.append("\nA: Account settings") # to allow users to change their passwords/username
+    opt_str = "\n".join(options) # this is what will be displayed to the users from the options list
 
-    while True:
+    while True: # menu start
         PrintFormat('Action','\nWhat do you wish to do?\n')
-        print(opt_str)
+        print(opt_str) # display options to user
         PrintFormat('Warning','\nType any key (besides the options) to log off')
 
+        # validating user choice
         decision = input('Enter choice here: ')
         if not decision in {"1","2","3","4","5", "A"}: break
 
+        # calls menu based on user choice
         {"1": OrderMenu,
          "2": CarSalesMenu,
          "3": InventoryMenu,
@@ -482,6 +517,7 @@ def menu():
          "5": ManageEmployees,
          "A": AccountSettings}[decision]()
     
+    # TODO: Log off and write to files, awaiting Kate's update
     # interface.LogOut()
 
 if __name__ == "__main__":
