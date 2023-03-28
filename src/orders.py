@@ -22,5 +22,5 @@ class Order():
     
     def __eq__(self, value) -> bool:
         if isinstance(value, Order):
-            return value.id == Order.id
+            return value.id == self.id
         return False

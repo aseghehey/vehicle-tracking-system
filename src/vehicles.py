@@ -28,7 +28,7 @@ class Car ():
         self.price = newprice
 
     def Details(self):
-        return self.__str__() + f"\nVIN: {self.vin}\nPerformance: {self.performance}\nInterior design: {self.design['interior']}\nExterior design: {self.design['exterior']}\nComfort: {self.comfort}\nPackage: {self.package}"
+        return self.__str__() + f"\nVIN: {self.vin}\nPerformance: {self.performance}\nInterior design: {self.design['interior']}\nExterior design: {self.design['exterior']}\nComfort: {self.comfort}\nPackage: {self.package}\nEntertainment {self.entertainment}"
 
     def __eq__(self, __o: object) -> bool:
         if isinstance(__o, Car): 

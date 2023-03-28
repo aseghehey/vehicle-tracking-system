@@ -66,14 +66,20 @@ class Interface():
                 avail.append(v)
         return avail
 
-    def AddInventory(self) -> None:
-        #TODO
-        pass
+    def AddInventory(self, v, info, performance, design, handling, comfort, entertainment, protection, package, price) -> bool:
+        new_car = Car(vin=v, info=info, performance=performance, design=design, handling=handling, comfort=comfort, entertainment=entertainment, protection=protection, package=package, price=price)
+        if self.inInventory(new_car): return False
+        self.inventory.append(new_car)
+        self.updates[0] = True
+        return True
 
-    def RemoveInventory(self) -> None:
-        #TODO
-        pass
-
+    def RemoveInventory(self, car) -> bool:
+        if not self.inInventory(car):
+            return False
+        self.inventory.remove(car)
+        self.updates[0] = True # to write to json
+        return True
+        
     def AddCustomer(self, first, last, card, email, address):
         id = len(self.customers) + 1
         new_customer = Customer(first, last, card, email, address, id)

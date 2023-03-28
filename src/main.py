@@ -102,7 +102,7 @@ def ConfirmSelection(response = {"y", "yes"}, msg="") -> bool:
     PrintFormat("Warning", msg)
     confirm = input("Enter [y/n] to confirm: ")
     if confirm.lower() not in response:
-        PrintFormat("Success", "Cancelled deletion")
+        PrintFormat("Success", "OK")
         return False
     return True
 
@@ -120,7 +120,8 @@ def PickIndex(arr):
     while True:
         displayData(arr)
         PrintFormat('Action', '\nPick index from the dislayed list above\n')
-        idx = input(f"\nEnter index [0-{arr_len}]: ")
+        idx = input(f"\nEnter index [0-{arr_len}] OR enter 'q' to exit: ")
+        if idx == 'q': return
         if not idx.isnumeric():
             PrintFormat('Invalid',f"Invalid index! Must be a number")
             continue
@@ -132,6 +133,7 @@ def PickIndex(arr):
 
 def SelectObject(obj_arr):
     idx = PickIndex(obj_arr)
+    if not idx: return
     obj = obj_arr[idx]
     PrintFormat('Success',f"\n{obj}")
     return obj
@@ -151,8 +153,8 @@ def LoginPage():
         # usr_name = input("\nEnter username: ")
         # pwd = input("Enter password: ")
         # Admin: crapinett1 KcZy6yQfn
-        usr_name = "gkubach0"
-        pwd = "2nBztx3qzXV"
+        usr_name = "crapinett1"
+        pwd = "KcZy6yQfn"
         user = Auth().Authenticate(usr_name, pwd)
 
     if not user: 
@@ -198,7 +200,105 @@ def InventoryMenu():
             if not isinstance(interface, AdminInterface):
                 break
             #TODO: add/remove cars
+            PrintFormat("Important", "\n1. Add car\n2. Remove car")
+            add_remove = input("\nEnter here: ")
+            if add_remove == '1': AddCar()
+            elif add_remove == '2': RemoveCar()
         Stall()
+
+def InputToArr(inpt):
+    inpt = inpt.split(',')
+    inpt = list(map(lambda x: x.strip(), inpt))
+    return inpt
+
+def AddCar():
+    vin = input("Enter new car's VIN: ")
+    make_model_year = None
+    while True:
+        make_model_year = InputToArr(input("Enter make, model, year (Separated by commas): "))
+        if len(make_model_year) != 3:
+            PrintFormat("Invalid", "Make, Model, Year must be separated by a comma")
+            continue
+        if not make_model_year[2].isnumeric():
+            PrintFormat("Invalid", "Year has to be a number")
+            continue
+        break
+    mileage_color = None
+    while True:
+        mileage_color = InputToArr(input("Enter mileage, color (Separated by commas): "))
+        if len(mileage_color) != 2:
+            PrintFormat("Invalid", "Mileage and Color must be separated by a comma")
+            continue
+        if not mileage_color[0].isnumeric():
+            PrintFormat("Invalid", "Mileage has to be a number")
+            continue
+        if not mileage_color[1].isalpha():
+            PrintFormat("Invalid", "Color has to be a string")
+            continue
+        break
+    price = input("Enter price: ")
+    while not price.isnumeric():
+        price = input("HAS TO BE NUMERIC! Enter price: ")
+    price = int(price)
+    engine_transmission = None
+    while True:
+        engine_transmission = InputToArr(input("Enter engine, transmission (Separated by commas): "))
+        if len(engine_transmission) != 2:
+            PrintFormat("Invalid", "Engine and Transmission must be separated by a comma")
+            continue
+        break
+    interior_external_design =None
+    while True:
+        interior_external_design = InputToArr(input("Enter interior, external design (Separated by commas): "))
+        if len(interior_external_design) != 2:
+            PrintFormat("Invalid", "Interior and External Design must be separated by a comma")
+            continue
+        break
+
+    handling = input("Enter handling: ")
+    audio = input("Enter audio: ")
+    comfort = input("Enter comfort features: ")
+    package = input("Enter package: ")
+    warranty_maintenance = None
+    while True:
+        warranty_maintenance = InputToArr(input("Enter warranty, maintenance (Separated by commas): "))
+        if len(warranty_maintenance) != 2:
+            PrintFormat("Invalid", "Warranty and Maintenance must be separated by a comma")
+            continue
+        break
+
+    info = {"model": make_model_year[1],
+            "make": make_model_year[0],
+            "mileage": int(mileage_color[0]),
+            "year": int(make_model_year[-1]),
+            "color": mileage_color[-1],}
+    
+    performance = {"engine": engine_transmission[0],
+                   "transmission": engine_transmission[-1]}
+    
+    design = {"interior": interior_external_design[0],
+              "exterior": [{"extra": interior_external_design[-1]}]}
+    
+    protection = {"maintenance": warranty_maintenance[1], "warranty": warranty_maintenance[0]}
+    add = interface.AddInventory(vin, info=info, performance=performance,comfort=comfort, design=design, protection=protection, price=price, handling=handling, package=package, entertainment=audio)    
+
+    if add:
+        PrintFormat("Success", "Car successfully added")
+    else:
+        PrintFormat("Invalid", "Car already exists")
+
+def RemoveCar():
+    if not interface.inventory:
+        PrintFormat("Invalid", "No cars in inventory")
+        return
+    car_to_delete = SelectObject(interface.inventory)
+    if not ConfirmSelection(msg=f"\nAre you sure you want to delete {car_to_delete}"): return
+    rem = interface.RemoveInventory(car_to_delete)
+    if rem:
+        PrintFormat("Success", "Removed car successfully")
+    else:
+        PrintFormat("Invalid", "Car not found")
+    
 
 def OrderMenu():
     print('\nORDERS MENU')
@@ -217,6 +317,7 @@ def OrderMenu():
 
         if action == "1":            
             car_to_order = SelectObject(interface.inventory)
+            if not car_to_order: break
             PrintFormat('Important', "\nYou are about to order this car:")
             print(car_to_order)
             if not ConfirmSelection(): break
@@ -226,16 +327,22 @@ def OrderMenu():
                 customer = AddCustomer()
             else:
                 customer = SelectObject(interface.customers)
+                if not customer: break
             customer = interface.MakeOrder(customer, car_to_order)
+            if not customer:
+                PrintFormat("Invalid", "Failed to make order. This car has already been ordered by someone else.")
+                break
             PrintFormat("Success", customer)
         else:
             # checker for empty orders
             if AvailableToShow(interface.orders): 
                 if action == "2":
                     order_to_remove = SelectObject(interface.orders)
+                    if not order_to_remove: break
                     interface.UndoOrder(order_to_remove)
                 else:
                     order_to_view = SelectObject(interface.orders)
+                    if not order_to_remove: break
                     PrintFormat("Success",f"\nCar details:\n{order_to_view.car.Details()}\n\nCustomer details:\n{order_to_view.buyer.Details()}\n")
         Stall()
                 
@@ -247,7 +354,7 @@ def ManageCustomersMenu():
         displayData(interface.customers)
         PrintFormat("Action",f"\nWhat would you like to do?\n{str_opt}")
         # validate input
-        action = ValidateUserInput()
+        action = input("\nEnter action: ")
         if action not in {"1","2","3"}:
             PrintFormat("Invalid", "Invalid option!")
             break
@@ -258,6 +365,7 @@ def ManageCustomersMenu():
             if AvailableToShow(interface.customers): 
                 if action == "1":
                     customer = SelectObject(interface.customers)
+                    if not customer: break
                     print(customer.Details())
                 else:
                     RemoveCustomer()
@@ -303,12 +411,15 @@ def menu():
     
     options = ["1. Customer Orders","2. Car Sales","3. Search Cars","4. Manage Customers"]
     
-    if isinstance(user, Employee): interface = Interface()
+    if isinstance(user, Employee): 
+        interface = Interface()
     else: 
         interface = AdminInterface()
-        options.append("5. Add/Remove Employees")
+        options.append("5. Manage Employees")
+
     options.append("\nA: Account settings")
     opt_str = "\n".join(options)
+
     while True:
         PrintFormat('Action','\nWhat do you wish to do?\n')
         print(opt_str)
