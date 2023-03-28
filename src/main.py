@@ -345,7 +345,59 @@ def OrderMenu():
                     if not order_to_remove: break
                     PrintFormat("Success",f"\nCar details:\n{order_to_view.car.Details()}\n\nCustomer details:\n{order_to_view.buyer.Details()}\n")
         Stall()
-                
+
+def AddEmployee():
+    usr_name = ValidateUserInput("Enter username")
+    pwd = ValidateUserInput(f"Enter password for new user {usr_name}")
+    fn = ValidateUserInput("Enter first name")
+    ln = ValidateUserInput("Enter last name")
+
+    add_emp = interface.AddEmployee(usr_name, pwd, fn, ln)
+    if not add_emp:
+        PrintFormat("Invalid", "Employee already exists")
+        return
+    PrintFormat("Success", "Employee successfully added")
+
+def RemoveEmployee():
+    if not interface.employees:
+        PrintFormat("Invalid", "No employees")
+        return
+    employee_to_delete = SelectObject(interface.employees)
+    if not ConfirmSelection(msg=f"\nAre you sure you want to delete {employee_to_delete}"): return
+    rem = interface.RemoveEmployee(employee_to_delete)
+    if rem:
+        PrintFormat("Success", "Removed employee successfully")
+        return
+    PrintFormat("Invalid", "Employee not found")
+
+
+def ManageEmployees():
+    options = ["1. View Employee details", "2. Add Employee", "3. Remove Employee"]
+    str_opt = "\n".join(options)
+    while True:
+        print("\nEmployee list\n")
+        displayData(interface.employees)
+        PrintFormat("Action",f"\nWhat would you like to do?\n{str_opt}")
+
+        action = input("\nEnter action: ")
+        if action not in {"1","2","3"}:
+            PrintFormat("Invalid", "Invalid option!")
+            break
+
+        if action == "2":
+            AddEmployee()
+        else:
+            if AvailableToShow(interface.employees): 
+                if action == "1":
+                    employee = SelectObject(interface.employees)
+                    if not employee: 
+                        PrintFormat("Invalid","No Employee")
+                        break
+                    print(employee.Details())
+                else:
+                    RemoveEmployee()
+        Stall()
+
 def ManageCustomersMenu():
     options = ["1. View Customer details","2. Add Customer", "3. Remove Customer"]
     str_opt = "\n".join(options)
@@ -370,11 +422,6 @@ def ManageCustomersMenu():
                 else:
                     RemoveCustomer()
         Stall()
-
-def ManageEmployees():
-    # display employees
-    # ask add/remove and handle it
-    pass
 
 def CarSalesMenu():
     # display orders

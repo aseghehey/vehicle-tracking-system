@@ -34,8 +34,11 @@ class Admin(User): # can delete or add inventory, add or delete employees
 
 class Employee(User): # manages sales and can update inventory but cannot add or delete
     def __str__(self):
-        return f"Employee {self.first_name} {self.last_name} Joined in {self.date_joined}"
+        return f"Employee {self.first_name} {self.last_name}"
     
+    def Details(self):
+        return f"Joined in {self.date_joined}"
+
 class Customer:
     def __init__(self, first, last, card, email, addr, id=0) -> None:
         self.id = id

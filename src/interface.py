@@ -9,8 +9,8 @@ class Interface():
     def __init__(self):
         self.inventory = LoadInventory()
         self.customers = LoadCustomers()
-        self.__employees__ = Session().ReturnEmployees()
-        self.__users__ = self.__employees__ + Session().ReturnAdmins()
+        self.employees = Session().ReturnEmployees()
+        self.__users__ = self.employees + Session().ReturnAdmins()
         #TODO
         self.orders = [] # LoadOrders() # have to pass customers and car functionality to correctly add to buyers list and such
         # for inventory, 
@@ -112,13 +112,26 @@ class Interface():
         close.Terminate()
 
 class AdminInterface(Interface):
-    def AddEmployee(self) -> None:
-        self.updates[2] = True
-        pass
+    def EmployeeExists(self, employee):
+        for e in self.employees:
+            if e == employee:
+                return True
+        return False
 
-    def RemoveEmployee(self, usr_to_remove) -> None:
+    def AddEmployee(self, usrname, passwd, fname, lname, djoined=None) -> None:
         self.updates[2] = True
-        pass
+        new_employee = Employee(usrname, passwd, fname, lname)
+        if self.EmployeeExists(new_employee):
+            return False
+        self.employees.append(new_employee)
+        return True
+
+    def RemoveEmployee(self, usr_to_remove) -> bool:
+        self.updates[2] = True
+        if not self.EmployeeExists(usr_to_remove):
+            return False
+        self.employees.remove(usr_to_remove)
+        return True
 
     def LogOut(self):
         close = EndSession(self.updates, inventory=self.inventory, orders=self.orders, users=self.__usrs__)
