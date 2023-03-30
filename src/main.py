@@ -83,7 +83,7 @@ def AccountSettings():
 
 ''' Checkers and validators '''
 def ConfirmSelection(response = {"y", "yes"}, msg="") -> bool:
-    if not msg: msg = "\nAre you sure you want to proceed?\n"
+    if not msg: msg = "\nAre you sure you want to proceed?"
     PrintFormat("Warning", msg)
     confirm = input("Enter [y/n] to confirm: ")
     if confirm.lower() not in response:
@@ -106,8 +106,8 @@ def PickIndex(arr):
     arr_len = len(arr) - 1 # length to give user bounds to pick from
     while True:
         displayData(arr) # displays with (index: element) pair
-        PrintFormat('Action', '\nPick index from the dislayed list above\n')
-        idx = input(f"\nEnter index [0-{arr_len}] OR enter 'q' to exit: ")
+        PrintFormat('Action', '\nPick index from the dislayed list above')
+        idx = input(f"Enter index [0-{arr_len}] OR enter 'q' to exit: ")
         if idx == 'q': 
             return # exitting
         # validation
@@ -387,7 +387,7 @@ def OrderMenu():
                     interface.UndoOrder(order_to_remove)
                 else:
                     order_to_view = SelectObject(interface.orders)
-                    if not order_to_remove: break
+                    if not order_to_view: break
                     PrintFormat("Success",f"\nCar details:\n{order_to_view.car.Details()}\n\nCustomer details:\n{order_to_view.buyer.Details()}\n")
         Stall()
 
@@ -404,10 +404,13 @@ def AddEmployee():
     PrintFormat("Success", "Employee successfully added")
 
 def RemoveEmployee():
-    employee_to_delete = SelectObject(interface.employees)
-    if not ConfirmSelection(msg=f"\nAre you sure you want to delete {employee_to_delete}"): return
-    rem = interface.RemoveEmployee(employee_to_delete)
-    if rem:
+    """ 'Menu' for removing an employee, will ask user to pick from a list of employees
+    and then confirm the selection. If the user confirms, the employee will be removed"""
+
+    employee_to_delete = SelectObject(interface.employees) # select employee to delete
+    if not ConfirmSelection(msg=f"\nAre you sure you want to delete {employee_to_delete}"): return # confirm selection
+    rem = interface.RemoveEmployee(employee_to_delete) # remove employee
+    if rem: # check if employee was removed and notify user
         PrintFormat("Success", "Removed employee successfully")
         return
     PrintFormat("Invalid", "Employee not found")
