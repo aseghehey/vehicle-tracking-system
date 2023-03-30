@@ -196,11 +196,8 @@ def LoginPage():
     # give the user 3 attempts to get the correct username and password
     while (user is None and attempt < 3):
         attempt+=1
-            # Admin: crapinett1 KcZy6yQfn
-        usr_name = "crapinett1"
-        pwd = "KcZy6yQfn"
-        # usr_name = input("\nEnter username: ")
-        # pwd = input("Enter password: ")
+        usr_name = input("\nEnter username: ")
+        pwd = input("Enter password: ")
         user = Auth().Authenticate(usr_name, pwd)
 
     if not user: # if user is still None, then the user failed all 3 attempts
