@@ -103,13 +103,13 @@ def PickIndex(arr):
     """  Will display elements in array and ask user to pick one, will return the index of the element picked
         Useful for when choosing an element to view or remove. Like when removing a car, this will point to its index in the list
         and the user will be able to remove it by index."""
-    
     arr_len = len(arr) - 1 # length to give user bounds to pick from
     while True:
         displayData(arr) # displays with (index: element) pair
         PrintFormat('Action', '\nPick index from the dislayed list above\n')
         idx = input(f"\nEnter index [0-{arr_len}] OR enter 'q' to exit: ")
-        if idx == 'q': return # exitting
+        if idx == 'q': 
+            return # exitting
         # validation
         if not idx.isnumeric():
             PrintFormat('Invalid',f"Invalid index! Must be a number")
@@ -123,7 +123,7 @@ def PickIndex(arr):
 def SelectObject(obj_arr):
     """ selects and returns an object once user chooses it from a list (calls on PickIndex)"""
     idx = PickIndex(obj_arr)
-    if not idx: return # exitting
+    if idx is None: return # exitting
     obj = obj_arr[idx]
     PrintFormat('Success',f"\n{obj}") # success message for user
     return obj
@@ -196,8 +196,11 @@ def LoginPage():
     # give the user 3 attempts to get the correct username and password
     while (user is None and attempt < 3):
         attempt+=1
-        usr_name = input("\nEnter username: ")
-        pwd = input("Enter password: ")
+            # Admin: crapinett1 KcZy6yQfn
+        usr_name = "crapinett1"
+        pwd = "KcZy6yQfn"
+        # usr_name = input("\nEnter username: ")
+        # pwd = input("Enter password: ")
         user = Auth().Authenticate(usr_name, pwd)
 
     if not user: # if user is still None, then the user failed all 3 attempts
