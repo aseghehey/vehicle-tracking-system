@@ -41,20 +41,26 @@ class Car ():
 
     def isAvailable(self):
         return self.status == Status.AVAILABLE
-
-    def setStatus(self, updated_status):
-        self.status = {'available': Status.AVAILABLE,
+        
+    def SetStatus(self, updated_status):
+        self.status = {'available':Status.AVAILABLE,
                        'ordered': Status.ORDERED,
                        'backorder': Status.BACKORDER,
                        'delivered': Status.DELIVERED}[updated_status.lower()]
-
-    def updatePrice(self, newprice):
+    
+    def UpdatePrice(self, newprice):
         self.price = newprice
+
+    def Details(self):
+        return self.__str__() + f"\nVIN: {self.vin}\nPerformance: {self.performance}\nInterior design: {self.design['interior']}\nExterior design: {self.design['exterior']}\nComfort: {self.comfort}\nPackage: {self.package}"
 
     def __eq__(self, __o: object) -> bool:
         if isinstance(__o, Car):
             return self.vin == __o.vin
-
+    
     def __str__(self) -> str:
-        locale.setlocale(locale.LC_ALL, '')
-        return f"{self.info['model']} {self.info['make']} {locale.currency(self.price, grouping=True )}"
+        locale.setlocale( locale.LC_ALL, '' )
+        return f"{self.info['model']} {self.info['make']} {locale.currency(self.price, grouping=True )} year: {self.info['year']}"
+
+    def __repr__(self) -> str:
+        return f"{self.info['model']} {self.info['make']}"

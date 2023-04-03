@@ -3,7 +3,7 @@ from user import *
 import json
 from os import path
 
-def loadInventory():
+def LoadInventory():
     cars = []
     with open('src/data/inventory.json', 'r') as file:
         json_file = json.load(file)
@@ -15,14 +15,9 @@ def loadInventory():
             cars.append(current_car)
     return cars
 
-    # with open('data/inventory.json', 'r') as file:
-    #     inventory = json.load(file)
-    #     return inventory
-
-
-def loadUsers():
-    customers, admins = [], []
-    with open('src/data/users.json', 'r') as usr_file:
+def LoadUsers():
+    employees, admins = [], []
+    with open('data/users.json', 'r') as usr_file:
         json_user = json.load(usr_file)
         for i in range(len(json_user)):
             cur = json_user[i]
@@ -32,7 +27,7 @@ def loadUsers():
                 customer = Employee(username=cur['username'], password=cur['password'],
                                 first_name=name['firstName'], last_name=name['lastName'], 
                                 date_joined=cur['dateJoined'])
-                customers.append(customer)
+                employees.append(customer)
             else:
                 admin = Admin(username=cur['username'], password=cur['password'],
                                 first_name=name['firstName'], last_name=name['lastName'], 

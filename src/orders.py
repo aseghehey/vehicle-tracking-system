@@ -5,41 +5,25 @@ from vehicles import *
 from user import *
 
 class Order():
-    def __init__(self, car=None, buyer=None, dateBought=None) -> None:
-        self.id = random.randint(1, 1000)
-        self.car = Car(car)
-        #car.setStatus('ordered')
+    def __init__(self, id, car=None, buyer=None, dateBought=None) -> None:
+        self.id = id
+        if car: car.SetStatus('ordered')
+        self.car = car
         self.buyer = buyer
         if not dateBought: dateBought = date.today()
         self.when = dateBought
 
-    def serialize(order):
-        if isinstance(order, Order):
-            return {
-                'id': order.id,
-                'car': order.car.__dict__,
-                'buyer': order.buyer,
-                'when': order.when
-            }
-        else:
-            raise TypeError(f"Object of type '{type(order)}' is not JSON serializable")
-
-    # def to_dict(self):
-    #     return {
-    #         "id": self.id,
-    #         "car": self.car,
-    #         "buyer": self.buyer,
-    #         "when": self.when
-    #     }
-
-    # def serialize(order):
-    #     if isinstance(order, Order):
-    #         return order.to_dict()
-    #     raise TypeError("Object of type 'Order' is not JSON serializable. It is of type " + str(type(order)))
-
-    def remOrder(self):
-        self.car.setStatus(Status.AVAILABLE)
+    def RemoveOrder(self):
+        self.buyer.orders.remove(self)
+        self.car.SetStatus("available")
     
     def __str__(self):
-        return f"Order #{self.id} by {self.buyer}"
-
+        return f"Order #{self.id}: {self.car.info['make']} {self.car.info['model']} for {self.buyer.ln}, {self.buyer.fn}"
+    
+    def __repr__(self) -> str:
+        return f" {self.buyer.fn}'s: {self.car.info['make']} {self.car.info['model']} {self.car.status}"
+    
+    def __eq__(self, value) -> bool:
+        if isinstance(value, Order):
+            return value.id == Order.id
+        return False

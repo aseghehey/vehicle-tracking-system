@@ -1,15 +1,23 @@
 # keep list of admins, customers, cars and where they are etc...
 from read_write_json import *
 from status import *
-from user import *
+from users import *
 from orders import *
 from session import Session, EndSession
-from typing import Type
-class Interface:
+
+class Interface():
     def __init__(self):
-        self.inventory = loadInventory()
-        self.orders = loadOrders()
-        self.updates = [False, False, False]
+        self.inventory = LoadInventory()
+        self.customers = LoadCustomers()
+        self.__employees__ = Session().ReturnEmployees()
+        self.__users__ = self.__employees__ + Session().ReturnAdmins()
+        #TODO
+        self.orders = [] # LoadOrders() # have to pass customers and car functionality to correctly add to buyers list and such
+        # for inventory, 
+        self.updates = [False] * 4 # TODO
+    
+    def ViewUsers(self):
+        return self.__users__
         
     def inInventory(self, vehicle):
         for v in self.inventory:
@@ -17,9 +25,9 @@ class Interface:
                 return True
         return False 
     
-    def viewByStatus(self, status):
+    def ViewByStatus(self, status):
         if (status.lower() == 'available'):
-            return self.viewAvailableInventory()
+            return self.ViewAvailableInventory()
 
         stat = {'ordered': Status.ORDERED, 'backorder': Status.BACKORDER, 'delivered': Status.DELIVERED}[status.lower()]
         by_status = []
@@ -28,14 +36,20 @@ class Interface:
                 by_status.append(car)
         return by_status
     
-    def makeOrder(self, user, vehicle):
+    def MakeOrder(self, user, vehicle):
         if not vehicle.isAvailable(): return
-        order = Order(vehicle, user)
+        id = len(self.orders) + 1
+        order = Order(id, vehicle, user)
         self.orders.append(order)
+        user.orders.append(order)
         self.updates[1] = True
         return order
     
-    def viewInventory(self):
+    def UndoOrder(self, order):
+        self.orders.remove(order)
+        order.RemoveOrder()
+    
+    def ViewInventory(self):
         return self.inventory
     
     def searchInventory(self, model, make, year):
@@ -45,46 +59,63 @@ class Interface:
                 return car
         return
     
-    def printCarInfo(self, vehicle):
-        info = vehicle.info
-        print()
-        print(vehicle)
-        print(f"VIN: {vehicle.vin}\nYear: {info['year']}\nMileage: {info['mileage']} mi")
-        print(f"\nEngine: {vehicle.performance['engine']} and {vehicle.performance['transmission']} transmission")
-
-    
-    def viewAvailableInventory(self):
+    def ViewAvailableInventory(self):
         avail = []
         for v in self.inventory:
             if v.status == Status.AVAILABLE:
                 avail.append(v)
         return avail
-    
-    def logOut(self):
+
+    def AddInventory(self) -> None:
+        #TODO
+        pass
+
+    def RemoveInventory(self) -> None:
+        #TODO
+        pass
+
+    def AddCustomer(self, first, last, card, email, address):
+        id = len(self.customers) + 1
+        new_customer = Customer(first, last, card, email, address, id)
+        self.customers.append(new_customer)
+        return new_customer
+
+    def RemoveCustomer(self, customer):
+        """delete from orders if they exist AND set car to available if customer has been deleted """
+        order_to_rem = None
+        flag = False # will tell us if order has been processed
+        # check if customer has any orders
+        for order in self.orders:
+            if order.buyer == customer:
+                if order.car.status != Status.ORDERED: 
+                    flag = True
+                order_to_rem = order
+                break
+        # delete order and update car statuses
+        if order_to_rem:
+            car = order_to_rem.car
+            self.UndoOrder(order_to_rem)
+            if flag: # if order was already processed 
+                car.setStatus('backorder')
+        # delete customer
+        self.customers.remove(customer)
+        del customer
+
+    def LogOut(self):
         close = EndSession(self.updates, inventory=self.inventory, orders=self.orders)
-        close.terminate()
+        close.Terminate()
 
 class AdminInterface(Interface):
-    def __init__(self, users):
-        super().__init__()
-        self.__usrs__ = Session.returnEmployees()
-    
-    def addInventory(self) -> None:
-        pass
-    
-    def removeInventory(self) -> None:
-        pass
-
-    def addEmployee(self) -> None:
+    def AddEmployee(self) -> None:
         self.updates[2] = True
         pass
 
-    def removeEmployee(self, usr_to_remove) -> None:
+    def RemoveEmployee(self, usr_to_remove) -> None:
         self.updates[2] = True
         pass
 
-    def logOut(self):
+    def LogOut(self):
         close = EndSession(self.updates, inventory=self.inventory, orders=self.orders, users=self.__usrs__)
-        close.terminate()
+        close.Terminate()
 
 

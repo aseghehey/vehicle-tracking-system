@@ -1,137 +1,332 @@
 from interface import *
 from session import Auth
+from users import *
 
-def login_page():
+''' Input colors '''
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+def PrintFormat(color_status, print_info):
+    color_options = {"Invalid": bcolors.FAIL, "Success": bcolors.OKGREEN, "Action": bcolors.OKBLUE, "Important": bcolors.BOLD, "Warning": bcolors.WARNING}
+    color_status = color_options[color_status]
+    print(f"{color_status}{print_info}{bcolors.ENDC}")
+
+''' Command line interface '''
+def displayData(data):
+    if not AvailableToShow(data): return
+    for i, val in enumerate(data):
+        print(f"{i}: {val}")
+
+def ChangePassword():
+    new_password = ValidateUserInput('new password')
+    if new_password == user.password:
+        PrintFormat("Invalid", "New password cannot be the same as old password")
+        return
+    user.UpdatePassword(new_password)
+    PrintFormat("Success", "Password changed successfully")
+
+def ChangeUsername():
+    new_username = ValidateUserInput('new username')
+    if new_username == user.username:
+        PrintFormat("Invalid", "New username cannot be the same as old username")
+        return
+    
+    for usr in interface.ViewUsers():
+        if usr.username == new_username:
+            PrintFormat("Invalid", "Username already taken")
+            return
+    user.UpdateUserName(new_username)
+    PrintFormat("Success", "Username changed successfully")
+
+def CarSearch() -> None:
+    print('\nSearch car in inventory')
+    search_decision = input("Enter model, make and year separated by commas\n")
+    search_decision = list(map(lambda x: x.strip(), search_decision.split(',')))
+
+    if len(search_decision) != 3: 
+        PrintFormat('Invalid', '\nCar not found, make sure you entered the correct model, make and year')
+        return
+
+    model, make, year = search_decision[0], search_decision[1], search_decision[2]
+    # validate input
+    if not year.isnumeric(): 
+        print('\nInvalid input')
+        return
+
+    car = interface.searchInventory(model, make, int(year))
+    # check car exists
+    if not car: 
+        print('\nNo car match given criteria')
+        return
+    
+    PrintFormat('Success', f"\nCar details:\n{car.Details()}")
+
+def Stall():
+    _ = input("\nPress enter to continue\n")
+
+def ValidateUserInput(action="action"):
+    usr_input = input(f"Enter {action}: ")
+    while not usr_input:
+        PrintFormat("Invalid", "Bad input")
+        usr_input = input(f"Enter valid {action}: ")
+    return usr_input
+
+def AddCustomer():
+    PrintFormat("Important", "\nEnter customer details\n")
+    fn = ValidateUserInput("First Name")
+    ln = ValidateUserInput("Last Name")
+    email = ValidateUserInput("email")
+    cc = input('Credit Card #: ')
+    # validate credit card
+    while len(cc) != 16:
+        PrintFormat("Invalid", "Credit card # needs 16 digits and needs to be numbers only")
+        cc = input('Credit Card #: ')
+        if not cc.isnumeric():
+            continue
+
+    add = ValidateUserInput("Home address")
+    customer = interface.AddCustomer(fn, ln, cc, email, add)
+    PrintFormat('Success',f"\nAdded {customer} with success")
+    return customer
+
+def ConfirmSelection(response = {"y", "yes"}, msg="") -> bool:
+    if not msg: msg = "\nAre you sure you want to proceed?\n"
+    PrintFormat("Warning", msg)
+    confirm = input("Enter [y/n] to confirm: ")
+    if confirm.lower() not in response:
+        PrintFormat("Success", "Cancelled deletion")
+        return False
+    return True
+
+def RemoveCustomer():
+    if not interface.customers:
+        PrintFormat("Invalid", "No Available Customer to display")
+        return
+    cust_to_delete = SelectObject(interface.customers)
+    if not ConfirmSelection(msg=f"\nAre you sure you want to delete {cust_to_delete}"): return
+    interface.RemoveCustomer(cust_to_delete)
+    PrintFormat("Success", "Removed customer successfully")
+
+def PickIndex(arr):
+    arr_len = len(arr) - 1
+    while True:
+        displayData(arr)
+        PrintFormat('Action', '\nPick index from the dislayed list above\n')
+        idx = input(f"\nEnter index [0-{arr_len}]: ")
+        if not idx.isnumeric():
+            PrintFormat('Invalid',f"Invalid index! Must be a number")
+            continue
+        idx = int(idx)
+        if idx < 0 or idx > arr_len:
+            PrintFormat('Invalid',f"Invalid index! Must be greater than 0 AND smaller than maximum length")
+            continue
+        return idx
+
+def SelectObject(obj_arr):
+    idx = PickIndex(obj_arr)
+    obj = obj_arr[idx]
+    PrintFormat('Success',f"\n{obj}")
+    return obj
+
+def AvailableToShow(arr):
+    if not arr:
+        PrintFormat("Invalid","None available to display")
+        return False
+    return True
+
+''' Menus '''
+def LoginPage():
     print('Welcome to PigeonBOX')
     user, attempt = None, 0
     while (user is None and attempt < 3):
         attempt+=1
-        usr_name = input("\nEnter username: ")
-        pwd = input("Enter password: ")
-        user = Auth().authenticate(usr_name, pwd)
+        # usr_name = input("\nEnter username: ")
+        # pwd = input("Enter password: ")
+        # Admin: crapinett1 KcZy6yQfn
+        usr_name = "gkubach0"
+        pwd = "2nBztx3qzXV"
+        user = Auth().Authenticate(usr_name, pwd)
 
     if not user: 
         print('\nFailed all 3 attempts, sorry')
         return
     
-    print(f'\nHi {user.first_name} you have successfully logged in')
+    PrintFormat("Success",f'\nHi {user.first_name} you have successfully logged in')
     return user
 
-def displayCars(data):
-    if not data:
-        print('No cars match given criteria')
-        return
+def InventoryMenu():
+    print('\nCars in the inventory')
 
-    for i, car in enumerate(data):
-        print(f"{i + 1}: {car}")
+    inventory = interface.ViewInventory()
+    options = ["1. Search","2. Filter by", "3. Make a customer order"]
+    if isinstance(interface, AdminInterface): 
+        options.append("4. Add/Remove Cars")
 
-def displayOrders(data):
-    if not data:
-        print("no orders")
-        return
-    for i, order in enumerate(data):
-        print(f"{i + 1}: {order}")
+    options.append("Type 'q' to exit inventory menu")
+    opt_str = "\n" + "\n".join(options)
 
-def inventory_menu(interface, user_in_session):
-    print('\nINVENTORY MENU')
-
-    inventory = interface.viewInventory()
-    displayCars(inventory)
-
-    options = "\n1. Search\n2. Filter\n3. Sort"
-    if isinstance(interface, AdminInterface): options += '\n4. Add inventory\n5. Remove inventory'
     while True:
-        print(options)
-        decision = input("\nType 'q' to exit inventory menu\nEnter action: ")
+        displayData(inventory)
+        PrintFormat("Action", opt_str)
+        decision = input("Enter action: ")
+        if decision not in {"1", "2", "3", "4"}: return
         if decision == '1':
-            # search
-            print('\nSearch car in inventory')
-            search_decision = input("Enter model, make and year separated by commas\n")
-            search_decision = list(map(lambda x: x.strip(), search_decision.split(',')))
-            if len(search_decision) != 3: break
-            model, make, year = search_decision[0], search_decision[1], search_decision[2]
-            if not year.isnumeric(): 
-                print('\nInvalid input')
-                break 
-            car = interface.searchInventory(model, make, int(year))
-            if not car: 
-                print('\nNo car match given criteria')
-                break
-            interface.printCarInfo(car)
-            order = input('\nWould you like to order this car? [y/n]\n')
-            #TODO
-            # finish orders
-            if order not in {"yes", "y"}: break
-            # ask for user input
-            proc = interface.makeOrder(user_in_session, car)
-            if not proc:
-                print('Order unsuccessful')
-                break
-            print(proc)
-
+            CarSearch()
         elif decision == '2':
-            print("\nFilter by Status:\n1. Available\n2. Ordered\n3. Backorder\n4. Delivered")
+            filter_options = ["\nFilter by Status:","1. Available","2. Ordered","3. Backorder","4. Delivered"]
+            PrintFormat("Action", "\n".join(filter_options))
             statuses = {"1": "available", "2": "ordered", "3": "backorder", "4": "delivered"}
             filter_decision = input("\nEnter here: ")
-            if filter_decision not in statuses: break
-            {"1": displayCars,
-             "2": displayCars,
-             "3": displayCars,
-             "4": displayCars}[filter_decision](interface.viewByStatus(statuses[filter_decision]))
-        elif decision == '3':
+            # validate input
+            if filter_decision not in statuses:
+                PrintFormat("Invalid", "Invalid input") 
+                continue
+            {"1": displayData,
+             "2": displayData,
+             "3": displayData,
+             "4": displayData}[filter_decision](interface.ViewByStatus(statuses[filter_decision]))
+        elif decision == '3': OrderMenu()
+        elif decision == '4':
             if not isinstance(interface, AdminInterface):
                 break
-        else: return
+            #TODO: add/remove cars
+        Stall()
 
-def order_menu(interface, user):
-    print('\nORDER MENU')
-    print('\nOrders:\n')
-    displayOrders(interface.orders)
+def OrderMenu():
+    print('\nORDERS MENU')
+    options = ["\nWhat would you like to do?","1. Add order","2. Remove order","3. View order details","Type 'q' to go back to main menu"]
+    str_options = "\n".join(options)
+
     while True:
-        print('\n1. Add order\n2. Remove order\n3. View order details\nType "q" to go back to main menu')
+        print('Current Orders:\n')
+        displayData(interface.orders)
+        PrintFormat("Action", str_options)
         action = input("\nEnter action: ")
-        if action not in {"1", "2", "3"}: break
-        if action == "2":
-            # delete
-            to_rem = input("\nPick index of order to remove")
-            if not to_rem.isnumeric(): 
-                print('Invalid option')
-                break
-            to_rem = int(to_rem) - 1
-            #TODO
-            if to_rem >= len(interface.orders):
-                print('Invalid index')
-                break
-            # interface.orders[to_rem].remOrder()
-            
 
-def employee_menu(interface, user):
-    print('in emp')
+        if action not in {"1", "2", "3"}: 
+            PrintFormat('Invalid', 'Invalid choice')
+            break
+
+        if action == "1":            
+            car_to_order = SelectObject(interface.inventory)
+            PrintFormat('Important', "\nYou are about to order this car:")
+            print(car_to_order)
+            if not ConfirmSelection(): break
+            # check new customer
+            customer = None
+            if ConfirmSelection(msg="Is this order for a new customer?"):
+                customer = AddCustomer()
+            else:
+                customer = SelectObject(interface.customers)
+            customer = interface.MakeOrder(customer, car_to_order)
+            PrintFormat("Success", customer)
+        else:
+            # checker for empty orders
+            if AvailableToShow(interface.orders): 
+                if action == "2":
+                    order_to_remove = SelectObject(interface.orders)
+                    interface.UndoOrder(order_to_remove)
+                else:
+                    order_to_view = SelectObject(interface.orders)
+                    PrintFormat("Success",f"\nCar details:\n{order_to_view.car.Details()}\n\nCustomer details:\n{order_to_view.buyer.Details()}\n")
+        Stall()
+                
+def ManageCustomersMenu():
+    options = ["1. View Customer details","2. Add Customer", "3. Remove Customer"]
+    str_opt = "\n".join(options)
+    while True:
+        print("\nCustomer list\n")
+        displayData(interface.customers)
+        PrintFormat("Action",f"\nWhat would you like to do?\n{str_opt}")
+        # validate input
+        action = ValidateUserInput()
+        if action not in {"1","2","3"}:
+            PrintFormat("Invalid", "Invalid option!")
+            break
+        
+        if action == "2":
+            AddCustomer()
+        else:
+            if AvailableToShow(interface.customers): 
+                if action == "1":
+                    customer = SelectObject(interface.customers)
+                    print(customer.Details())
+                else:
+                    RemoveCustomer()
+        Stall()
+
+def ManageEmployees():
+    # display employees
+    # ask add/remove and handle it
     pass
 
+def CarSalesMenu():
+    # display orders
+    # Set order statuses to delivered 
+    pass
+
+def AccountSettings():
+    options = ["1. Change password","2. Change username", "3. View Account Details","Press any other key to go back"]
+    str_opt = "\n".join(options)
+
+    while True:
+        print("\nAccount settings\n")
+        PrintFormat("Action",f"\nWhat would you like to do?\n{str_opt}")
+        # validate input
+        action = input("Enter action: ")
+        if action not in {"1","2", "3"}:
+            PrintFormat("Invalid", "Invalid option!")
+            break
+
+        if action == "1":
+            ChangePassword()
+        elif action == "2":
+            ChangeUsername()
+        else:
+            print(f"\nUser {user.username} details:\n{user}")
+        Stall()
+
 def menu():
-    user = login_page()
+    global user
+    global interface
+
+    user = LoginPage()
     if not user: return
     
-    interface = None
-    options = "1. View Inventory\n2. View Orders"
+    options = ["1. Customer Orders","2. Car Sales","3. Search Cars","4. Manage Customers"]
+    
     if isinstance(user, Employee): interface = Interface()
     else: 
         interface = AdminInterface()
-        options += '\n3. Add/Remove Employees'
-    
+        options.append("5. Add/Remove Employees")
+    options.append("\nA: Account settings")
+    opt_str = "\n".join(options)
     while True:
-        print('\nWhat do you wish to do?')
-        print(options)
-        print('\nType "q" to log off')
+        PrintFormat('Action','\nWhat do you wish to do?\n')
+        print(opt_str)
+        PrintFormat('Warning','\nType any key (besides the options) to log off')
+
         decision = input('Enter choice here: ')
-        if not decision in {"1","2","3"}: break
-        {"1": inventory_menu,
-         "2": order_menu,
-         "3": employee_menu}[decision](interface, user)
-        
-    # interface.logOut()
+        if not decision in {"1","2","3","4","5", "A"}: break
+
+        {"1": OrderMenu,
+         "2": CarSalesMenu,
+         "3": InventoryMenu,
+         "4": ManageCustomersMenu,
+         "5": ManageEmployees,
+         "A": AccountSettings}[decision]()
+    
+    # interface.LogOut()
 
 if __name__ == "__main__":
-    menu() # gkubach0 2nBztx3qzXV
-    
+    menu() 
+    # Employee: gkubach0 2nBztx3qzXV
+    # Admin: crapinett1 KcZy6yQfn
