@@ -85,3 +85,4 @@ class Customer:
         if isinstance(value, Customer):
             return value.id == self.id
         return False
+        '''

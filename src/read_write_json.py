@@ -17,7 +17,7 @@ def LoadInventory():
 
 def LoadUsers():
     employees, admins = [], []
-    with open('data/users.json', 'r') as usr_file:
+    with open('src/data/users.json', 'r') as usr_file:
         json_user = json.load(usr_file)
         for i in range(len(json_user)):
             cur = json_user[i]
