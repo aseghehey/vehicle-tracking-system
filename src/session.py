@@ -4,7 +4,7 @@ from status import *
 from users import *
 from orders import *
 from typing import Type
-
+""" Deals with auth and session logic"""
 class Session:
     def __init__(self) -> None:
         self.__employees__, self.__admins__ = LoadUsers()

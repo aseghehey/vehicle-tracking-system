@@ -24,10 +24,10 @@ def LoadUsers():
             name = cur['name'][0]
             user = {0:'employee', 1:'admin'}[i % 2] # dividing them equally (temporary; for testing) -- useful if we add customer user
             if user == 'employee':
-                customer = Employee(username=cur['username'], password=cur['password'],
+                employee = Employee(username=cur['username'], password=cur['password'],
                                 first_name=name['firstName'], last_name=name['lastName'], 
                                 date_joined=cur['dateJoined'])
-                employees.append(customer)
+                employees.append(employee)
             else:
                 admin = Admin(username=cur['username'], password=cur['password'],
                                 first_name=name['firstName'], last_name=name['lastName'], 
