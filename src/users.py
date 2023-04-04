@@ -2,6 +2,7 @@ from datetime import date
 from interface import *
 from orders import *
 from status import *
+import bcolors
 class User():
     def __init__(self, username='', password='', first_name='',last_name='', date_joined=None) -> None:
         self.username = username

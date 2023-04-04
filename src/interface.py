@@ -10,7 +10,8 @@ class Interface():
         self.inventory = LoadInventory()
         self.customers = LoadCustomers()
         self.employees = Session().ReturnEmployees()
-        self.__users__ = self.employees + Session().ReturnAdmins()
+        self.admins = Session().ReturnAdmins()
+        self.__users__ = self.employees + self.admins
         #TODO
         self.orders = [] # LoadOrders() # have to pass customers and car functionality to correctly add to buyers list and such
         # for inventory, 
@@ -36,15 +37,15 @@ class Interface():
                 by_status.append(car)
         return by_status
     
-    def MakeOrder(self, user, vehicle):
+    def MakeOrder(self, customer, vehicle, emp):
         # check that a vehicle is available before making an order
         if not vehicle.isAvailable(): return
         # grab new id which is the length of the orders list + 1
         id = len(self.orders) + 1
-        order = Order(id, vehicle, user) # create order object
-        # add order to order list and deal with the user dependency
+        order = Order(id, vehicle, customer, employee=emp) # create order object
+        # add order to order list and deal with the customer dependency
         self.orders.append(order)
-        user.orders.append(order)
+        customer.orders.append(order)
         self.updates[1] = True # to write to json -- orders have been updated
         return order
     
@@ -103,27 +104,40 @@ class Interface():
 class AdminInterface(Interface):
     """ Admin can do everything an employee can do and MORE, hence why it has its own class, which inherits all the methods from Interface
         but an admin can add and remove employees, and add and remove cars from inventory """
-    def EmployeeExists(self, employee):
+    def UserExists(self, employee):
         """ Useful for when we want to add or remove an employee"""
-        for e in self.employees:
-            if e == employee:
+        for usr in self.__users__:
+            if usr == employee:
                 return True
         return False
+
+    def addAdmin(self, usrname, passwd, fname, lname, djoined=None):
+        self.updates[2] = True
+        new_admin = Admin(usrname, passwd, fname, lname)
+        if self.UserExists(new_admin):
+            return False
+        self.admins.append(new_admin)
+        return True
 
     """ Modifying the employee list functions"""
     def AddEmployee(self, usrname, passwd, fname, lname, djoined=None) -> None:
         self.updates[2] = True # to write to json -- employees have been updated
         new_employee = Employee(usrname, passwd, fname, lname)
-        if self.EmployeeExists(new_employee):
+        if self.UserExists(new_employee):
             return False
         self.employees.append(new_employee)
         return True
 
-    def RemoveEmployee(self, usr_to_remove) -> bool:
+    def RemoveUser(self, usr_to_remove) -> bool:
         self.updates[2] = True # to write to json -- employees have been updated
-        if not self.EmployeeExists(usr_to_remove):
+        if not self.UserExists(usr_to_remove):
             return False
-        self.employees.remove(usr_to_remove)
+        
+        if (isinstance(usr_to_remove, Admin)):
+            self.admins.remove(usr_to_remove)
+        else:
+            self.employees.remove(usr_to_remove)
+        self.__users__.remove(usr_to_remove)
         return True
 
     def AddInventory(self, v, info, performance, design, handling, comfort, entertainment, protection, package, price) -> bool:
