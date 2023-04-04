@@ -2,7 +2,7 @@ from datetime import *
 import random
 from status import *
 from vehicles import *
-from user import *
+from users import *
 
 class Order():
     def __init__(self, id, car=None, buyer=None, dateBought=None) -> None:

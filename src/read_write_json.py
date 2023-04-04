@@ -1,5 +1,5 @@
 from vehicles import *
-from user import *
+from users import *
 import json
 from os import path
 
@@ -33,7 +33,7 @@ def LoadUsers():
                                 first_name=name['firstName'], last_name=name['lastName'], 
                                 date_joined=cur['dateJoined'])
                 admins.append(admin)
-    return customers, admins
+    return customer, admins
                 
 def loadOrders():
     orders = []
