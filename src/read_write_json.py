@@ -56,5 +56,6 @@ def LoadOrders():
     pass
 
 def WriteJson(): # for orders and users
+    print('this is a test')
     pass
 
