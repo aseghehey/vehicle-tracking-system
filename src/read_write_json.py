@@ -33,7 +33,7 @@ def LoadUsers():
                                 first_name=name['firstName'], last_name=name['lastName'], 
                                 date_joined=cur['dateJoined'])
                 admins.append(admin)
-    return customer, admins
+    return employees, admins
                 
 def loadOrders():
     orders = []
@@ -46,6 +46,22 @@ def loadOrders():
             orders.append(current_order)
     return orders
 
+def LoadCustomers():
+    customers = []
+    with open('data/customers.json', 'r') as customer_file:
+        json_customers = json.load(customer_file)
+        for i in range(len(json_customers)):
+            cur_json = json_customers[i]
+            email = cur_json['email']
+            name = cur_json['name'][0]
+            fn, ln = name['first'], name['last']
+            cc = cur_json['card']
+            addy = cur_json['address']
+            id = cur_json['id']
+            
+            customer = Customer(fn, ln, cc, email, addy, id)
+            customers.append(customer)
+    return customers
 
 def writeJson(data):
     '''
@@ -78,9 +94,6 @@ def writeJson(data):
     with open('src/data/mock_data.json', 'w') as f:
             serialized = json.dumps(data, default=type(data[0]).serialize, ensure_ascii=False, indent=4)
             f.write(serialized)
-            
 
 
-
-    
 
