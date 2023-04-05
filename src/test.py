@@ -1,11 +1,17 @@
 from read_write_json import *
 
-#successful version of writeJson using loadInventory
-data = loadInventory()
+#working
+# data = LoadInventory()
+# writeJson(data)
+
+#issue
+data = loadOrders()
+print(data)
 writeJson(data)
 
-#serialization issue (in process of resolving)
-# data = loadOrders()
+
+#working
+# data = LoadUsers()
 # writeJson(data)
 
 #how load orders works: show from running main

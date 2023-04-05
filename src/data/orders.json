@@ -1,32 +1,39 @@
 [
   {
-    "vin": "SAJWA4EC5BM103106",
-    "user_id": 2,
-    "dateBought": "2022-09-07"
+    "id": "SAJWA4EC5BM103106",
+    "buyer": 2,
+    "salesBy": "test",
+    "when": "2022-09-07"
   },
   {
-    "vin": "JTJHY7AX1E4512122",
-    "user_id": 2,
-    "dateBought": "2023-09-07"
+    "id": "JTJHY7AX1E4512122",
+    "buyer": 2,
+    "salesBy": "test",
+    "when": "2023-09-07"
   },
   {
-    "vin": "1D7RE5GK1BS514059",
-    "user_id": 4,
-    "dateBought": "2023-11-07"
+    "id": "1D7RE5GK1BS514059",
+    "buyer": 4,
+    "salesBy": "test",
+    "when": "2023-11-07"
   },
   {
-    "vin": "WDDHF5KB3FB718643",
-    "user_id": 2,
-    "dateBought": "2023-09-02"
+    "id": "WDDHF5KB3FB718643",
+    "buyer": 2,
+    "salesBy": "test",
+    "when": "2023-09-02"
   },
   {
-    "vin": "KL4CJHSB1FB225364",
-    "user_id": "bhenriquesc",
-    "dateBought": "2021-10-07"
+    "id": "KL4CJHSB1FB225364",
+    "buyer": "bhenriquesc",
+    "salesBy": "test",
+    "when": "2021-10-07"
   },
   {
-    "vin": "bscadinge",
-    "user_id": 3,
-    "dateBought": "2023-10-07"
+    "id": "bscadinge",
+    "buyer": 3,
+    "salesBy": "test",
+    "when": "2023-10-07"
+    
   }
 ]

@@ -40,15 +40,19 @@ def loadOrders():
     with open('src/data/orders.json', 'r') as file:
         json_file = json.load(file)
         
-        for order in json_file:
-            # do we want to leave it like this? or make it so that the buyer is an actual instance of a user object?
-            current_order = Order(car=order['vin'], buyer=order['buyer'], dateBought = order['dateBought'])
-            orders.append(current_order)
+        for i in range(len(json_file)):
+            cur_order = json_file[i]
+            id = cur_order['id']
+            buyer = cur_order['buyer']
+            salesBy = cur_order['salesBy']
+            when = cur_order['when'];
+            order = Order(id, buyer, salesBy, when)
+            orders.append(order)
     return orders
 
 def LoadCustomers():
     customers = []
-    with open('data/customers.json', 'r') as customer_file:
+    with open('src/data/customers.json', 'r') as customer_file:
         json_customers = json.load(customer_file)
         for i in range(len(json_customers)):
             cur_json = json_customers[i]
@@ -69,29 +73,28 @@ def writeJson(data):
     the appopriate json file with the proper formatting
     '''
     flag = False
-    print(type(data[0]))
 # decide which file based on objct type in array
     if isinstance(data[0], Car):
         file = 'src/data/inventory.json'
     elif isinstance(data[0], Order):
         file = 'src/data/orders.json'
-    elif isinstance(data[0], list):
-        if isinstance(data[0][0], Employee) and isinstance(data[0][1], Admin):
-            flag = True
-            file = 'data/users.json'
+    elif isinstance(data[0][0], User):
+        flag = True
+        file = 'src/data/users.json'
     else:
         file = ''
         print('Not a valid type given in array.')
         return
+
     if flag:
         with open('src/data/mock_data.json', 'w') as f:
             serialized = json.dumps(data[0], default=type(data[0][0]).serialize, ensure_ascii=False, indent=4)
             f.write(serialized)
             serialized = json.dumps(data[1], default=type(data[0][1]).serialize, ensure_ascii=False, indent=4)
             f.write(serialized)
-
-    #serialize the array and write it to the appropriate json file
-    with open('src/data/mock_data.json', 'w') as f:
+    else:
+        #serialize the array and write it to the appropriate json file
+        with open('src/data/mock_data.json', 'w') as f:
             serialized = json.dumps(data, default=type(data[0]).serialize, ensure_ascii=False, indent=4)
             f.write(serialized)
 
