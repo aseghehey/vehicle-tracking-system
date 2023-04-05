@@ -78,6 +78,8 @@ def writeJson(data):
         file = 'src/data/inventory.json'
     elif isinstance(data[0], Order):
         file = 'src/data/orders.json'
+    elif isinstance(data[0], Customer):
+        file = 'src/data/customers.json'
     elif isinstance(data[0][0], User):
         flag = True
         file = 'src/data/users.json'
@@ -87,14 +89,14 @@ def writeJson(data):
         return
 
     if flag:
-        with open('src/data/mock_data.json', 'w') as f:
+        with open(file, 'w') as f:
             serialized = json.dumps(data[0], default=type(data[0][0]).serialize, ensure_ascii=False, indent=4)
             f.write(serialized)
             serialized = json.dumps(data[1], default=type(data[0][1]).serialize, ensure_ascii=False, indent=4)
             f.write(serialized)
     else:
         #serialize the array and write it to the appropriate json file
-        with open('src/data/mock_data.json', 'w') as f:
+        with open(file, 'w') as f:
             serialized = json.dumps(data, default=type(data[0]).serialize, ensure_ascii=False, indent=4)
             f.write(serialized)
 

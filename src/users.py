@@ -66,6 +66,19 @@ class Customer:
         self.address = addr
         self.orders = []
 
+    def to_dict(self):
+        return {
+            "email": self.email,
+            "name": [{ "first": self.fn, "last": self.ln }],
+            "card": self.card,
+            "address": self.address
+        }
+
+    def serialize(customer):
+        if isinstance(customer, Customer):
+            return customer.to_dict()
+        raise TypeError("Object of type 'Customer' is not JSON serializable")
+
     def UpdateCard(self, new_card):
         self.card = new_card
 
