@@ -12,10 +12,32 @@ class Car ():
         self.entertainment = entertainment
         self.protection = protection
         self.package = package
-        if not status: status = Status.AVAILABLE
+        if not status:
+            status = Status.AVAILABLE
         self.status = status
         self.price = price
-    
+
+    def to_dict(self):
+        return {
+            "vin": self.vin,
+            "info": self.info,
+            "performance": self.performance,
+            "design": self.design,
+            "handling": self.handling,
+            "comfort": self.comfort,
+            "entertainment": self.entertainment,
+            "protection": self.protection,
+            "package": self.package,
+            "status": self.status.value,
+            "price": self.price
+        }
+
+
+    def serialize(car):
+        if isinstance(car, Car):
+            return car.to_dict()
+        raise TypeError("Object of type 'Car' is not JSON serializable")
+
     def isAvailable(self):
         return self.status == Status.AVAILABLE
         
@@ -25,7 +47,7 @@ class Car ():
             return
         self.status = {'available':Status.AVAILABLE,
                        'ordered': Status.ORDERED,
-                       'backorder':Status.BACKORDER,
+                       'backorder': Status.BACKORDER,
                        'delivered': Status.DELIVERED}[updated_status.lower()]
     
     def UpdatePrice(self, newprice):
@@ -35,7 +57,7 @@ class Car ():
         return self.__str__() + f"\nVIN: {self.vin}\nPerformance: {self.performance}\nInterior design: {self.design['interior']}\nExterior design: {self.design['exterior']}\nComfort: {self.comfort}\nPackage: {self.package}\nEntertainment {self.entertainment}"
 
     def __eq__(self, __o: object) -> bool:
-        if isinstance(__o, Car): 
+        if isinstance(__o, Car):
             return self.vin == __o.vin
     
     def __str__(self) -> str:
@@ -44,4 +66,3 @@ class Car ():
 
     def __repr__(self) -> str:
         return f"{self.info['model']} {self.info['make']}"
-

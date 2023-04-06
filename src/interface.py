@@ -12,8 +12,7 @@ class Interface():
         self.employees = Session().ReturnEmployees()
         self.admins = Session().ReturnAdmins()
         self.__users__ = self.employees + self.admins
-        #TODO
-        self.orders = [] # LoadOrders() # have to pass customers and car functionality to correctly add to buyers list and such
+        self.orders = loadOrders() # LoadOrders() # have to pass customers and car functionality to correctly add to buyers list and such
         # for inventory, 
         self.updates = [False] * 4 # TODO
     

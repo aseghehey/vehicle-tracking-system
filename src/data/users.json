@@ -1,5 +1,12 @@
 [
   {
+    "username": "test",
+    "password": "test",
+    "name": [{ "firstName": "Kate", "lastName": "Anderson" }],
+    "dateJoined": "2022-09-07",
+    "type": "Admin"
+  },
+  {
     "username": "gkubach0",
     "password": "2nBztx3qzXV",
     "name": [{ "firstName": "Jemie", "lastName": "Hellard" }],
