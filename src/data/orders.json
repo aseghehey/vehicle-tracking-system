@@ -1,39 +1,44 @@
 [
   {
-    "id": "SAJWA4EC5BM103106",
-    "buyer": 2,
-    "salesBy": "test",
-    "when": "2022-09-07"
+    "carVin": "SAJWA4EC5BM103106",
+    "buyer": "aiannetti0@umich.edu",
+    "dateBought": "2022-09-07",
+    "soldBy": "gkubach0",
+    "id": 1
   },
   {
-    "id": "JTJHY7AX1E4512122",
-    "buyer": 2,
-    "salesBy": "test",
-    "when": "2023-09-07"
+    "carVin": "JTJHY7AX1E4512122",
+    "buyer": "aiannetti0@umich.edu",
+    "dateBought": "2023-09-07",
+    "soldBy": "gkubach0",
+    "id": 2
   },
   {
-    "id": "1D7RE5GK1BS514059",
-    "buyer": 4,
-    "salesBy": "test",
-    "when": "2023-11-07"
+    "carVin": "1D7RE5GK1BS514059",
+    "buyer": "wohalloran1@epa.gov",
+    "dateBought": "2023-11-07",
+    "soldBy": "gkubach0",
+    "id": 3
   },
   {
-    "id": "WDDHF5KB3FB718643",
-    "buyer": 2,
-    "salesBy": "test",
-    "when": "2023-09-02"
+    "carVin": "WDDHF5KB3FB718643",
+    "buyer": "dmacgeffen4@wix.com",
+    "dateBought": "2023-09-02",
+    "soldBy": "gkubach0",
+    "id": 4
   },
   {
-    "id": "KL4CJHSB1FB225364",
-    "buyer": "bhenriquesc",
-    "salesBy": "test",
-    "when": "2021-10-07"
+    "carVin": "KL4CJHSB1FB225364",
+    "buyer": "isibbit2@bandcamp.com",
+    "dateBought": "2021-10-07",
+    "soldBy": "gkubach0",
+    "id": 5
   },
   {
-    "id": "bscadinge",
-    "buyer": 3,
-    "salesBy": "test",
-    "when": "2023-10-07"
-    
+    "carVin": "3D73Y3CLXBG077475",
+    "buyer": "adeeth3@friendfeed.com",
+    "dateBought": "2023-10-07",
+    "soldBy": "gkubach0",
+    "id": 6
   }
 ]

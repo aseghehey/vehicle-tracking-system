@@ -6,7 +6,8 @@ from bcolors import PrintFormat, bcolors
 ''' Command line interface '''
 def displayData(data):
     """ Given an array, display each element in the array along with the index"""
-    if not AvailableToShow(data): return
+    if isArrayEmpty(data): 
+        return
     for i, val in enumerate(data):
         print(f"{i}: {val}")
 
@@ -44,7 +45,7 @@ def ChangeUsername():
     user.UpdateUserName(new_username)
     PrintFormat("Success", "Username changed successfully")
 
-def AccountSettings():
+def AccountSettingsMenu():
     """ This is the menu users interact with when they want to change their account details such as password or username """
 
     options = ["1. Change password","2. Change username", "3. View Account Details","Press any other key to go back"]
@@ -116,12 +117,12 @@ def SelectObject(obj_arr):
     PrintFormat('Success',f"\nPicked: {obj}") # success message for user
     return obj
 
-def AvailableToShow(arr):
+def isArrayEmpty(arr) -> bool:
     """ Check if array is empty, if it is, print error message and return False, else return True"""
     if not arr:
         PrintFormat("Invalid","None available to display")
-        return False
-    return True
+        return True
+    return False
 
 ''' Inventory menu'''
 def CarSearch() -> None:
@@ -165,13 +166,9 @@ def AddCustomer():
     PrintFormat('Success',f"\nAdded {customer} with success")
     return customer
 
-def RemoveCustomer():
-    if not interface.customers:
-        PrintFormat("Invalid", "No Available Customer to display")
-        return
-    cust_to_delete = SelectObject(interface.customers)
-    if not ConfirmSelection(msg=f"\nAre you sure you want to delete {cust_to_delete}"): return
-    interface.RemoveCustomer(cust_to_delete)
+def DeleteCustomer(customerToDelete):
+    if not ConfirmSelection(msg=f"\nAre you sure you want to delete {customerToDelete}"): return
+    interface.RemoveCustomer(customerToDelete)
     PrintFormat("Success", "Removed customer successfully")
 
 ''' Menus '''
@@ -355,38 +352,42 @@ def OrderMenu():
         action = getAction()
         if not action: break
 
-        if action == "1":            
-            car_to_order = SelectObject(interface.inventory)
-            if not car_to_order: break
-            PrintFormat('Important', "\nYou are about to order this car:")
-            print(car_to_order)
+        if action == "1":
+            if isArrayEmpty(interface.inventory): continue
+            carToOrder = SelectObject(interface.inventory)
+            if not carToOrder: break
+            PrintFormat('Important', f"\nYou are about to order this car: {carToOrder}")
             if not ConfirmSelection(): break
+            
             # check new customer
             customer = None
             if ConfirmSelection(msg="Is this order for a new customer?"):
                 customer = AddCustomer()
-            else:
+            else: # get from old customers 
+                if isArrayEmpty(interface.customers): continue
                 customer = SelectObject(interface.customers)
-                if not customer: break
-            customer = interface.MakeOrder(customer, car_to_order, emp=user)
-            if not customer:
+            if not customer: break
+
+            # try make order
+            order = interface.MakeOrder(customer, carToOrder, emp=user)
+            if not order:
                 PrintFormat("Invalid", "Failed to make order. This car has already been ordered by someone else.")
                 break
-            PrintFormat("Success", customer)
+            PrintFormat("Success", order)
         else:
             # checker for empty orders
-            if AvailableToShow(interface.orders): 
-                if action == "2":
-                    order_to_remove = SelectObject(interface.orders)
-                    if not order_to_remove: break
-                    interface.UndoOrder(order_to_remove)
-                else:
-                    order_to_view = SelectObject(interface.orders)
-                    if not order_to_view: break
-                    print(order_to_view.orderDetails())
-                    # change status
-                    if ConfirmSelection(msg="Would you like to change the order status?"):
-                        updateCarStatus(order_to_view)
+            if isArrayEmpty(interface.orders): continue
+            if action == "2":
+                order_to_remove = SelectObject(interface.orders)
+                if not order_to_remove: break
+                interface.UndoOrder(order_to_remove)
+            else:
+                order_to_view = SelectObject(interface.orders)
+                if not order_to_view: break
+                print(order_to_view.orderDetails())
+                # change status
+                if ConfirmSelection(msg="Would you like to change the order status?"):
+                    updateCarStatus(order_to_view)
         Stall()
 
 def updateCarStatus(order):
@@ -436,7 +437,7 @@ def RemoveEmployee():
         return
     PrintFormat("Invalid", "Employee not found")
 
-def ManageEmployees():
+def ManageEmployeesMenu():
 
     # if not admin, return AS they do not have permissions to view this menu
     if isinstance(user, Employee):
@@ -455,14 +456,15 @@ def ManageEmployees():
         if action == "2":
             AddEmployee()
         else:
-            if AvailableToShow(interface.employees):  # check if there are employees to show, if not, just skip
-                if action == "1":
-                    employee = SelectObject(interface.employees)
-                    if not employee: 
-                        break
-                    print(employee.Details()) # print info like when employee joined
-                else:
-                    RemoveEmployee()
+            if isArrayEmpty(interface.employees):  # check if there are employees to show, if not, just skip
+                continue
+            if action == "1":
+                employee = SelectObject(interface.employees)
+                if not employee: 
+                    break
+                print(employee.Details()) # print info like when employee joined
+            else:
+                RemoveEmployee()
         Stall() # to get user time to read message before going back to next iteration of menu
 
 def getAction(validSet={"1", "2", "3"}, msg="Enter action:"):
@@ -485,14 +487,15 @@ def ManageCustomersMenu():
         if action == "2":
             AddCustomer()
         else:
-            if AvailableToShow(interface.customers): # check there's a list of customers, else skip
-                customer = SelectObject(interface.customers)
-                if not customer: 
-                    continue
-                if action == "1":
-                    print(customer.Details())
-                else:
-                    RemoveCustomer()
+            if isArrayEmpty(interface.customers): # check there's a list of customers, else skip
+                continue
+            customer = SelectObject(interface.customers)
+            if not customer: 
+                continue
+            if action == "1":
+                print(customer.Details())
+            else:
+                DeleteCustomer(customer)
         Stall()
 
 def CarSalesMenu():
@@ -537,8 +540,8 @@ def menu():
          "2": CarSalesMenu,
          "3": InventoryMenu,
          "4": ManageCustomersMenu,
-         "5": ManageEmployees,
-         "a": AccountSettings}[action]()
+         "5": ManageEmployeesMenu,
+         "a": AccountSettingsMenu}[action]()
     
     # TODO: Log off and write to files, awaiting Kate's update
     # interface.LogOut()
@@ -552,7 +555,7 @@ def run():
             break
         menu()
         #TODO: make it so log out will ask user for another session
-        # break
+        break # for now
         # interface.LogOut()
 
 if __name__ == "__main__":
