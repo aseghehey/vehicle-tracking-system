@@ -1,32 +1,44 @@
 [
   {
     "carVin": "SAJWA4EC5BM103106",
-    "buyerId": 2,
-    "dateBought": "2022-09-07"
+    "buyer": "aiannetti0@umich.edu",
+    "dateBought": "2022-09-07",
+    "soldBy": "gkubach0",
+    "id": 1
   },
   {
     "carVin": "JTJHY7AX1E4512122",
-    "buyerId": 2,
-    "dateBought": "2023-09-07"
+    "buyer": "aiannetti0@umich.edu",
+    "dateBought": "2023-09-07",
+    "soldBy": "gkubach0",
+    "id": 2
   },
   {
     "carVin": "1D7RE5GK1BS514059",
-    "buyerId": 4,
-    "dateBought": "2023-11-07"
+    "buyer": "wohalloran1@epa.gov",
+    "dateBought": "2023-11-07",
+    "soldBy": "gkubach0",
+    "id": 3
   },
   {
     "carVin": "WDDHF5KB3FB718643",
-    "buyerId": 2,
-    "dateBought": "2023-09-02"
+    "buyer": "dmacgeffen4@wix.com",
+    "dateBought": "2023-09-02",
+    "soldBy": "gkubach0",
+    "id": 4
   },
   {
     "carVin": "KL4CJHSB1FB225364",
-    "buyerId": "bhenriquesc",
-    "dateBought": "2021-10-07"
+    "buyer": "isibbit2@bandcamp.com",
+    "dateBought": "2021-10-07",
+    "soldBy": "gkubach0",
+    "id": 5
   },
   {
-    "carVin": "bscadinge",
-    "buyerId": 3,
-    "dateBought": "2023-10-07"
+    "carVin": "3D73Y3CLXBG077475",
+    "buyer": "adeeth3@friendfeed.com",
+    "dateBought": "2023-10-07",
+    "soldBy": "gkubach0",
+    "id": 6
   }
 ]
