@@ -74,6 +74,7 @@ class Car ():
         res = f"""{bcolors.BOLD}{self.vin}{bcolors.ENDC} with {self.package} package
         Performance
         Engine: {self.performance['engine']}, Transmission: {self.performance['transmission']}
+        Mileage: {self.info['mileage']} miles
         {bcolors.BOLD}Design{bcolors.ENDC}
         Interior design: {self.design['interior']}
         Exterior design: {self.design['exterior']}
