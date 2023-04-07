@@ -213,8 +213,8 @@ class Interface(InterfaceObjects):
         if self.isObjListUpdated[1]:
             writeJson.writeJson(self.orders)
         if self.isObjListUpdated[2]:
-            users2D = [self.employees, self.admins]
-            writeJson.writeJson(users2D)
+            allusers = self.admins + self.employees
+            writeJson.writeJson(allusers)
         if self.isObjListUpdated[3]:
             writeJson.writeJson(self.customers)
 

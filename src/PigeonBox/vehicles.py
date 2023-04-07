@@ -14,9 +14,11 @@ class Car ():
         self.entertainment = entertainment
         self.protection = protection
         self.package = package
-        if not status:
+        if status is None:
             status = st.Status.AVAILABLE
-        self.status = st.strToStatus(status)
+        if isinstance(status, str):
+            status = st.strToStatus(status)
+        self.status = status
         self.price = price
 
     def UpdateMileage(self, newMileage):
@@ -47,13 +49,13 @@ class Car ():
         return {
             "vin": self.vin,
             "status": st.StatusToStr(self.status),
-            "info": self.info,
-            "performance": self.performance,
-            "design": self.design,
+            "info": [self.info],
+            "performance": [self.performance],
+            "design": [self.design],
             "handling": self.handling,
             "comfort": self.comfort,
-            "entertainment": self.entertainment,
-            "protection": self.protection,
+            "audio": self.entertainment,
+            "protection": [self.protection],
             "package": self.package,
             "price": self.price
         }

@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import datetime
 
 class User():
     def __init__(self, username='', password='', first_name='', last_name='', date_joined=None) -> None:
@@ -7,7 +7,10 @@ class User():
         self.first_name = first_name
         self.last_name = last_name
         # validate date
-        if not date_joined: date_joined = date.today()
+        if not date_joined: 
+            date_joined = datetime.today()
+        else:
+            date_joined = datetime.strptime(date_joined, "%Y-%m-%d")
         self.date_joined = date_joined
 
     def getFirstName(self):
@@ -33,6 +36,7 @@ class User():
             return user.to_dict()
         raise TypeError("Object of type 'User' is not JSON serializable")
 
+
     def __eq__(self, __o):
         if isinstance(__o, User) or isinstance(__o, Admin) or isinstance(__o, Employee):
             return __o.username == self.username
@@ -53,18 +57,20 @@ class Admin(User):  # can delete or add inventory, add or delete employees
         return self.categoryType
 
     def __str__(self):
-        return f"{self.categoryType} {self.first_name} {self.last_name} Joined in {self.date_joined}"
+        return f"{self.categoryType} {self.first_name} {self.last_name}"
+    
+    def getDetails(self):
+        date = self.date_joined.strftime("%Y-%m-%d")
+        return f"Joined in {date}"
     
     def to_dict(self):
         return {
             "username": self.username,
             "password": self.password,
-            "first_name": self.first_name,
-            "last_name": self.last_name,
-            "date_joined": self.date_joined,
+            "name": [{"firstName": self.first_name, "lastName": self.last_name}],
+            "dateJoined": self.date_joined.strftime("%Y-%m-%d"),
             "type": self.categoryType # default
         }
-
 
 
 class Employee(User):  # manages sales and can update inventory but cannot add or delete
@@ -76,19 +82,20 @@ class Employee(User):  # manages sales and can update inventory but cannot add o
         return f"{self.categoryType} {self.first_name} {self.last_name}"
     
     def getDetails(self):
-        return f"Joined in {self.date_joined}"
+        date = self.date_joined.strftime("%Y-%m-%d")
+        return f"Joined in {date}"
     
     def getCategory(self):
         return self.categoryType
     
     def to_dict(self):
         return {
-        "username": self.username,
-        "password": self.password,
-        "name" : [{"firstName": self.first_name, "lastName": self.last_name}],
-        "dateJoined": self.date_joined,
-        "type": self.categoryType # default
-    }
+            "username": self.username,
+            "password": self.password,
+            "name": [{"firstName": self.first_name, "lastName": self.last_name}],
+            "dateJoined": self.date_joined.strftime("%Y-%m-%d"),
+            "type": self.categoryType # default
+        }
 
 class Customer:
     def __init__(self, first, last, card, email, address) -> None:

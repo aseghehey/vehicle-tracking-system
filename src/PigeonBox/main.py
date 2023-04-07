@@ -419,10 +419,10 @@ def AddCar():
             PrintFormat("Invalid", "Interior and External Design must be separated by a comma")
             continue
         break
-
-    handling = input("Enter handling: ")
-    audio = input("Enter audio: ")
-    comfort = input("Enter comfort features: ")
+    paint = ValidateUserInput("paint")
+    handling = [input("Enter handling: ")]
+    audio = [input("Enter audio: ")]
+    comfort = [input("Enter comfort features: ")]
     package = input("Enter package: ")
     warranty_maintenance = None
     while True:
@@ -439,14 +439,15 @@ def AddCar():
             "color": mileage_color[-1],}
     
     performance = {"engine": engine_transmission[0],
-                   "transmission": engine_transmission[-1]}
+                    "transmission": engine_transmission[-1]}
     
-    design = {"interior": interior_external_design[0],
-              "exterior": [{"extra": interior_external_design[-1]}]}
+    design = {"interior": [interior_external_design[0]],
+              "exterior": [{"paint": paint,"extra": [interior_external_design[-1]]}]}
     
-    protection = {"maintenance": warranty_maintenance[1], "warranty": warranty_maintenance[0]}
-    add = interface.AddInventory(vin, info=info, performance=performance,comfort=comfort, design=design, protection=protection, price=price, handling=handling, package=package, entertainment=audio)    
-
+    protection = {"maintenance": warranty_maintenance[1], "warranty": [warranty_maintenance[0]]}
+    status = getAction(validSet={"ordered", "available", "backorder", "delivered"}, msg="Enter status: ")
+    if not status: return
+    add = interface.AddInventory(vin, info=info, performance=performance,comfort=comfort, design=design, protection=protection, price=price, handling=handling, package=package, entertainment=audio, status=status)    
     if add:
         PrintFormat("Success", "Car successfully added")
     else:
@@ -618,7 +619,7 @@ def ManageCustomersMenu():
                 DeleteCustomer(customer)
             else:
                 modifyCustomerDetails(customer)
-                
+
         StallUntilUserInput()
 
 def CarSalesMenu():
@@ -654,7 +655,7 @@ def menu():
     # the options are stored as list, so its easier to add/remove options
     options = ["1. Customer Orders",
                "2. Car Sales",
-               "3. Search Cars",
+               "3. Car Inventory",
                "4. Manage Customers"]
     # creating the interface based on the user type
     # employees, get the regular interface, whereas admins get the admin interface which gives them more options
@@ -697,7 +698,7 @@ def run():
         else: 
             interface = AdminInterface()
         menu()
-        # interface.LogOut()
+        interface.LogOut()
         if ConfirmSelection(msg="Would you like to log in again?"): continue
         break
         

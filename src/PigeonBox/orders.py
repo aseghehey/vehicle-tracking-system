@@ -1,4 +1,4 @@
-from datetime import *
+from datetime import datetime
 from PigeonBox.bcolors import bcolors
 
 class Order():
@@ -10,7 +10,8 @@ class Order():
         self.buyer = buyer #the user id
         self.salesBy = employee
         # if a date is not specified, it will be set to today's date
-        if not dateBought: dateBought = date.today()
+        if not dateBought: dateBought = datetime.today()
+        else: dateBought = datetime.strptime(dateBought, "%Y-%m-%d")
         self.when = dateBought
      
     def getUser(self):
@@ -28,14 +29,16 @@ class Order():
     def getId(self):
         return self.id
     
-
+    def getDateJoined(self):
+        return self.when.strftime("%Y-%m-%d")
+    
     def to_dict(self):
         return {
             "id": self.id,
             "carVin": self.car.getVin(),
             "buyer": self.buyer.getEmail(),
             "soldBy": self.salesBy.getUsername(),
-            "dateBought": "2022-09-07"
+            "dateBought": self.when.strftime("%Y-%m-%d")
         }
     
     def serialize(order):
