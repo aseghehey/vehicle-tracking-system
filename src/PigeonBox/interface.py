@@ -93,6 +93,8 @@ class InterfaceObjects():
                 return True
         return False
     
+    # def customerExists
+    
     def UsernameExists(self, username):
         for user in self.__users__:
             if user.getUsername() == username:
@@ -162,8 +164,26 @@ class Interface(InterfaceObjects):
         del order # delete order object and free up memory
 
         self.isObjListUpdated[1] = True
-        
+
+    def emailExists(self, email):
+        for customer in self.customers:
+            if customer.getEmail() == email:
+                return True
+        return False
+
+    def isCustomer(self, newCustomer):
+
+        if isinstance(newCustomer, str):
+            return self.emailExists(newCustomer)
+
+        for customer in self.customers:
+            if customer == newCustomer:
+                return True
+        return False
+
     def AddCustomer(self, first, last, card, email, address):
+        if self.isCustomer(email):
+            return
         newCustomer = users.Customer(first, last, card, email, address)
         self.customers.append(newCustomer)
         self.isObjListUpdated[3] = True

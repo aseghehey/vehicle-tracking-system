@@ -14,6 +14,13 @@ def PrintFormat(color_status, print_info):
         There are various colors and formatting for one to choose from, like bold, underline, etc.
         Works exactly like print() """
     
-    color_options = {"Invalid": bcolors.FAIL, "Success": bcolors.OKGREEN, "Action": bcolors.OKBLUE, "Important": bcolors.BOLD, "Warning": bcolors.WARNING}
+    color_options = {"Invalid": bcolors.FAIL, 
+                     "Success": bcolors.OKGREEN, 
+                     "Action": bcolors.OKBLUE, 
+                     "Important": bcolors.BOLD, 
+                     "Warning": bcolors.WARNING, 
+                     "Purple": bcolors.HEADER, 
+                     "Cyan": bcolors.HEADER}
+    
     color_status = color_options[color_status]
     print(f"{color_status}{print_info}{bcolors.ENDC}")

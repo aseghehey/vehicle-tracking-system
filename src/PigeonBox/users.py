@@ -108,13 +108,13 @@ class Customer:
     def getEmail(self):
         return self.email
 
-    def UpdateCard(self, new_card):
+    def setCard(self, new_card):
         self.card = new_card
 
-    def UpdateAddress(self, new_address):
+    def setAddress(self, new_address):
         self.address = new_address
 
-    def UpdateEmail(self, new_email):
+    def setEmail(self, new_email):
         self.email = new_email
 
     def getDetails(self):

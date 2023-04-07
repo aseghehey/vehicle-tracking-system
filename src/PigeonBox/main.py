@@ -6,7 +6,7 @@ from PigeonBox.bcolors import *
 ''' Command line interface '''
 def displayData(data):
     """ Given an array, display each element in the array along with the index"""
-    if not data: return
+    if isEmpty(data): return
 
     for i, val in enumerate(data):
         print(f"{i}: {val}")
@@ -14,8 +14,13 @@ def displayData(data):
 def StallUntilUserInput():
     """ Stalls the program, waits for user to press enter, 
     to let them view whatever output was printed post an action"""
-    input("\nPress enter to continue\n")
+    input(f"{bcolors.HEADER}\nPress any key to continue {bcolors.ENDC}")
 
+def isEmpty(arr):
+    if not arr:
+        PrintFormat("Warning", "No data to display")
+        return True
+    return False
 
 ''' User account details'''
 def ChangePassword():
@@ -55,8 +60,8 @@ def ConfirmSelection(response = {"y", "yes"}, msg="") -> bool:
     PrintFormat("Warning", msg)
     confirm = input("Enter [y/n] to confirm: ")
     if confirm.lower() not in response:
-        PrintFormat("Success", "OK")
         return False
+    PrintFormat("Success", "Action confirmed")
     return True
 
 def ValidateUserInput(action="action", isNum=False):
@@ -64,7 +69,7 @@ def ValidateUserInput(action="action", isNum=False):
     while True:
         userInput = input(f"Enter {action}: ")
         if userInput.lower() == 'q':
-            PrintFormat("Warning", "Exitting...")
+            PrintFormat("Warning", "Exitting\n")
             return
         if not userInput: 
             PrintFormat("Invalid", "Bad input")
@@ -78,9 +83,9 @@ def ValidateUserInput(action="action", isNum=False):
 ''' General helper functions '''
 def getAction(validSet={"1", "2", "3"}, msg="Enter action:"):
     PrintFormat("Important", "\nPress 'q' to exit")
-    action = input(f"{msg} ")
-    if action.lower() == "q":
-        PrintFormat("Warning", "Exitting...")
+    action = input(f"{bcolors.UNDERLINE}{msg}{bcolors.ENDC} ").lower()
+    if action == "q":
+        PrintFormat("Warning", "Exitting\n")
         return
     if action not in validSet:
         PrintFormat("Invalid", "Invalid action")
@@ -97,7 +102,7 @@ def PickIndex(arr):
         PrintFormat('Action', '\nPick index from the dislayed list above')
         index = input(f"Enter index [0-{arrLength}] OR enter 'q' to exit: ")
         if index == 'q': 
-            PrintFormat("Warning", "Exitting")
+            PrintFormat("Warning", "Exitting\n")
             return # exitting
         
         # validation
@@ -225,11 +230,12 @@ def filterByMenu():
     "3": displayData,
     "4": displayData}[filterDecision](interface.ViewByStatus(statuses[filterDecision]))
 
-def modifyCarsMenu():
+def modifyInventoryMenu():
     if not isAdmin: return
 
-    modifyCarOptions = "\n1. Add car\n2. Remove car\n"
-    PrintFormat("Important", modifyCarOptions)
+    modifyCarOptions = ["1. Add car","2. Remove car"]
+    formattedOptions ="\n".join(modifyCarOptions)
+    PrintFormat("Action", formattedOptions)
     modifyChoice = getAction(validSet={"1","2"})
     if not modifyChoice: return
 
@@ -248,17 +254,14 @@ def AddCustomer():
     if not lastName: return
     emailAddress = ValidateUserInput("email address")
     if not emailAddress: return
-    creditCard = input('Credit Card #: ')
-    # validate credit card
-    while len(creditCard) != 16:
-        PrintFormat("Invalid", "Credit card # needs 16 digits and needs to be digits only")
-        creditCard = input('Credit Card #: ')
-        if not creditCard.isdigit(): continue
-        
+    creditCard = validateCreditCard()
+    if not creditCard: return
     homeAddress = ValidateUserInput("Home address")
     if not homeAddress: return
     customer = interface.AddCustomer(firstName, lastName, creditCard, emailAddress, homeAddress)
-    if not customer: return
+    if not customer: 
+        PrintFormat("Invalid", "Customer already exists or email already exists")
+        return
 
     PrintFormat('Success',f"\nAdded {customer} with success")
     return customer
@@ -291,7 +294,6 @@ def Login():
         PrintFormat("Invalid",'\nFailed all 3 attempts, sorry')
         return
     # user has successfully logged in
-    PrintFormat("Success",f'\nHi {user.first_name} you have successfully logged in')
     return user
 
 def modifyCarMenu(car):
@@ -300,9 +302,10 @@ def modifyCarMenu(car):
                "2. Change car price",
                "3. Change car mileage",
                "4. Change car warranty plans"]
-    formattedOptions = "\n" + "\n".join(options)
-    print(formattedOptions)
+    formattedOptions ="\n".join(options)
+    PrintFormat('Action', formattedOptions)
     action = getAction(validSet={"1","2","3","4"})
+
     if not action: return
     elif action == "1": 
         updateCarStatus(car)
@@ -326,9 +329,9 @@ def SearchCarMenu(car=None):
     searchOptions = ["1. Order car",
                      "2. Modify car (status, price, mileage, warranty plans)"]
 
-    formattedOptions = "\n" + "\n".join(searchOptions)
+    formattedOptions ="\n".join(searchOptions)
     validate = {"1","2"}
-    print(formattedOptions)
+    PrintFormat("Action",formattedOptions)
     action = getAction(validSet=validate)
     if not action: return
     if action == "1": 
@@ -340,7 +343,7 @@ def SearchCarMenu(car=None):
         modifyCarMenu(car)
     
 def InventoryMenu():
-    print('\nInventory Menu')
+    PrintFormat("Purple", 'Inventory Menu')
     options = ["0. View car details",
                "1. Search",
                "2. Filter by", 
@@ -348,8 +351,7 @@ def InventoryMenu():
     if isAdmin: 
         options.append("4. Add/Remove Cars")
 
-    options.append("Type 'q' to exit inventory menu")
-    formattedOptions = "\n" + "\n".join(options)
+    formattedOptions ="\n".join(options)
 
     while True:
         inventory = interface.GetInventory()
@@ -358,17 +360,18 @@ def InventoryMenu():
         validateSet = {"0", "1", "2", "3", "4"}
         action = getAction(validateSet)
         if not action: break
-
         if action == '0':
             carToView = GetObject(inventory)
             print(f"\n{carToView.getDetails()}")
-            confirmMsg = f"\nDo you want to modify its details (price, warranty plans, or status)?"
-            if ConfirmSelection(msg=confirmMsg):
-                modifyCarMenu(carToView)
+            confirmMsg = f"\nDo you want to modify its details (price, warranty plans, mileage, or status)?"
+            if ConfirmSelection(msg=confirmMsg): modifyCarMenu(carToView)
         elif action == '1': SearchCarMenu()
         elif action == '2': filterByMenu()
-        elif action == '3': OrderMenu()
-        elif action == '4': modifyCarsMenu()
+        elif action == '3': 
+            carToOrder = GetObject(inventory)
+            if not carToOrder: continue
+            addOrderMenu(carToOrder, interface.getCustomerList())
+        elif action == '4': modifyInventoryMenu()
             
         StallUntilUserInput()
 
@@ -474,9 +477,7 @@ def addOrderMenu(carToOrder, customers):
     if ConfirmSelection(msg=confirmMessage):
         customer = AddCustomer()
     else: # get from old customers 
-        if not customers: 
-            PrintFormat("Invalid", "No customers found")
-            return
+        if isEmpty(customers): return
         customer = GetObject(customers)
 
     if not customer: return
@@ -487,15 +488,13 @@ def addOrderMenu(carToOrder, customers):
     PrintFormat("Success", order)
 
 def OrderMenu():
-    print('\nOrders Menu')
+    PrintFormat('Purple','Order Menu')
     options = ["What would you like to do?",
                "1. Add order",
                "2. Remove order",
-               "3. View order details",
-               "Type 'q' to go back to main menu"]
-    formattedOptions = "\n" + "\n".join(options)
+               "3. View order details"]
+    formattedOptions ="\n".join(options)
     while True:
-        print('Current Orders:\n')
         orders = interface.viewOrders()
         inventory = interface.GetInventory()
         customers = interface.getCustomerList()
@@ -504,15 +503,17 @@ def OrderMenu():
         action = getAction() # get user option choice
         if not action: break
         if action == "1":
-            if not inventory: continue
+            if isEmpty(inventory): continue
             carToOrder = GetObject(inventory)
             if not carToOrder: break
             addOrderMenu(carToOrder, customers)
         else:
             # checker for empty orders
-            if not orders: continue
+            if isEmpty(orders): continue
             if action == "2":
                 orderToRemove = GetObject(orders)
+                confirmMessage = f"Are you sure you want to remove this order: {orderToRemove}?"
+                if not ConfirmSelection(msg=confirmMessage): break
                 if not orderToRemove: break
                 interface.UndoOrder(orderToRemove)
             else:
@@ -526,25 +527,23 @@ def OrderMenu():
         StallUntilUserInput()
 
 def ManageEmployeesMenu():
-    print("Employee Management Menu")
+    PrintFormat("Purple","Employee Management Menu")
     # if not admin, return as they do not have permissions to view this menu
     if not isAdmin: return
     options = ["1. View Employee details", 
                "2. Add Employee", 
-               "3. Remove Employee", 
-               "Press q (or any other key) to leave"]
-    formattedOptions = "\n" + "\n".join(options)
+               "3. Remove Employee"]
+    formattedOptions ="\n".join(options)
     while True:
         employees = interface.getEmployeeList()
-        print("\nEmployee list\n")
         displayData(employees)
-        PrintFormat("Action",f"\nWhat would you like to do?\n{formattedOptions}")
+        PrintFormat("Action",f"{formattedOptions}")
         action = getAction()
         if not action: break
 
         if action == "2": AddEmployee()
         else:
-            if not employees:  continue
+            if isEmpty(employees):  continue
             if action == "1":
                 employee = GetObject(employees)
                 if not employee: break
@@ -554,31 +553,72 @@ def ManageEmployeesMenu():
 
         StallUntilUserInput() # to get user time to read message before going back to next iteration of menu
 
+def validateCreditCard():
+    creditCard = input('Credit Card #: ')
+    while len(creditCard) != 16:
+        PrintFormat("Invalid", "Credit card # needs 16 digits and needs to be digits only")
+        creditCard = input('Credit Card #: ')
+        if not creditCard.isdigit(): continue
+    return creditCard
+
+def modifyCustomerDetails(customer=None):
+    if not customer:
+        customer = GetObject(interface.getCustomerList())
+        if not customer: return
+    options = ["1. Update home address",
+               "2. Update email address",
+               "3. Update card details"]
+    formattedOptions = "\n".join(options)
+    PrintFormat("Action", f"{formattedOptions}")
+    action = getAction()
+    if not action: return
+    elif action == "1":
+        address = ValidateUserInput("new address")
+        if not address: return
+        customer.setAddress(address)
+    elif action == "2":
+        email = ValidateUserInput("new email")
+        if interface.emailExists(email):
+            PrintFormat("Invalid", "Email already exists")
+            return
+        customer.setEmail(email)
+    else:
+        cardNum = validateCreditCard()
+        if not cardNum: return
+        customer.setCard(cardNum)
+
 def ManageCustomersMenu():
     options = ["1. View Customer details",
                "2. Add Customer", 
                "3. Remove Customer", 
-               "Press 'q' or any other key to exit"]
+               "4. Edit Customer details"]
     formattedOptions = "\n".join(options)
     while True:
         customers = interface.getCustomerList()
-        print("\nCustomer list\n")
+        PrintFormat("Purple","Customer list")
         displayData(customers)
-        PrintFormat("Action",f"\nWhat would you like to do?\n{formattedOptions}")
+        PrintFormat("Action",f"{formattedOptions}")
         # validate input
-        action = getAction()
+        validSet = {"1","2","3","4"}
+        action = getAction(validSet=validSet)
         if not action: break
         if action == "2":
             AddCustomer()
         else:
-            if not customers: continue
+            if isEmpty(customers): continue
             customer = GetObject(customers)
             if not customer: continue
 
             if action == "1": 
                 print(customer.getDetails())
-            else: DeleteCustomer(customer)
-
+                # update details
+                confirmMessage = "Would you like to update customer details?"
+                if ConfirmSelection(msg=confirmMessage): modifyCustomerDetails(customer)
+            elif action == "3":
+                DeleteCustomer(customer)
+            else:
+                modifyCustomerDetails(customer)
+                
         StallUntilUserInput()
 
 def CarSalesMenu():
@@ -589,16 +629,13 @@ def CarSalesMenu():
 
 def AccountSettingsMenu():
     """ This is the menu users interact with when they want to change their account details such as password or username """
-    print("\nAccount settings\n")
+    PrintFormat("Purple","Account settings")
     options = ["1. Change password",
                "2. Change username", 
-               "3. View Account Details",
-               "Press any other key to go back"]
-    formattedOptions = "\n" + "\n".join(options)
-
+               "3. View Account Details"]
+    formattedOptions ="\n".join(options)
     while True:
-        print("\nAccount settings\n")
-        PrintFormat("Action",f"\nWhat would you like to do?{formattedOptions}")
+        PrintFormat("Action",f"{formattedOptions}")
         action = getAction()
         if not action: break
 
@@ -624,21 +661,15 @@ def menu():
     if isAdmin:
         options.append("5. Manage Employees")
 
-    options.append("\nA: Account settings") # to allow users to change their passwords/username
+    options.append("A: Account settings") # to allow users to change their passwords/username
     formattedOptions = "\n".join(options) # this is what will be displayed to the users from the options list
 
     while True: # menu start
-        PrintFormat('Action','\nWhat do you wish to do?\n')
-        print(formattedOptions) # display options to user
-        PrintFormat('Warning','\nPress "q" to log off')
-
+        PrintFormat("Success", f"\nHi {user.getFirstName()}, what would you like to do?")
+        PrintFormat('Action',formattedOptions) # display options to user
         # validating user choice
-        action = input("Enter action: ")
-        if action == 'q':
-            break
-        if action not in {"1","2","3","4","5", "a"}: 
-            continue
-
+        action = getAction({"1", "2", "3", "4", "5", "a"})
+        if not action: break # if user presses q, break out of the loop and return to main menu
         # calls menu based on user choice
         {"1": OrderMenu,
          "2": CarSalesMenu,
