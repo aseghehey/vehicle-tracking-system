@@ -1,6 +1,8 @@
-from status import *
 import locale
-from bcolors import bcolors
+import PigeonBox.status as st
+from PigeonBox.bcolors import bcolors
+
+
 class Car ():
     def __init__(self, vin='', info={}, performance={}, design={}, handling=[], comfort=[], entertainment=[], protection={}, package='', status=None, price=0):
         self.vin = vin
@@ -13,13 +15,38 @@ class Car ():
         self.protection = protection
         self.package = package
         if not status:
-            status = Status.AVAILABLE
-        self.status = status
+            status = st.Status.AVAILABLE
+        self.status = st.strToStatus(status)
         self.price = price
+
+    def UpdateMileage(self, newMileage):
+        self.info['mileage'] = newMileage
+
+    def UpdateWarranty(self, newWarranty):
+        self.protection['warranty'].append(newWarranty)
+
+    def getVin(self):
+        return self.vin
+    
+    def getStatus(self):
+        return self.status
+    
+    def getStatusStr(self):
+        return st.StatusToStr(self.status)
+    
+    def getCarInfo(self):
+        return self.info
+
+    def SetStatus(self, updated_status):
+        if not isinstance(updated_status, str):
+            self.status = updated_status
+            return
+        self.status = st.strToStatus(updated_status.lower())
 
     def to_dict(self):
         return {
             "vin": self.vin,
+            "status": st.StatusToStr(self.status),
             "info": self.info,
             "performance": self.performance,
             "design": self.design,
@@ -28,7 +55,6 @@ class Car ():
             "entertainment": self.entertainment,
             "protection": self.protection,
             "package": self.package,
-            "status": self.status.value,
             "price": self.price
         }
 
@@ -39,22 +65,25 @@ class Car ():
         raise TypeError("Object of type 'Car' is not JSON serializable")
 
     def isAvailable(self):
-        return self.status == Status.AVAILABLE
+        return self.status == st.Status.AVAILABLE
         
-    def SetStatus(self, updated_status):
-        if not isinstance(updated_status, str):
-            self.status = updated_status
-            return
-        self.status = {'available':Status.AVAILABLE,
-                       'ordered': Status.ORDERED,
-                       'backorder': Status.BACKORDER,
-                       'delivered': Status.DELIVERED}[updated_status.lower()]
-    
     def UpdatePrice(self, newprice):
         self.price = newprice
 
-    def Details(self):
-        return self.__str__() + f"\nVIN: {self.vin}\nPerformance: {self.performance}\nInterior design: {self.design['interior']}\nExterior design: {self.design['exterior']}\nComfort: {self.comfort}\nPackage: {self.package}\nEntertainment {self.entertainment}"
+    def getDetails(self):
+        res = f"""{bcolors.BOLD}{self.vin}{bcolors.ENDC} with {self.package} package
+        Performance
+        Engine: {self.performance['engine']}, Transmission: {self.performance['transmission']}
+        {bcolors.BOLD}Design{bcolors.ENDC}
+        Interior design: {self.design['interior']}
+        Exterior design: {self.design['exterior']}
+        {bcolors.BOLD}Extras{bcolors.ENDC}
+        Comfort: {self.comfort}
+        Entertainment {self.entertainment}
+        {bcolors.BOLD}Protection plans{bcolors.ENDC}
+        Maintenance {self.protection['maintenance']}
+        Warranty plans {self.protection['warranty']}"""
+        return self.__str__() + res
 
     def __eq__(self, __o: object) -> bool:
         if isinstance(__o, Car):

@@ -1,6 +1,7 @@
 [
   {
     "vin": "SAJWA4EC5BM103106",
+    "status": "available",
     "info": [
       {
         "model": "1500",
@@ -56,6 +57,7 @@
   },
   {
     "vin": "4F2CY0C73AK949059",
+    "status": "available",
     "info": [
       {
         "model": "Century",
@@ -115,6 +117,7 @@
   },
   {
     "vin": "WAUFFAFM2BA842695",
+    "status": "available",
     "info": [
       {
         "model": "F350",
@@ -163,6 +166,7 @@
   },
   {
     "vin": "3D73Y3CLXBG077475",
+    "status": "available",
     "info": [
       {
         "model": "Crosstour",
@@ -203,6 +207,7 @@
   },
   {
     "vin": "JTJHY7AX1E4512122",
+    "status": "available",
     "info": [
       {
         "model": "S80",
@@ -257,6 +262,7 @@
   },
   {
     "vin": "1D7RE5GK1BS514059",
+    "status": "available",
     "info": [
       {
         "model": "A8",
@@ -309,6 +315,7 @@
   },
   {
     "vin": "WDDHF5KB3FB718643",
+    "status": "available",
     "info": [
       {
         "model": "Range Rover",
@@ -362,6 +369,7 @@
   },
   {
     "vin": "2G61S5S32D9107584",
+    "status": "available",
     "info": [
       {
         "model": "Trans Sport",
@@ -406,6 +414,7 @@
   },
   {
     "vin": "KL4CJHSB1FB225364",
+    "status": "available",
     "info": [
       {
         "model": "Ram Van 1500",
@@ -457,6 +466,7 @@
   },
   {
     "vin": "2G4GT5GX8E9985923",
+    "status": "available",
     "info": [
       {
         "model": "Corvette",
@@ -506,6 +516,7 @@
   },
   {
     "vin": "1G6DA5E57C0968569",
+    "status": "available",
     "info": [
       {
         "model": "Echo",
@@ -560,6 +571,7 @@
   },
   {
     "vin": "1D7RB1CT0AS664971",
+    "status": "available",
     "info": [
       {
         "model": "Impreza",
@@ -603,6 +615,7 @@
   },
   {
     "vin": "JTEBU4BF5BK939847",
+    "status": "available",
     "info": [
       {
         "model": "Suburban 2500",
@@ -658,6 +671,7 @@
   },
   {
     "vin": "WVWAB7AJ2DW767723",
+    "status": "available",
     "info": [
       {
         "model": "Colorado",
@@ -718,6 +732,7 @@
   },
   {
     "vin": "JN8AF5MR0CT408949",
+    "status": "available",
     "info": [
       {
         "model": "Savana 2500",
@@ -759,6 +774,7 @@
   },
   {
     "vin": "1GKS1EEF9ER296501",
+    "status": "available",
     "info": [
       {
         "model": "VS Commodore",
@@ -806,6 +822,7 @@
   },
   {
     "vin": "WBADT63401C441988",
+    "status": "available",
     "info": [
       {
         "model": "Optima",
@@ -860,6 +877,7 @@
   },
   {
     "vin": "WAUBVBFB6BN367342",
+    "status": "available",
     "info": [
       {
         "model": "Patriot",
@@ -908,6 +926,7 @@
   },
   {
     "vin": "WBAVC93597K976413",
+    "status": "available",
     "info": [
       {
         "model": "Thunderbird",
@@ -951,6 +970,7 @@
   },
   {
     "vin": "KMHTC6AD8FU721141",
+    "status": "available",
     "info": [
       {
         "model": "M-Class",
@@ -994,6 +1014,7 @@
   },
   {
     "vin": "WBAPH7C55BA260153",
+    "status": "available",
     "info": [
       {
         "model": "Yukon",
@@ -1044,6 +1065,7 @@
   },
   {
     "vin": "WBAWV5C52AP993202",
+    "status": "available",
     "info": [
       {
         "model": "164",
@@ -1090,6 +1112,7 @@
   },
   {
     "vin": "3VW4A7AT5DM943596",
+    "status": "available",
     "info": [
       {
         "model": "Millenia",
@@ -1138,6 +1161,7 @@
   },
   {
     "vin": "WBA3B5G56EN415773",
+    "status": "available",
     "info": [
       {
         "model": "Esteem",
@@ -1193,6 +1217,7 @@
   },
   {
     "vin": "WAUJC58E55A440397",
+    "status": "available",
     "info": [
       {
         "model": "E-Series",
@@ -1239,6 +1264,7 @@
   },
   {
     "vin": "WAUDG94F65N307311",
+    "status": "available",
     "info": [
       {
         "model": "Crown Victoria",
@@ -1278,6 +1304,7 @@
   },
   {
     "vin": "1G6AG5RX2E0297537",
+    "status": "available",
     "info": [
       {
         "model": "Sportage",
@@ -1330,6 +1357,7 @@
   },
   {
     "vin": "2G4GT5GX5E9734227",
+    "status": "available",
     "info": [
       {
         "model": "Grand Marquis",
@@ -1381,6 +1409,7 @@
   },
   {
     "vin": "1G6KD57Y11U491598",
+    "status": "available",
     "info": [
       {
         "model": "Leganza",
@@ -1433,6 +1462,7 @@
   },
   {
     "vin": "SALAC2D4XAA939035",
+    "status": "available",
     "info": [
       {
         "model": "Element",
@@ -1472,6 +1502,7 @@
   },
   {
     "vin": "WBAPT73539C000296",
+    "status": "available",
     "info": [
       {
         "model": "SL-Class",
@@ -1526,6 +1557,7 @@
   },
   {
     "vin": "1G6AB5SX3D0289437",
+    "status": "available",
     "info": [
       {
         "model": "Cooper Clubman",
@@ -1570,6 +1602,7 @@
   },
   {
     "vin": "JHMZE2H54DS828503",
+    "status": "available",
     "info": [
       {
         "model": "Tiburon",
@@ -1624,6 +1657,7 @@
   },
   {
     "vin": "1G6DN57U760767512",
+    "status": "available",
     "info": [
       {
         "model": "Commander",
@@ -1678,6 +1712,7 @@
   },
   {
     "vin": "1LNHL9DK8EG963586",
+    "status": "available",
     "info": [
       {
         "model": "Camry",
@@ -1721,6 +1756,7 @@
   },
   {
     "vin": "3GYFNDEY8BS326605",
+    "status": "available",
     "info": [
       {
         "model": "Continental GT",
@@ -1764,6 +1800,7 @@
   },
   {
     "vin": "JTMHY7AJXE4757015",
+    "status": "available",
     "info": [
       {
         "model": "RX-7",
@@ -1811,6 +1848,7 @@
   },
   {
     "vin": "KMHDB8AE4AU919901",
+    "status": "available",
     "info": [
       {
         "model": "RDX",
@@ -1860,6 +1898,7 @@
   },
   {
     "vin": "5J8TB3H35FL689887",
+    "status": "available",
     "info": [
       {
         "model": "Ram",
@@ -1903,6 +1942,7 @@
   },
   {
     "vin": "1GYFK63808R667595",
+    "status": "available",
     "info": [
       {
         "model": "MX-5",
@@ -1945,6 +1985,7 @@
   },
   {
     "vin": "3GYFNFEY5BS383193",
+    "status": "available",
     "info": [
       {
         "model": "Grand Caravan",
@@ -1983,6 +2024,7 @@
   },
   {
     "vin": "1FTEW1E87AF729312",
+    "status": "available",
     "info": [
       {
         "model": "Prizm",
@@ -2033,6 +2075,7 @@
   },
   {
     "vin": "1ZVBP8JS2C5771504",
+    "status": "available",
     "info": [
       {
         "model": "Rally Wagon 1500",
@@ -2087,6 +2130,7 @@
   },
   {
     "vin": "WAUFEBFM3BA599973",
+    "status": "available",
     "info": [
       {
         "model": "Previa",
@@ -2127,6 +2171,7 @@
   },
   {
     "vin": "2T1BURHE0EC191028",
+    "status": "available",
     "info": [
       {
         "model": "207",
@@ -2168,6 +2213,7 @@
   },
   {
     "vin": "WAU2GAFC9FN639840",
+    "status": "available",
     "info": [
       {
         "model": "Legacy",
@@ -2225,6 +2271,7 @@
   },
   {
     "vin": "JN1AV7AP0FM892507",
+    "status": "available",
     "info": [
       {
         "model": "Borrego",
@@ -2274,6 +2321,7 @@
   },
   {
     "vin": "1N4AA5AP3BC333763",
+    "status": "available",
     "info": [
       {
         "model": "Ram Van B250",
@@ -2324,6 +2372,7 @@
   },
   {
     "vin": "WBAAV53401J273479",
+    "status": "available",
     "info": [
       {
         "model": "XC90",
@@ -2372,6 +2421,7 @@
   },
   {
     "vin": "WAUMGBFL3DA634491",
+    "status": "available",
     "info": [
       {
         "model": "Rogue",
