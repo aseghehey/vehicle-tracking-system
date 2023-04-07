@@ -42,10 +42,10 @@ def loadOrders():
         
         for i in range(len(json_file)):
             cur_order = json_file[i]
-            id = cur_order['id']
+            id = cur_order['carVin']
             buyer = cur_order['buyer']
-            salesBy = cur_order['salesBy']
-            when = cur_order['when'];
+            salesBy = cur_order['soldBy']
+            when = cur_order['dateBought'];
             order = Order(id, buyer, salesBy, when)
             orders.append(order)
     return orders

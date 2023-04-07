@@ -10,7 +10,8 @@ class Order():
     """ Class represents orders made, works like a database one-to-one relationship with a buyer and a car"""
     def __init__(self, id, car=None, buyer=None, dateBought=None, employee=None) -> None:
         self.id = id # works like the primary key in a database
-        #if car: car.SetStatus('ordered')  #  set car status to ordered
+        self.car = car
+        if car: Car.SetStatus(car, 'ordered')  #  set car status to ordered
         # Car and Customer objects
         self.buyer = buyer #the user id
         self.salesBy = employee
