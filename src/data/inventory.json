@@ -1,6 +1,7 @@
 [
   {
     "vin": "SAJWA4EC5BM103106",
+    "status": "available",
     "info": [
       {
         "model": "1500",
@@ -10,7 +11,12 @@
         "color": "Violet"
       }
     ],
-    "performance": [{ "engine": "Electric", "transmission": "CVT" }],
+    "performance": [
+      {
+        "engine": "Electric",
+        "transmission": "CVT"
+      }
+    ],
     "design": [
       {
         "interior": [
@@ -33,7 +39,10 @@
         ]
       }
     ],
-    "handling": ["Power Steering", "Anti-lock brakes"],
+    "handling": [
+      "Power Steering",
+      "Anti-lock brakes"
+    ],
     "comfort": [
       "Front Seat Heaters",
       "Cross-Traffic Alert",
@@ -48,7 +57,9 @@
     "protection": [
       {
         "maintenance": "every 10.000 mile maintenance",
-        "warranty": ["30 day money back guarantee (up to 1500 miles)"]
+        "warranty": [
+          "30 day money back guarantee (up to 1500 miles)"
+        ]
       }
     ],
     "package": "Sports",
@@ -56,6 +67,7 @@
   },
   {
     "vin": "4F2CY0C73AK949059",
+    "status": "available",
     "info": [
       {
         "model": "Century",
@@ -65,7 +77,12 @@
         "color": "Crimson"
       }
     ],
-    "performance": [{ "engine": "V8", "transmission": "Manual" }],
+    "performance": [
+      {
+        "engine": "V8",
+        "transmission": "Manual"
+      }
+    ],
     "design": [
       {
         "interior": [
@@ -88,7 +105,10 @@
         ]
       }
     ],
-    "handling": ["Anti-lock brakes", "Power Steering"],
+    "handling": [
+      "Anti-lock brakes",
+      "Power Steering"
+    ],
     "comfort": [
       "Memory Seats",
       "Lane Departure Warning",
@@ -115,6 +135,7 @@
   },
   {
     "vin": "WAUFFAFM2BA842695",
+    "status": "available",
     "info": [
       {
         "model": "F350",
@@ -124,19 +145,34 @@
         "color": "Blue"
       }
     ],
-    "performance": [{ "engine": "V6", "transmission": "CVT" }],
+    "performance": [
+      {
+        "engine": "V6",
+        "transmission": "CVT"
+      }
+    ],
     "design": [
       {
-        "interior": ["Power Windows", "Power Seat(s)", "Power Locks"],
+        "interior": [
+          "Power Windows",
+          "Power Seat(s)",
+          "Power Locks"
+        ],
         "exterior": [
           {
             "paint": "Lacquer",
-            "extra": ["ABS Brakes", "Power Hatch/Deck Lidis", "Alloy Wheels"]
+            "extra": [
+              "ABS Brakes",
+              "Power Hatch/Deck Lidis",
+              "Alloy Wheels"
+            ]
           }
         ]
       }
     ],
-    "handling": ["Power Steering"],
+    "handling": [
+      "Power Steering"
+    ],
     "comfort": [
       "Front Seat Heaters",
       "Sunroof(s)",
@@ -163,6 +199,7 @@
   },
   {
     "vin": "3D73Y3CLXBG077475",
+    "status": "ordered",
     "info": [
       {
         "model": "Crosstour",
@@ -172,10 +209,18 @@
         "color": "Teal"
       }
     ],
-    "performance": [{ "engine": "Petrol", "transmission": "CVT" }],
+    "performance": [
+      {
+        "engine": "Petrol",
+        "transmission": "CVT"
+      }
+    ],
     "design": [
       {
-        "interior": ["Power Mirrors", "Overhead Airbags"],
+        "interior": [
+          "Power Mirrors",
+          "Overhead Airbags"
+        ],
         "exterior": [
           {
             "paint": "Matte",
@@ -189,13 +234,24 @@
         ]
       }
     ],
-    "handling": ["Power Steering"],
-    "comfort": ["Air Conditioning", "Bluetooth Technology"],
-    "audio": ["Auxiliary Audio Input", "Meridian Audio", "AM/FM Stereo"],
+    "handling": [
+      "Power Steering"
+    ],
+    "comfort": [
+      "Air Conditioning",
+      "Bluetooth Technology"
+    ],
+    "audio": [
+      "Auxiliary Audio Input",
+      "Meridian Audio",
+      "AM/FM Stereo"
+    ],
     "protection": [
       {
         "maintenance": "10-year Oil Change maintenance",
-        "warranty": ["Unlimited Tire & Wheel Protection"]
+        "warranty": [
+          "Unlimited Tire & Wheel Protection"
+        ]
       }
     ],
     "package": "Sports",
@@ -203,6 +259,7 @@
   },
   {
     "vin": "JTJHY7AX1E4512122",
+    "status": "ordered",
     "info": [
       {
         "model": "S80",
@@ -212,7 +269,12 @@
         "color": "Mauv"
       }
     ],
-    "performance": [{ "engine": "Electric", "transmission": "Manual" }],
+    "performance": [
+      {
+        "engine": "Electric",
+        "transmission": "Manual"
+      }
+    ],
     "design": [
       {
         "interior": [
@@ -233,7 +295,9 @@
         ]
       }
     ],
-    "handling": ["Power Steering"],
+    "handling": [
+      "Power Steering"
+    ],
     "comfort": [
       "Cruise Control",
       "Bluetooth Technology",
@@ -241,7 +305,11 @@
       "Adjustable seats",
       "Leather seats"
     ],
-    "audio": ["AM/FM Stereo", "Auxiliary Audio Input", "Satellite Radio Ready"],
+    "audio": [
+      "AM/FM Stereo",
+      "Auxiliary Audio Input",
+      "Satellite Radio Ready"
+    ],
     "protection": [
       {
         "maintenance": "10-year Oil Change maintenance",
@@ -257,6 +325,7 @@
   },
   {
     "vin": "1D7RE5GK1BS514059",
+    "status": "ordered",
     "info": [
       {
         "model": "A8",
@@ -266,7 +335,12 @@
         "color": "Teal"
       }
     ],
-    "performance": [{ "engine": "4 Cylinder", "transmission": "Automatic" }],
+    "performance": [
+      {
+        "engine": "4 Cylinder",
+        "transmission": "Automatic"
+      }
+    ],
     "design": [
       {
         "interior": [
@@ -278,12 +352,17 @@
         "exterior": [
           {
             "paint": "Pearlescent",
-            "extra": ["ABS Brakes", "Turbo Charged Engine"]
+            "extra": [
+              "ABS Brakes",
+              "Turbo Charged Engine"
+            ]
           }
         ]
       }
     ],
-    "handling": ["Power Steering"],
+    "handling": [
+      "Power Steering"
+    ],
     "comfort": [
       "Lane Departure Warning",
       "Navigation System",
@@ -309,6 +388,7 @@
   },
   {
     "vin": "WDDHF5KB3FB718643",
+    "status": "ordered",
     "info": [
       {
         "model": "Range Rover",
@@ -318,7 +398,12 @@
         "color": "Green"
       }
     ],
-    "performance": [{ "engine": "6 Cylinder", "transmission": "CVT" }],
+    "performance": [
+      {
+        "engine": "6 Cylinder",
+        "transmission": "CVT"
+      }
+    ],
     "design": [
       {
         "interior": [
@@ -340,8 +425,14 @@
         ]
       }
     ],
-    "handling": ["Power Steering"],
-    "comfort": ["Cross-Traffic Alert", "Sunroof(s)", "Skylight(s)"],
+    "handling": [
+      "Power Steering"
+    ],
+    "comfort": [
+      "Cross-Traffic Alert",
+      "Sunroof(s)",
+      "Skylight(s)"
+    ],
     "audio": [
       "Auxiliary Audio Input",
       "Meridian Audio",
@@ -362,6 +453,7 @@
   },
   {
     "vin": "2G61S5S32D9107584",
+    "status": "available",
     "info": [
       {
         "model": "Trans Sport",
@@ -371,7 +463,12 @@
         "color": "Teal"
       }
     ],
-    "performance": [{ "engine": "Gas", "transmission": "Automatic" }],
+    "performance": [
+      {
+        "engine": "Gas",
+        "transmission": "Automatic"
+      }
+    ],
     "design": [
       {
         "interior": [
@@ -381,12 +478,24 @@
           "Overhead Airbags"
         ],
         "exterior": [
-          { "paint": "Matte", "extra": ["Fog Lamps", "Power Hatch/Deck Lidis"] }
+          {
+            "paint": "Matte",
+            "extra": [
+              "Fog Lamps",
+              "Power Hatch/Deck Lidis"
+            ]
+          }
         ]
       }
     ],
-    "handling": ["Power Steering", "Anti-lock brakes"],
-    "comfort": ["Skylight(s)", "Cruise Control"],
+    "handling": [
+      "Power Steering",
+      "Anti-lock brakes"
+    ],
+    "comfort": [
+      "Skylight(s)",
+      "Cruise Control"
+    ],
     "audio": [
       "SiriusXM Trial Available",
       "Auxiliary Audio Input",
@@ -406,6 +515,7 @@
   },
   {
     "vin": "KL4CJHSB1FB225364",
+    "status": "ordered",
     "info": [
       {
         "model": "Ram Van 1500",
@@ -415,10 +525,18 @@
         "color": "Puce"
       }
     ],
-    "performance": [{ "engine": "Hybrid", "transmission": "Automatic" }],
+    "performance": [
+      {
+        "engine": "Hybrid",
+        "transmission": "Automatic"
+      }
+    ],
     "design": [
       {
-        "interior": ["Power Seat(s)", "Power Windows"],
+        "interior": [
+          "Power Seat(s)",
+          "Power Windows"
+        ],
         "exterior": [
           {
             "paint": "Matte",
@@ -431,7 +549,9 @@
         ]
       }
     ],
-    "handling": ["Anti-lock brakes"],
+    "handling": [
+      "Anti-lock brakes"
+    ],
     "comfort": [
       "Lane Departure Warning",
       "Bluetooth Technology",
@@ -457,6 +577,7 @@
   },
   {
     "vin": "2G4GT5GX8E9985923",
+    "status": "available",
     "info": [
       {
         "model": "Corvette",
@@ -466,7 +587,12 @@
         "color": "Violet"
       }
     ],
-    "performance": [{ "engine": "Hybrid", "transmission": "CVT" }],
+    "performance": [
+      {
+        "engine": "Hybrid",
+        "transmission": "CVT"
+      }
+    ],
     "design": [
       {
         "interior": [
@@ -489,9 +615,20 @@
         ]
       }
     ],
-    "handling": ["Power Steering", "Anti-lock brakes"],
-    "comfort": ["Leather seats", "Adjustable seats", "Cruise Control"],
-    "audio": ["Meridian Audio", "SiriusXM Trial Available", "AM/FM Stereo"],
+    "handling": [
+      "Power Steering",
+      "Anti-lock brakes"
+    ],
+    "comfort": [
+      "Leather seats",
+      "Adjustable seats",
+      "Cruise Control"
+    ],
+    "audio": [
+      "Meridian Audio",
+      "SiriusXM Trial Available",
+      "AM/FM Stereo"
+    ],
     "protection": [
       {
         "maintenance": "every 10.000 mile maintenance",
@@ -506,6 +643,7 @@
   },
   {
     "vin": "1G6DA5E57C0968569",
+    "status": "available",
     "info": [
       {
         "model": "Echo",
@@ -515,7 +653,12 @@
         "color": "Indigo"
       }
     ],
-    "performance": [{ "engine": "Gas", "transmission": "CVT" }],
+    "performance": [
+      {
+        "engine": "Gas",
+        "transmission": "CVT"
+      }
+    ],
     "design": [
       {
         "interior": [
@@ -536,7 +679,9 @@
         ]
       }
     ],
-    "handling": ["Power Steering"],
+    "handling": [
+      "Power Steering"
+    ],
     "comfort": [
       "Memory Seats",
       "Leather seats",
@@ -544,7 +689,11 @@
       "Bluetooth Technology",
       "Lane Departure Warning"
     ],
-    "audio": ["AM/FM Stereo", "Meridian Audio", "Satellite Radio Ready"],
+    "audio": [
+      "AM/FM Stereo",
+      "Meridian Audio",
+      "Satellite Radio Ready"
+    ],
     "protection": [
       {
         "maintenance": "10-year Oil Change maintenance",
@@ -560,6 +709,7 @@
   },
   {
     "vin": "1D7RB1CT0AS664971",
+    "status": "available",
     "info": [
       {
         "model": "Impreza",
@@ -569,7 +719,12 @@
         "color": "Violet"
       }
     ],
-    "performance": [{ "engine": "Diesel", "transmission": "Manual" }],
+    "performance": [
+      {
+        "engine": "Diesel",
+        "transmission": "Manual"
+      }
+    ],
     "design": [
       {
         "interior": [
@@ -580,14 +735,28 @@
         "exterior": [
           {
             "paint": "Acrylic",
-            "extra": ["Daytime Running Lights", "ABS Brakes", "Alloy Wheels"]
+            "extra": [
+              "Daytime Running Lights",
+              "ABS Brakes",
+              "Alloy Wheels"
+            ]
           }
         ]
       }
     ],
-    "handling": ["Anti-lock brakes", "Power Steering"],
-    "comfort": ["Bluetooth Technology", "Leather seats"],
-    "audio": ["AM/FM Stereo", "Meridian Audio", "Satellite Radio Ready"],
+    "handling": [
+      "Anti-lock brakes",
+      "Power Steering"
+    ],
+    "comfort": [
+      "Bluetooth Technology",
+      "Leather seats"
+    ],
+    "audio": [
+      "AM/FM Stereo",
+      "Meridian Audio",
+      "Satellite Radio Ready"
+    ],
     "protection": [
       {
         "maintenance": "10-year Oil Change maintenance",
@@ -603,6 +772,7 @@
   },
   {
     "vin": "JTEBU4BF5BK939847",
+    "status": "available",
     "info": [
       {
         "model": "Suburban 2500",
@@ -612,7 +782,12 @@
         "color": "Orange"
       }
     ],
-    "performance": [{ "engine": "V6", "transmission": "CVT" }],
+    "performance": [
+      {
+        "engine": "V6",
+        "transmission": "CVT"
+      }
+    ],
     "design": [
       {
         "interior": [
@@ -634,7 +809,9 @@
         ]
       }
     ],
-    "handling": ["Power Steering"],
+    "handling": [
+      "Power Steering"
+    ],
     "comfort": [
       "Navigation System",
       "Memory Seats",
@@ -650,7 +827,10 @@
     "protection": [
       {
         "maintenance": "every 10.000 mile maintenance",
-        "warranty": ["Roadside Assistance", "Unlimited Windshield Protection"]
+        "warranty": [
+          "Roadside Assistance",
+          "Unlimited Windshield Protection"
+        ]
       }
     ],
     "package": "Premium",
@@ -658,6 +838,7 @@
   },
   {
     "vin": "WVWAB7AJ2DW767723",
+    "status": "available",
     "info": [
       {
         "model": "Colorado",
@@ -667,7 +848,12 @@
         "color": "Green"
       }
     ],
-    "performance": [{ "engine": "4 Cylinder", "transmission": "Automatic" }],
+    "performance": [
+      {
+        "engine": "4 Cylinder",
+        "transmission": "Automatic"
+      }
+    ],
     "design": [
       {
         "interior": [
@@ -690,7 +876,10 @@
         ]
       }
     ],
-    "handling": ["Power Steering", "Anti-lock brakes"],
+    "handling": [
+      "Power Steering",
+      "Anti-lock brakes"
+    ],
     "comfort": [
       "Memory Seats",
       "Sunroof(s)",
@@ -718,6 +907,7 @@
   },
   {
     "vin": "JN8AF5MR0CT408949",
+    "status": "available",
     "info": [
       {
         "model": "Savana 2500",
@@ -727,23 +917,45 @@
         "color": "Green"
       }
     ],
-    "performance": [{ "engine": "Hybrid", "transmission": "Manual" }],
+    "performance": [
+      {
+        "engine": "Hybrid",
+        "transmission": "Manual"
+      }
+    ],
     "design": [
       {
-        "interior": ["Overhead Airbags", "Power Mirrors", "Power Locks"],
+        "interior": [
+          "Overhead Airbags",
+          "Power Mirrors",
+          "Power Locks"
+        ],
         "exterior": [
-          { "paint": "Lacquer", "extra": ["Fog Lamps", "Alloy Wheels"] }
+          {
+            "paint": "Lacquer",
+            "extra": [
+              "Fog Lamps",
+              "Alloy Wheels"
+            ]
+          }
         ]
       }
     ],
-    "handling": ["Anti-lock brakes", "Power Steering"],
+    "handling": [
+      "Anti-lock brakes",
+      "Power Steering"
+    ],
     "comfort": [
       "Leather seats",
       "Skylight(s)",
       "Rear View Camera",
       "Sunroof(s)"
     ],
-    "audio": ["Satellite Radio Ready", "Meridian Audio", "AM/FM Stereo"],
+    "audio": [
+      "Satellite Radio Ready",
+      "Meridian Audio",
+      "AM/FM Stereo"
+    ],
     "protection": [
       {
         "maintenance": "every 10.000 mile maintenance",
@@ -759,6 +971,7 @@
   },
   {
     "vin": "1GKS1EEF9ER296501",
+    "status": "available",
     "info": [
       {
         "model": "VS Commodore",
@@ -768,7 +981,12 @@
         "color": "Turquoise"
       }
     ],
-    "performance": [{ "engine": "Electric", "transmission": "Automatic" }],
+    "performance": [
+      {
+        "engine": "Electric",
+        "transmission": "Automatic"
+      }
+    ],
     "design": [
       {
         "interior": [
@@ -781,12 +999,18 @@
         "exterior": [
           {
             "paint": "Pearlescent",
-            "extra": ["Alloy Wheels", "Power Hatch/Deck Lidis", "Fog Lamps"]
+            "extra": [
+              "Alloy Wheels",
+              "Power Hatch/Deck Lidis",
+              "Fog Lamps"
+            ]
           }
         ]
       }
     ],
-    "handling": ["Anti-lock brakes"],
+    "handling": [
+      "Anti-lock brakes"
+    ],
     "comfort": [
       "Cruise Control",
       "Front Seat Heaters",
@@ -794,11 +1018,17 @@
       "Navigation System",
       "Adjustable seats"
     ],
-    "audio": ["AM/FM Stereo", "Auxiliary Audio Input", "Meridian Audio"],
+    "audio": [
+      "AM/FM Stereo",
+      "Auxiliary Audio Input",
+      "Meridian Audio"
+    ],
     "protection": [
       {
         "maintenance": "3-year/36.000-mile scheduled maintenance",
-        "warranty": ["Unlimited Windshield Protection"]
+        "warranty": [
+          "Unlimited Windshield Protection"
+        ]
       }
     ],
     "package": "Sports",
@@ -806,6 +1036,7 @@
   },
   {
     "vin": "WBADT63401C441988",
+    "status": "available",
     "info": [
       {
         "model": "Optima",
@@ -815,7 +1046,12 @@
         "color": "Yellow"
       }
     ],
-    "performance": [{ "engine": "Hybrid", "transmission": "CVT" }],
+    "performance": [
+      {
+        "engine": "Hybrid",
+        "transmission": "CVT"
+      }
+    ],
     "design": [
       {
         "interior": [
@@ -838,8 +1074,14 @@
         ]
       }
     ],
-    "handling": ["Power Steering"],
-    "comfort": ["Cross-Traffic Alert", "Memory Seats", "Cruise Control"],
+    "handling": [
+      "Power Steering"
+    ],
+    "comfort": [
+      "Cross-Traffic Alert",
+      "Memory Seats",
+      "Cruise Control"
+    ],
     "audio": [
       "Satellite Radio Ready",
       "Auxiliary Audio Input",
@@ -860,6 +1102,7 @@
   },
   {
     "vin": "WAUBVBFB6BN367342",
+    "status": "available",
     "info": [
       {
         "model": "Patriot",
@@ -869,7 +1112,12 @@
         "color": "Blue"
       }
     ],
-    "performance": [{ "engine": "Diesel", "transmission": "Automatic" }],
+    "performance": [
+      {
+        "engine": "Diesel",
+        "transmission": "Automatic"
+      }
+    ],
     "design": [
       {
         "interior": [
@@ -880,12 +1128,18 @@
         "exterior": [
           {
             "paint": "Pearlescent",
-            "extra": ["Power Hatch/Deck Lidis", "Rear Defroster"]
+            "extra": [
+              "Power Hatch/Deck Lidis",
+              "Rear Defroster"
+            ]
           }
         ]
       }
     ],
-    "handling": ["Anti-lock brakes", "Power Steering"],
+    "handling": [
+      "Anti-lock brakes",
+      "Power Steering"
+    ],
     "comfort": [
       "Cruise Control",
       "Skylight(s)",
@@ -893,7 +1147,11 @@
       "Lane Departure Warning",
       "Automated Parking"
     ],
-    "audio": ["Auxiliary Audio Input", "AM/FM Stereo", "Satellite Radio Ready"],
+    "audio": [
+      "Auxiliary Audio Input",
+      "AM/FM Stereo",
+      "Satellite Radio Ready"
+    ],
     "protection": [
       {
         "maintenance": "10-year Oil Change maintenance",
@@ -908,6 +1166,7 @@
   },
   {
     "vin": "WBAVC93597K976413",
+    "status": "available",
     "info": [
       {
         "model": "Thunderbird",
@@ -917,20 +1176,38 @@
         "color": "Aquamarine"
       }
     ],
-    "performance": [{ "engine": "Gas", "transmission": "Automatic" }],
+    "performance": [
+      {
+        "engine": "Gas",
+        "transmission": "Automatic"
+      }
+    ],
     "design": [
       {
-        "interior": ["Power Locks", "Universal Garage Door Opener"],
+        "interior": [
+          "Power Locks",
+          "Universal Garage Door Opener"
+        ],
         "exterior": [
           {
             "paint": "Urethane",
-            "extra": ["Rear Defroster", "Daytime Running Lights", "ABS Brakes"]
+            "extra": [
+              "Rear Defroster",
+              "Daytime Running Lights",
+              "ABS Brakes"
+            ]
           }
         ]
       }
     ],
-    "handling": ["Anti-lock brakes"],
-    "comfort": ["Front Seat Heaters", "Air Conditioning", "Navigation System"],
+    "handling": [
+      "Anti-lock brakes"
+    ],
+    "comfort": [
+      "Front Seat Heaters",
+      "Air Conditioning",
+      "Navigation System"
+    ],
     "audio": [
       "Satellite Radio Ready",
       "Auxiliary Audio Input",
@@ -951,6 +1228,7 @@
   },
   {
     "vin": "KMHTC6AD8FU721141",
+    "status": "available",
     "info": [
       {
         "model": "M-Class",
@@ -960,7 +1238,12 @@
         "color": "Orange"
       }
     ],
-    "performance": [{ "engine": "Petrol", "transmission": "Manual" }],
+    "performance": [
+      {
+        "engine": "Petrol",
+        "transmission": "Manual"
+      }
+    ],
     "design": [
       {
         "interior": [
@@ -972,14 +1255,27 @@
         "exterior": [
           {
             "paint": "Pearlescent",
-            "extra": ["Turbo Charged Engine", "Daytime Running Lights"]
+            "extra": [
+              "Turbo Charged Engine",
+              "Daytime Running Lights"
+            ]
           }
         ]
       }
     ],
-    "handling": ["Power Steering", "Anti-lock brakes"],
-    "comfort": ["Lane Departure Warning", "Bluetooth Technology"],
-    "audio": ["Satellite Radio Ready", "AM/FM Stereo", "Meridian Audio"],
+    "handling": [
+      "Power Steering",
+      "Anti-lock brakes"
+    ],
+    "comfort": [
+      "Lane Departure Warning",
+      "Bluetooth Technology"
+    ],
+    "audio": [
+      "Satellite Radio Ready",
+      "AM/FM Stereo",
+      "Meridian Audio"
+    ],
     "protection": [
       {
         "maintenance": "3-year/36.000-mile scheduled maintenance",
@@ -994,6 +1290,7 @@
   },
   {
     "vin": "WBAPH7C55BA260153",
+    "status": "available",
     "info": [
       {
         "model": "Yukon",
@@ -1003,7 +1300,12 @@
         "color": "Goldenrod"
       }
     ],
-    "performance": [{ "engine": "Gas", "transmission": "Automatic" }],
+    "performance": [
+      {
+        "engine": "Gas",
+        "transmission": "Automatic"
+      }
+    ],
     "design": [
       {
         "interior": [
@@ -1016,12 +1318,18 @@
         "exterior": [
           {
             "paint": "Metallic",
-            "extra": ["ABS Brakes", "Fog Lamps", "Daytime Running Lights"]
+            "extra": [
+              "ABS Brakes",
+              "Fog Lamps",
+              "Daytime Running Lights"
+            ]
           }
         ]
       }
     ],
-    "handling": ["Anti-lock brakes"],
+    "handling": [
+      "Anti-lock brakes"
+    ],
     "comfort": [
       "Lane Departure Warning",
       "Cross-Traffic Alert",
@@ -1036,7 +1344,10 @@
     "protection": [
       {
         "maintenance": "every 10.000 mile maintenance",
-        "warranty": ["Unlimited Tire & Wheel Protection", "Roadside Assistance"]
+        "warranty": [
+          "Unlimited Tire & Wheel Protection",
+          "Roadside Assistance"
+        ]
       }
     ],
     "package": "Sports",
@@ -1044,6 +1355,7 @@
   },
   {
     "vin": "WBAWV5C52AP993202",
+    "status": "available",
     "info": [
       {
         "model": "164",
@@ -1053,7 +1365,12 @@
         "color": "Indigo"
       }
     ],
-    "performance": [{ "engine": "Electric", "transmission": "Automatic" }],
+    "performance": [
+      {
+        "engine": "Electric",
+        "transmission": "Automatic"
+      }
+    ],
     "design": [
       {
         "interior": [
@@ -1076,13 +1393,25 @@
         ]
       }
     ],
-    "handling": ["Power Steering", "Anti-lock brakes"],
-    "comfort": ["Memory Seats", "Adjustable seats"],
-    "audio": ["Auxiliary Audio Input", "AM/FM Stereo", "Satellite Radio Ready"],
+    "handling": [
+      "Power Steering",
+      "Anti-lock brakes"
+    ],
+    "comfort": [
+      "Memory Seats",
+      "Adjustable seats"
+    ],
+    "audio": [
+      "Auxiliary Audio Input",
+      "AM/FM Stereo",
+      "Satellite Radio Ready"
+    ],
     "protection": [
       {
         "maintenance": "10-year Oil Change maintenance",
-        "warranty": ["90 day or 4000 mile limited warranty"]
+        "warranty": [
+          "90 day or 4000 mile limited warranty"
+        ]
       }
     ],
     "package": "Economic",
@@ -1090,6 +1419,7 @@
   },
   {
     "vin": "3VW4A7AT5DM943596",
+    "status": "available",
     "info": [
       {
         "model": "Millenia",
@@ -1099,19 +1429,32 @@
         "color": "Fuscia"
       }
     ],
-    "performance": [{ "engine": "6 Cylinder", "transmission": "Manual" }],
+    "performance": [
+      {
+        "engine": "6 Cylinder",
+        "transmission": "Manual"
+      }
+    ],
     "design": [
       {
-        "interior": ["Power Locks", "Power Seat(s)"],
+        "interior": [
+          "Power Locks",
+          "Power Seat(s)"
+        ],
         "exterior": [
           {
             "paint": "Matte",
-            "extra": ["Power Hatch/Deck Lidis", "ABS Brakes"]
+            "extra": [
+              "Power Hatch/Deck Lidis",
+              "ABS Brakes"
+            ]
           }
         ]
       }
     ],
-    "handling": ["Anti-lock brakes"],
+    "handling": [
+      "Anti-lock brakes"
+    ],
     "comfort": [
       "Air Conditioning",
       "Automated Parking",
@@ -1138,6 +1481,7 @@
   },
   {
     "vin": "WBA3B5G56EN415773",
+    "status": "available",
     "info": [
       {
         "model": "Esteem",
@@ -1147,7 +1491,12 @@
         "color": "Orange"
       }
     ],
-    "performance": [{ "engine": "V12 Turbo", "transmission": "CVT" }],
+    "performance": [
+      {
+        "engine": "V12 Turbo",
+        "transmission": "CVT"
+      }
+    ],
     "design": [
       {
         "interior": [
@@ -1170,7 +1519,9 @@
         ]
       }
     ],
-    "handling": ["Anti-lock brakes"],
+    "handling": [
+      "Anti-lock brakes"
+    ],
     "comfort": [
       "Memory Seats",
       "Lane Departure Warning",
@@ -1178,7 +1529,11 @@
       "Sunroof(s)",
       "Front Seat Heaters"
     ],
-    "audio": ["SiriusXM Trial Available", "Meridian Audio", "AM/FM Stereo"],
+    "audio": [
+      "SiriusXM Trial Available",
+      "Meridian Audio",
+      "AM/FM Stereo"
+    ],
     "protection": [
       {
         "maintenance": "3-year/36.000-mile scheduled maintenance",
@@ -1193,6 +1548,7 @@
   },
   {
     "vin": "WAUJC58E55A440397",
+    "status": "available",
     "info": [
       {
         "model": "E-Series",
@@ -1202,7 +1558,12 @@
         "color": "Puce"
       }
     ],
-    "performance": [{ "engine": "Petrol", "transmission": "Manual" }],
+    "performance": [
+      {
+        "engine": "Petrol",
+        "transmission": "Manual"
+      }
+    ],
     "design": [
       {
         "interior": [
@@ -1212,11 +1573,19 @@
           "Power Mirrors"
         ],
         "exterior": [
-          { "paint": "Pearlescent", "extra": ["Fog Lamps", "ABS Brakes"] }
+          {
+            "paint": "Pearlescent",
+            "extra": [
+              "Fog Lamps",
+              "ABS Brakes"
+            ]
+          }
         ]
       }
     ],
-    "handling": ["Anti-lock brakes"],
+    "handling": [
+      "Anti-lock brakes"
+    ],
     "comfort": [
       "Cross-Traffic Alert",
       "Lane Departure Warning",
@@ -1231,7 +1600,10 @@
     "protection": [
       {
         "maintenance": "every 10.000 mile maintenance",
-        "warranty": ["Unlimited Theft Protection", "2-year Dent Protection"]
+        "warranty": [
+          "Unlimited Theft Protection",
+          "2-year Dent Protection"
+        ]
       }
     ],
     "package": "Premium",
@@ -1239,6 +1611,7 @@
   },
   {
     "vin": "WAUDG94F65N307311",
+    "status": "available",
     "info": [
       {
         "model": "Crown Victoria",
@@ -1248,20 +1621,36 @@
         "color": "Pink"
       }
     ],
-    "performance": [{ "engine": "6 Cylinder", "transmission": "Automatic" }],
+    "performance": [
+      {
+        "engine": "6 Cylinder",
+        "transmission": "Automatic"
+      }
+    ],
     "design": [
       {
-        "interior": ["Power Seat(s)", "Power Windows"],
+        "interior": [
+          "Power Seat(s)",
+          "Power Windows"
+        ],
         "exterior": [
           {
             "paint": "Acrylic",
-            "extra": ["Daytime Running Lights", "Power Hatch/Deck Lidis"]
+            "extra": [
+              "Daytime Running Lights",
+              "Power Hatch/Deck Lidis"
+            ]
           }
         ]
       }
     ],
-    "handling": ["Anti-lock brakes"],
-    "comfort": ["Air Conditioning", "Sunroof(s)"],
+    "handling": [
+      "Anti-lock brakes"
+    ],
+    "comfort": [
+      "Air Conditioning",
+      "Sunroof(s)"
+    ],
     "audio": [
       "Satellite Radio Ready",
       "Meridian Audio",
@@ -1270,7 +1659,10 @@
     "protection": [
       {
         "maintenance": "10-year Oil Change maintenance",
-        "warranty": ["Roadside Assistance", "Unlimited Tire & Wheel Protection"]
+        "warranty": [
+          "Roadside Assistance",
+          "Unlimited Tire & Wheel Protection"
+        ]
       }
     ],
     "package": "Luxurious",
@@ -1278,6 +1670,7 @@
   },
   {
     "vin": "1G6AG5RX2E0297537",
+    "status": "available",
     "info": [
       {
         "model": "Sportage",
@@ -1287,7 +1680,12 @@
         "color": "Mauv"
       }
     ],
-    "performance": [{ "engine": "V8", "transmission": "Automatic" }],
+    "performance": [
+      {
+        "engine": "V8",
+        "transmission": "Automatic"
+      }
+    ],
     "design": [
       {
         "interior": [
@@ -1309,8 +1707,13 @@
         ]
       }
     ],
-    "handling": ["Power Steering"],
-    "comfort": ["Bluetooth Technology", "Lane Departure Warning"],
+    "handling": [
+      "Power Steering"
+    ],
+    "comfort": [
+      "Bluetooth Technology",
+      "Lane Departure Warning"
+    ],
     "audio": [
       "Auxiliary Audio Input",
       "SiriusXM Trial Available",
@@ -1330,6 +1733,7 @@
   },
   {
     "vin": "2G4GT5GX5E9734227",
+    "status": "available",
     "info": [
       {
         "model": "Grand Marquis",
@@ -1339,7 +1743,12 @@
         "color": "Purple"
       }
     ],
-    "performance": [{ "engine": "Hybrid", "transmission": "Automatic" }],
+    "performance": [
+      {
+        "engine": "Hybrid",
+        "transmission": "Automatic"
+      }
+    ],
     "design": [
       {
         "interior": [
@@ -1352,12 +1761,19 @@
         "exterior": [
           {
             "paint": "Urethane",
-            "extra": ["Fog Lamps", "Alloy Wheels", "Power Hatch/Deck Lidis"]
+            "extra": [
+              "Fog Lamps",
+              "Alloy Wheels",
+              "Power Hatch/Deck Lidis"
+            ]
           }
         ]
       }
     ],
-    "handling": ["Anti-lock brakes", "Power Steering"],
+    "handling": [
+      "Anti-lock brakes",
+      "Power Steering"
+    ],
     "comfort": [
       "Lane Departure Warning",
       "Skylight(s)",
@@ -1373,7 +1789,9 @@
     "protection": [
       {
         "maintenance": "every 10.000 mile maintenance",
-        "warranty": ["Unlimited Windshield Protection"]
+        "warranty": [
+          "Unlimited Windshield Protection"
+        ]
       }
     ],
     "package": "Sports",
@@ -1381,6 +1799,7 @@
   },
   {
     "vin": "1G6KD57Y11U491598",
+    "status": "available",
     "info": [
       {
         "model": "Leganza",
@@ -1390,7 +1809,12 @@
         "color": "Puce"
       }
     ],
-    "performance": [{ "engine": "4 Cylinder", "transmission": "Automatic" }],
+    "performance": [
+      {
+        "engine": "4 Cylinder",
+        "transmission": "Automatic"
+      }
+    ],
     "design": [
       {
         "interior": [
@@ -1401,12 +1825,18 @@
         "exterior": [
           {
             "paint": "Urethane",
-            "extra": ["Power Hatch/Deck Lidis", "Daytime Running Lights"]
+            "extra": [
+              "Power Hatch/Deck Lidis",
+              "Daytime Running Lights"
+            ]
           }
         ]
       }
     ],
-    "handling": ["Power Steering", "Anti-lock brakes"],
+    "handling": [
+      "Power Steering",
+      "Anti-lock brakes"
+    ],
     "comfort": [
       "Sunroof(s)",
       "Automated Parking",
@@ -1433,6 +1863,7 @@
   },
   {
     "vin": "SALAC2D4XAA939035",
+    "status": "available",
     "info": [
       {
         "model": "Element",
@@ -1442,21 +1873,41 @@
         "color": "Violet"
       }
     ],
-    "performance": [{ "engine": "Hybrid", "transmission": "CVT" }],
+    "performance": [
+      {
+        "engine": "Hybrid",
+        "transmission": "CVT"
+      }
+    ],
     "design": [
       {
-        "interior": ["Power Locks", "Universal Garage Door Opener"],
+        "interior": [
+          "Power Locks",
+          "Universal Garage Door Opener"
+        ],
         "exterior": [
           {
             "paint": "Pearlescent",
-            "extra": ["Power Hatch/Deck Lidis", "ABS Brakes"]
+            "extra": [
+              "Power Hatch/Deck Lidis",
+              "ABS Brakes"
+            ]
           }
         ]
       }
     ],
-    "handling": ["Anti-lock brakes"],
-    "comfort": ["Air Conditioning", "Leather seats"],
-    "audio": ["Auxiliary Audio Input", "AM/FM Stereo", "Satellite Radio Ready"],
+    "handling": [
+      "Anti-lock brakes"
+    ],
+    "comfort": [
+      "Air Conditioning",
+      "Leather seats"
+    ],
+    "audio": [
+      "Auxiliary Audio Input",
+      "AM/FM Stereo",
+      "Satellite Radio Ready"
+    ],
     "protection": [
       {
         "maintenance": "10-year Oil Change maintenance",
@@ -1472,6 +1923,7 @@
   },
   {
     "vin": "WBAPT73539C000296",
+    "status": "available",
     "info": [
       {
         "model": "SL-Class",
@@ -1481,10 +1933,18 @@
         "color": "Teal"
       }
     ],
-    "performance": [{ "engine": "V8", "transmission": "Manual" }],
+    "performance": [
+      {
+        "engine": "V8",
+        "transmission": "Manual"
+      }
+    ],
     "design": [
       {
-        "interior": ["Overhead Airbags", "Power Locks"],
+        "interior": [
+          "Overhead Airbags",
+          "Power Locks"
+        ],
         "exterior": [
           {
             "paint": "Metallic",
@@ -1498,7 +1958,9 @@
         ]
       }
     ],
-    "handling": ["Anti-lock brakes"],
+    "handling": [
+      "Anti-lock brakes"
+    ],
     "comfort": [
       "Skylight(s)",
       "Front Seat Heaters",
@@ -1526,6 +1988,7 @@
   },
   {
     "vin": "1G6AB5SX3D0289437",
+    "status": "available",
     "info": [
       {
         "model": "Cooper Clubman",
@@ -1535,10 +1998,18 @@
         "color": "Violet"
       }
     ],
-    "performance": [{ "engine": "V12 Turbo", "transmission": "Manual" }],
+    "performance": [
+      {
+        "engine": "V12 Turbo",
+        "transmission": "Manual"
+      }
+    ],
     "design": [
       {
-        "interior": ["Universal Garage Door Opener", "Power Windows"],
+        "interior": [
+          "Universal Garage Door Opener",
+          "Power Windows"
+        ],
         "exterior": [
           {
             "paint": "Metallic",
@@ -1551,18 +2022,27 @@
         ]
       }
     ],
-    "handling": ["Anti-lock brakes", "Power Steering"],
+    "handling": [
+      "Anti-lock brakes",
+      "Power Steering"
+    ],
     "comfort": [
       "Adjustable seats",
       "Lane Departure Warning",
       "Cruise Control",
       "Navigation System"
     ],
-    "audio": ["SiriusXM Trial Available", "AM/FM Stereo", "Meridian Audio"],
+    "audio": [
+      "SiriusXM Trial Available",
+      "AM/FM Stereo",
+      "Meridian Audio"
+    ],
     "protection": [
       {
         "maintenance": "10-year Oil Change maintenance",
-        "warranty": ["Unlimited Theft Protection"]
+        "warranty": [
+          "Unlimited Theft Protection"
+        ]
       }
     ],
     "package": "Luxurious",
@@ -1570,6 +2050,7 @@
   },
   {
     "vin": "JHMZE2H54DS828503",
+    "status": "available",
     "info": [
       {
         "model": "Tiburon",
@@ -1579,7 +2060,12 @@
         "color": "Violet"
       }
     ],
-    "performance": [{ "engine": "4 Cylinder", "transmission": "CVT" }],
+    "performance": [
+      {
+        "engine": "4 Cylinder",
+        "transmission": "CVT"
+      }
+    ],
     "design": [
       {
         "interior": [
@@ -1601,7 +2087,9 @@
         ]
       }
     ],
-    "handling": ["Anti-lock brakes"],
+    "handling": [
+      "Anti-lock brakes"
+    ],
     "comfort": [
       "Skylight(s)",
       "Keyless entry",
@@ -1616,7 +2104,10 @@
     "protection": [
       {
         "maintenance": "10-year Oil Change maintenance",
-        "warranty": ["Roadside Assistance", "Unlimited Theft Protection"]
+        "warranty": [
+          "Roadside Assistance",
+          "Unlimited Theft Protection"
+        ]
       }
     ],
     "package": "Economic",
@@ -1624,6 +2115,7 @@
   },
   {
     "vin": "1G6DN57U760767512",
+    "status": "available",
     "info": [
       {
         "model": "Commander",
@@ -1633,10 +2125,18 @@
         "color": "Mauv"
       }
     ],
-    "performance": [{ "engine": "V8", "transmission": "Automatic" }],
+    "performance": [
+      {
+        "engine": "V8",
+        "transmission": "Automatic"
+      }
+    ],
     "design": [
       {
-        "interior": ["Power Seat(s)", "Power Locks"],
+        "interior": [
+          "Power Seat(s)",
+          "Power Locks"
+        ],
         "exterior": [
           {
             "paint": "Metallic",
@@ -1650,7 +2150,9 @@
         ]
       }
     ],
-    "handling": ["Anti-lock brakes"],
+    "handling": [
+      "Anti-lock brakes"
+    ],
     "comfort": [
       "Navigation System",
       "Adjustable seats",
@@ -1678,6 +2180,7 @@
   },
   {
     "vin": "1LNHL9DK8EG963586",
+    "status": "available",
     "info": [
       {
         "model": "Camry",
@@ -1687,10 +2190,19 @@
         "color": "Red"
       }
     ],
-    "performance": [{ "engine": "Electric", "transmission": "CVT" }],
+    "performance": [
+      {
+        "engine": "Electric",
+        "transmission": "CVT"
+      }
+    ],
     "design": [
       {
-        "interior": ["Overhead Airbags", "Power Windows", "Power Seat(s)"],
+        "interior": [
+          "Overhead Airbags",
+          "Power Windows",
+          "Power Seat(s)"
+        ],
         "exterior": [
           {
             "paint": "Acrylic",
@@ -1703,8 +2215,14 @@
         ]
       }
     ],
-    "handling": ["Power Steering"],
-    "comfort": ["Rear View Camera", "Memory Seats", "Automated Parking"],
+    "handling": [
+      "Power Steering"
+    ],
+    "comfort": [
+      "Rear View Camera",
+      "Memory Seats",
+      "Automated Parking"
+    ],
     "audio": [
       "SiriusXM Trial Available",
       "Auxiliary Audio Input",
@@ -1713,7 +2231,10 @@
     "protection": [
       {
         "maintenance": "10-year Oil Change maintenance",
-        "warranty": ["2-year Dent Protection", "Unlimited Theft Protection"]
+        "warranty": [
+          "2-year Dent Protection",
+          "Unlimited Theft Protection"
+        ]
       }
     ],
     "package": "Premium",
@@ -1721,6 +2242,7 @@
   },
   {
     "vin": "3GYFNDEY8BS326605",
+    "status": "available",
     "info": [
       {
         "model": "Continental GT",
@@ -1730,7 +2252,12 @@
         "color": "Mauv"
       }
     ],
-    "performance": [{ "engine": "V6", "transmission": "Automatic" }],
+    "performance": [
+      {
+        "engine": "V6",
+        "transmission": "Automatic"
+      }
+    ],
     "design": [
       {
         "interior": [
@@ -1741,13 +2268,21 @@
         "exterior": [
           {
             "paint": "Lacquer",
-            "extra": ["Rear Defroster", "Daytime Running Lights"]
+            "extra": [
+              "Rear Defroster",
+              "Daytime Running Lights"
+            ]
           }
         ]
       }
     ],
-    "handling": ["Anti-lock brakes"],
-    "comfort": ["Cross-Traffic Alert", "Adjustable seats"],
+    "handling": [
+      "Anti-lock brakes"
+    ],
+    "comfort": [
+      "Cross-Traffic Alert",
+      "Adjustable seats"
+    ],
     "audio": [
       "SiriusXM Trial Available",
       "Auxiliary Audio Input",
@@ -1756,7 +2291,9 @@
     "protection": [
       {
         "maintenance": "10-year Oil Change maintenance",
-        "warranty": ["30 day money back guarantee (up to 1500 miles)"]
+        "warranty": [
+          "30 day money back guarantee (up to 1500 miles)"
+        ]
       }
     ],
     "package": "Economic",
@@ -1764,6 +2301,7 @@
   },
   {
     "vin": "JTMHY7AJXE4757015",
+    "status": "available",
     "info": [
       {
         "model": "RX-7",
@@ -1773,10 +2311,18 @@
         "color": "Red"
       }
     ],
-    "performance": [{ "engine": "V12 Turbo", "transmission": "CVT" }],
+    "performance": [
+      {
+        "engine": "V12 Turbo",
+        "transmission": "CVT"
+      }
+    ],
     "design": [
       {
-        "interior": ["Side Airbags", "Overhead Airbags"],
+        "interior": [
+          "Side Airbags",
+          "Overhead Airbags"
+        ],
         "exterior": [
           {
             "paint": "Metallic",
@@ -1790,8 +2336,14 @@
         ]
       }
     ],
-    "handling": ["Anti-lock brakes", "Power Steering"],
-    "comfort": ["Adjustable seats", "Memory Seats"],
+    "handling": [
+      "Anti-lock brakes",
+      "Power Steering"
+    ],
+    "comfort": [
+      "Adjustable seats",
+      "Memory Seats"
+    ],
     "audio": [
       "SiriusXM Trial Available",
       "Satellite Radio Ready",
@@ -1811,6 +2363,7 @@
   },
   {
     "vin": "KMHDB8AE4AU919901",
+    "status": "available",
     "info": [
       {
         "model": "RDX",
@@ -1820,7 +2373,12 @@
         "color": "Crimson"
       }
     ],
-    "performance": [{ "engine": "Petrol", "transmission": "Manual" }],
+    "performance": [
+      {
+        "engine": "Petrol",
+        "transmission": "Manual"
+      }
+    ],
     "design": [
       {
         "interior": [
@@ -1833,13 +2391,22 @@
         "exterior": [
           {
             "paint": "Metallic",
-            "extra": ["Power Hatch/Deck Lidis", "ABS Brakes"]
+            "extra": [
+              "Power Hatch/Deck Lidis",
+              "ABS Brakes"
+            ]
           }
         ]
       }
     ],
-    "handling": ["Power Steering", "Anti-lock brakes"],
-    "comfort": ["Leather seats", "Cross-Traffic Alert"],
+    "handling": [
+      "Power Steering",
+      "Anti-lock brakes"
+    ],
+    "comfort": [
+      "Leather seats",
+      "Cross-Traffic Alert"
+    ],
     "audio": [
       "Satellite Radio Ready",
       "SiriusXM Trial Available",
@@ -1860,6 +2427,7 @@
   },
   {
     "vin": "5J8TB3H35FL689887",
+    "status": "available",
     "info": [
       {
         "model": "Ram",
@@ -1869,10 +2437,19 @@
         "color": "Puce"
       }
     ],
-    "performance": [{ "engine": "V6", "transmission": "CVT" }],
+    "performance": [
+      {
+        "engine": "V6",
+        "transmission": "CVT"
+      }
+    ],
     "design": [
       {
-        "interior": ["Power Mirrors", "Power Locks", "Overhead Airbags"],
+        "interior": [
+          "Power Mirrors",
+          "Power Locks",
+          "Overhead Airbags"
+        ],
         "exterior": [
           {
             "paint": "Matte",
@@ -1886,9 +2463,19 @@
         ]
       }
     ],
-    "handling": ["Power Steering", "Anti-lock brakes"],
-    "comfort": ["Rear View Camera", "Navigation System"],
-    "audio": ["Auxiliary Audio Input", "AM/FM Stereo", "Meridian Audio"],
+    "handling": [
+      "Power Steering",
+      "Anti-lock brakes"
+    ],
+    "comfort": [
+      "Rear View Camera",
+      "Navigation System"
+    ],
+    "audio": [
+      "Auxiliary Audio Input",
+      "AM/FM Stereo",
+      "Meridian Audio"
+    ],
     "protection": [
       {
         "maintenance": "10-year Oil Change maintenance",
@@ -1903,6 +2490,7 @@
   },
   {
     "vin": "1GYFK63808R667595",
+    "status": "available",
     "info": [
       {
         "model": "MX-5",
@@ -1912,7 +2500,12 @@
         "color": "Red"
       }
     ],
-    "performance": [{ "engine": "Petrol", "transmission": "CVT" }],
+    "performance": [
+      {
+        "engine": "Petrol",
+        "transmission": "CVT"
+      }
+    ],
     "design": [
       {
         "interior": [
@@ -1923,12 +2516,25 @@
           "Power Mirrors"
         ],
         "exterior": [
-          { "paint": "Lacquer", "extra": ["Fog Lamps", "Turbo Charged Engine"] }
+          {
+            "paint": "Lacquer",
+            "extra": [
+              "Fog Lamps",
+              "Turbo Charged Engine"
+            ]
+          }
         ]
       }
     ],
-    "handling": ["Anti-lock brakes", "Power Steering"],
-    "comfort": ["Cruise Control", "Memory Seats", "Cross-Traffic Alert"],
+    "handling": [
+      "Anti-lock brakes",
+      "Power Steering"
+    ],
+    "comfort": [
+      "Cruise Control",
+      "Memory Seats",
+      "Cross-Traffic Alert"
+    ],
     "audio": [
       "SiriusXM Trial Available",
       "Auxiliary Audio Input",
@@ -1937,7 +2543,9 @@
     "protection": [
       {
         "maintenance": "10-year Oil Change maintenance",
-        "warranty": ["30 day money back guarantee (up to 1500 miles)"]
+        "warranty": [
+          "30 day money back guarantee (up to 1500 miles)"
+        ]
       }
     ],
     "package": "Luxurious",
@@ -1945,6 +2553,7 @@
   },
   {
     "vin": "3GYFNFEY5BS383193",
+    "status": "available",
     "info": [
       {
         "model": "Grand Caravan",
@@ -1954,7 +2563,12 @@
         "color": "Maroon"
       }
     ],
-    "performance": [{ "engine": "V6", "transmission": "Automatic" }],
+    "performance": [
+      {
+        "engine": "V6",
+        "transmission": "Automatic"
+      }
+    ],
     "design": [
       {
         "interior": [
@@ -1965,17 +2579,36 @@
           "Overhead Airbags"
         ],
         "exterior": [
-          { "paint": "Pearlescent", "extra": ["Fog Lamps", "ABS Brakes"] }
+          {
+            "paint": "Pearlescent",
+            "extra": [
+              "Fog Lamps",
+              "ABS Brakes"
+            ]
+          }
         ]
       }
     ],
-    "handling": ["Anti-lock brakes", "Power Steering"],
-    "comfort": ["Keyless entry", "Cross-Traffic Alert"],
-    "audio": ["Meridian Audio", "AM/FM Stereo", "SiriusXM Trial Available"],
+    "handling": [
+      "Anti-lock brakes",
+      "Power Steering"
+    ],
+    "comfort": [
+      "Keyless entry",
+      "Cross-Traffic Alert"
+    ],
+    "audio": [
+      "Meridian Audio",
+      "AM/FM Stereo",
+      "SiriusXM Trial Available"
+    ],
     "protection": [
       {
         "maintenance": "3-year/36.000-mile scheduled maintenance",
-        "warranty": ["Unlimited Theft Protection", "2-year Dent Protection"]
+        "warranty": [
+          "Unlimited Theft Protection",
+          "2-year Dent Protection"
+        ]
       }
     ],
     "package": "Economic",
@@ -1983,6 +2616,7 @@
   },
   {
     "vin": "1FTEW1E87AF729312",
+    "status": "available",
     "info": [
       {
         "model": "Prizm",
@@ -1992,7 +2626,12 @@
         "color": "Orange"
       }
     ],
-    "performance": [{ "engine": "V6", "transmission": "CVT" }],
+    "performance": [
+      {
+        "engine": "V6",
+        "transmission": "CVT"
+      }
+    ],
     "design": [
       {
         "interior": [
@@ -2004,12 +2643,18 @@
         "exterior": [
           {
             "paint": "Matte",
-            "extra": ["ABS Brakes", "Daytime Running Lights"]
+            "extra": [
+              "ABS Brakes",
+              "Daytime Running Lights"
+            ]
           }
         ]
       }
     ],
-    "handling": ["Anti-lock brakes", "Power Steering"],
+    "handling": [
+      "Anti-lock brakes",
+      "Power Steering"
+    ],
     "comfort": [
       "Memory Seats",
       "Sunroof(s)",
@@ -2025,7 +2670,9 @@
     "protection": [
       {
         "maintenance": "every 10.000 mile maintenance",
-        "warranty": ["30 day money back guarantee (up to 1500 miles)"]
+        "warranty": [
+          "30 day money back guarantee (up to 1500 miles)"
+        ]
       }
     ],
     "package": "Premium",
@@ -2033,6 +2680,7 @@
   },
   {
     "vin": "1ZVBP8JS2C5771504",
+    "status": "available",
     "info": [
       {
         "model": "Rally Wagon 1500",
@@ -2042,7 +2690,12 @@
         "color": "Blue"
       }
     ],
-    "performance": [{ "engine": "Gas", "transmission": "Manual" }],
+    "performance": [
+      {
+        "engine": "Gas",
+        "transmission": "Manual"
+      }
+    ],
     "design": [
       {
         "interior": [
@@ -2064,14 +2717,20 @@
         ]
       }
     ],
-    "handling": ["Anti-lock brakes"],
+    "handling": [
+      "Anti-lock brakes"
+    ],
     "comfort": [
       "Bluetooth Technology",
       "Leather seats",
       "Sunroof(s)",
       "Memory Seats"
     ],
-    "audio": ["Meridian Audio", "Auxiliary Audio Input", "AM/FM Stereo"],
+    "audio": [
+      "Meridian Audio",
+      "Auxiliary Audio Input",
+      "AM/FM Stereo"
+    ],
     "protection": [
       {
         "maintenance": "every 10.000 mile maintenance",
@@ -2087,6 +2746,7 @@
   },
   {
     "vin": "WAUFEBFM3BA599973",
+    "status": "available",
     "info": [
       {
         "model": "Previa",
@@ -2096,30 +2756,51 @@
         "color": "Maroon"
       }
     ],
-    "performance": [{ "engine": "V12 Turbo", "transmission": "Automatic" }],
+    "performance": [
+      {
+        "engine": "V12 Turbo",
+        "transmission": "Automatic"
+      }
+    ],
     "design": [
       {
-        "interior": ["Power Locks", "Power Seat(s)"],
+        "interior": [
+          "Power Locks",
+          "Power Seat(s)"
+        ],
         "exterior": [
           {
             "paint": "Pearlescent",
-            "extra": ["Alloy Wheels", "ABS Brakes", "Daytime Running Lights"]
+            "extra": [
+              "Alloy Wheels",
+              "ABS Brakes",
+              "Daytime Running Lights"
+            ]
           }
         ]
       }
     ],
-    "handling": ["Anti-lock brakes", "Power Steering"],
+    "handling": [
+      "Anti-lock brakes",
+      "Power Steering"
+    ],
     "comfort": [
       "Lane Departure Warning",
       "Cruise Control",
       "Keyless entry",
       "Leather seats"
     ],
-    "audio": ["Meridian Audio", "AM/FM Stereo", "SiriusXM Trial Available"],
+    "audio": [
+      "Meridian Audio",
+      "AM/FM Stereo",
+      "SiriusXM Trial Available"
+    ],
     "protection": [
       {
         "maintenance": "3-year/36.000-mile scheduled maintenance",
-        "warranty": ["Unlimited Windshield Protection"]
+        "warranty": [
+          "Unlimited Windshield Protection"
+        ]
       }
     ],
     "package": "Sports",
@@ -2127,6 +2808,7 @@
   },
   {
     "vin": "2T1BURHE0EC191028",
+    "status": "available",
     "info": [
       {
         "model": "207",
@@ -2136,7 +2818,12 @@
         "color": "Purple"
       }
     ],
-    "performance": [{ "engine": "Gas", "transmission": "Automatic" }],
+    "performance": [
+      {
+        "engine": "Gas",
+        "transmission": "Automatic"
+      }
+    ],
     "design": [
       {
         "interior": [
@@ -2147,13 +2834,28 @@
           "Power Seat(s)"
         ],
         "exterior": [
-          { "paint": "Metallic", "extra": ["ABS Brakes", "Rear Defroster"] }
+          {
+            "paint": "Metallic",
+            "extra": [
+              "ABS Brakes",
+              "Rear Defroster"
+            ]
+          }
         ]
       }
     ],
-    "handling": ["Anti-lock brakes"],
-    "comfort": ["Adjustable seats", "Rear View Camera"],
-    "audio": ["Meridian Audio", "AM/FM Stereo", "SiriusXM Trial Available"],
+    "handling": [
+      "Anti-lock brakes"
+    ],
+    "comfort": [
+      "Adjustable seats",
+      "Rear View Camera"
+    ],
+    "audio": [
+      "Meridian Audio",
+      "AM/FM Stereo",
+      "SiriusXM Trial Available"
+    ],
     "protection": [
       {
         "maintenance": "3-year/36.000-mile scheduled maintenance",
@@ -2168,6 +2870,7 @@
   },
   {
     "vin": "WAU2GAFC9FN639840",
+    "status": "available",
     "info": [
       {
         "model": "Legacy",
@@ -2177,7 +2880,12 @@
         "color": "Puce"
       }
     ],
-    "performance": [{ "engine": "Gas", "transmission": "Manual" }],
+    "performance": [
+      {
+        "engine": "Gas",
+        "transmission": "Manual"
+      }
+    ],
     "design": [
       {
         "interior": [
@@ -2199,7 +2907,10 @@
         ]
       }
     ],
-    "handling": ["Anti-lock brakes", "Power Steering"],
+    "handling": [
+      "Anti-lock brakes",
+      "Power Steering"
+    ],
     "comfort": [
       "Sunroof(s)",
       "Adjustable seats",
@@ -2225,6 +2936,7 @@
   },
   {
     "vin": "JN1AV7AP0FM892507",
+    "status": "available",
     "info": [
       {
         "model": "Borrego",
@@ -2234,10 +2946,19 @@
         "color": "Mauv"
       }
     ],
-    "performance": [{ "engine": "Petrol", "transmission": "CVT" }],
+    "performance": [
+      {
+        "engine": "Petrol",
+        "transmission": "CVT"
+      }
+    ],
     "design": [
       {
-        "interior": ["Overhead Airbags", "Power Mirrors", "Power Seat(s)"],
+        "interior": [
+          "Overhead Airbags",
+          "Power Mirrors",
+          "Power Seat(s)"
+        ],
         "exterior": [
           {
             "paint": "Pearlescent",
@@ -2251,14 +2972,21 @@
         ]
       }
     ],
-    "handling": ["Power Steering", "Anti-lock brakes"],
+    "handling": [
+      "Power Steering",
+      "Anti-lock brakes"
+    ],
     "comfort": [
       "Air Conditioning",
       "Automated Parking",
       "Leather seats",
       "Adjustable seats"
     ],
-    "audio": ["AM/FM Stereo", "Meridian Audio", "Satellite Radio Ready"],
+    "audio": [
+      "AM/FM Stereo",
+      "Meridian Audio",
+      "Satellite Radio Ready"
+    ],
     "protection": [
       {
         "maintenance": "3-year/36.000-mile scheduled maintenance",
@@ -2274,6 +3002,7 @@
   },
   {
     "vin": "1N4AA5AP3BC333763",
+    "status": "available",
     "info": [
       {
         "model": "Ram Van B250",
@@ -2283,10 +3012,18 @@
         "color": "Purple"
       }
     ],
-    "performance": [{ "engine": "V6", "transmission": "Automatic" }],
+    "performance": [
+      {
+        "engine": "V6",
+        "transmission": "Automatic"
+      }
+    ],
     "design": [
       {
-        "interior": ["Overhead Airbags", "Universal Garage Door Opener"],
+        "interior": [
+          "Overhead Airbags",
+          "Universal Garage Door Opener"
+        ],
         "exterior": [
           {
             "paint": "Urethane",
@@ -2300,7 +3037,10 @@
         ]
       }
     ],
-    "handling": ["Power Steering", "Anti-lock brakes"],
+    "handling": [
+      "Power Steering",
+      "Anti-lock brakes"
+    ],
     "comfort": [
       "Skylight(s)",
       "Lane Departure Warning",
@@ -2308,7 +3048,11 @@
       "Air Conditioning",
       "Cross-Traffic Alert"
     ],
-    "audio": ["Satellite Radio Ready", "AM/FM Stereo", "Auxiliary Audio Input"],
+    "audio": [
+      "Satellite Radio Ready",
+      "AM/FM Stereo",
+      "Auxiliary Audio Input"
+    ],
     "protection": [
       {
         "maintenance": "3-year/36.000-mile scheduled maintenance",
@@ -2324,6 +3068,7 @@
   },
   {
     "vin": "WBAAV53401J273479",
+    "status": "available",
     "info": [
       {
         "model": "XC90",
@@ -2333,7 +3078,12 @@
         "color": "Goldenrod"
       }
     ],
-    "performance": [{ "engine": "Hybrid", "transmission": "CVT" }],
+    "performance": [
+      {
+        "engine": "Hybrid",
+        "transmission": "CVT"
+      }
+    ],
     "design": [
       {
         "interior": [
@@ -2345,13 +3095,23 @@
         "exterior": [
           {
             "paint": "Urethane",
-            "extra": ["Fog Lamps", "Turbo Charged Engine", "Alloy Wheels"]
+            "extra": [
+              "Fog Lamps",
+              "Turbo Charged Engine",
+              "Alloy Wheels"
+            ]
           }
         ]
       }
     ],
-    "handling": ["Power Steering", "Anti-lock brakes"],
-    "comfort": ["Leather seats", "Air Conditioning"],
+    "handling": [
+      "Power Steering",
+      "Anti-lock brakes"
+    ],
+    "comfort": [
+      "Leather seats",
+      "Air Conditioning"
+    ],
     "audio": [
       "Auxiliary Audio Input",
       "SiriusXM Trial Available",
@@ -2372,6 +3132,7 @@
   },
   {
     "vin": "WAUMGBFL3DA634491",
+    "status": "ordered",
     "info": [
       {
         "model": "Rogue",
@@ -2381,7 +3142,12 @@
         "color": "Red"
       }
     ],
-    "performance": [{ "engine": "4 Cylinder", "transmission": "CVT" }],
+    "performance": [
+      {
+        "engine": "4 Cylinder",
+        "transmission": "CVT"
+      }
+    ],
     "design": [
       {
         "interior": [
@@ -2403,16 +3169,82 @@
         ]
       }
     ],
-    "handling": ["Anti-lock brakes", "Power Steering"],
-    "comfort": ["Sunroof(s)", "Cruise Control"],
-    "audio": ["AM/FM Stereo", "Meridian Audio", "Satellite Radio Ready"],
+    "handling": [
+      "Anti-lock brakes",
+      "Power Steering"
+    ],
+    "comfort": [
+      "Sunroof(s)",
+      "Cruise Control"
+    ],
+    "audio": [
+      "AM/FM Stereo",
+      "Meridian Audio",
+      "Satellite Radio Ready"
+    ],
     "protection": [
       {
         "maintenance": "3-year/36.000-mile scheduled maintenance",
-        "warranty": ["Unlimited Tire & Wheel Protection", "Roadside Assistance"]
+        "warranty": [
+          "Unlimited Tire & Wheel Protection",
+          "Roadside Assistance"
+        ]
       }
     ],
     "package": "Luxurious",
     "price": 197771
+  },
+  {
+    "vin": "jhkbewgu3",
+    "status": "ordered",
+    "info": [
+      {
+        "model": "Z",
+        "make": "Tesla",
+        "mileage": 1023,
+        "year": 2012,
+        "color": "red"
+      }
+    ],
+    "performance": [
+      {
+        "engine": "4-cylinder",
+        "transmission": "Hybrid"
+      }
+    ],
+    "design": [
+      {
+        "interior": [
+          "nice"
+        ],
+        "exterior": [
+          {
+            "paint": "translucent",
+            "extra": [
+              "cheap"
+            ]
+          }
+        ]
+      }
+    ],
+    "handling": [
+      "nice"
+    ],
+    "comfort": [
+      "no comfort"
+    ],
+    "audio": [
+      "bluetooth"
+    ],
+    "protection": [
+      {
+        "maintenance": "no maint",
+        "warranty": [
+          "no warr"
+        ]
+      }
+    ],
+    "package": "sports",
+    "price": 6789837298341
   }
 ]
