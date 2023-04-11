@@ -64,7 +64,7 @@ def ConfirmSelection(response = {"y", "yes"}, msg="") -> bool:
     PrintFormat("Success", "Action confirmed")
     return True
 
-def ValidateUserInput(action="action", isNum=False):
+def ValidateUserInput(action="action", isNum=False, isEmail=False):
     PrintFormat("Important", "\nPress 'q' to exit")
     while True:
         userInput = input(f"Enter {action}: ")
@@ -77,6 +77,10 @@ def ValidateUserInput(action="action", isNum=False):
         if isNum and (not userInput.isdigit()):
             PrintFormat("Invalid", "Must be a number")
             continue
+        if isEmail and ("@" not in userInput or "." not in userInput):
+            PrintFormat("Invalid", "Must be a valid email address")
+            continue
+
         PrintFormat("Success", userInput)
         return int(userInput) if isNum else userInput
 
@@ -252,7 +256,7 @@ def AddCustomer():
     if not firstName: return
     lastName = ValidateUserInput("Last Name")
     if not lastName: return
-    emailAddress = ValidateUserInput("email address")
+    emailAddress = ValidateUserInput("email address", isEmail=True)
     if not emailAddress: return
     creditCard = validateCreditCard()
     if not creditCard: return
@@ -578,7 +582,7 @@ def modifyCustomerDetails(customer=None):
         if not address: return
         customer.setAddress(address)
     elif action == "2":
-        email = ValidateUserInput("new email")
+        email = ValidateUserInput("new email", isEmail=True)
         if interface.emailExists(email):
             PrintFormat("Invalid", "Email already exists")
             return
