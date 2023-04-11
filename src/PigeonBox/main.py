@@ -22,8 +22,8 @@ def isEmpty(arr):
         return True
     return False
 
-''' User account details'''
-def ChangePassword():
+
+def validatePassword():
     newPassword = ValidateUserInput('new password')
     if not newPassword: return
     confirmPassword = ValidateUserInput('confirm password')
@@ -36,10 +36,17 @@ def ChangePassword():
     if newPassword == user.getPassword():
         PrintFormat("Invalid", "New password cannot be the same as old password")
         return
-    user.UpdatePassword(newPassword)
+    
+    return newPassword
+
+''' User account details'''
+def ChangePasswordMenu():
+    newPassword = validatePassword()
+    if not newPassword: return
+    interface.changeUserPassword(user, newPassword)
     PrintFormat("Success", "Password changed successfully")
 
-def ChangeUsername():
+def validateUsername():
     newUsername = ValidateUserInput('new username')
     if not newUsername: return
     if newUsername == user.getUsername():
@@ -50,8 +57,11 @@ def ChangeUsername():
         if usr.getUsername() == newUsername:
             PrintFormat("Invalid", "Username already taken")
             return
-        
-    user.UpdateUserName(newUsername)
+    return newUsername
+def ChangeUsernameMenu():
+    newUsername = validateUsername()
+    if not newUsername: return
+    interface.changeUserUsername(user, newUsername)
     PrintFormat("Success", "Username changed successfully")
 
 ''' Checkers and validators '''
@@ -580,17 +590,17 @@ def modifyCustomerDetails(customer=None):
     elif action == "1":
         address = ValidateUserInput("new address")
         if not address: return
-        customer.setAddress(address)
+        interface.changeCustomerAddress(customer, address)
     elif action == "2":
         email = ValidateUserInput("new email", isEmail=True)
         if interface.emailExists(email):
             PrintFormat("Invalid", "Email already exists")
             return
-        customer.setEmail(email)
+        interface.changeCustomerEmail(customer, email)
     else:
         cardNum = validateCreditCard()
         if not cardNum: return
-        customer.setCard(cardNum)
+        interface.changeCustomerCard(customer, cardNum)
 
 def ManageCustomersMenu():
     options = ["1. View Customer details",
@@ -645,9 +655,9 @@ def AccountSettingsMenu():
         if not action: break
 
         if action == "1":
-            ChangePassword()
+            ChangePasswordMenu()
         elif action == "2":
-            ChangeUsername()
+            ChangeUsernameMenu()
         else:
             print(f"\nUser {user.getUsername()} details:\n{user}")
 

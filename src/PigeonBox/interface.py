@@ -123,7 +123,44 @@ class Interface(InterfaceObjects):
                 if customer == currentCustomer:
                     customer.orders.append(order)
 
+    def changeCustomerEmail(self, customer, newEmail):
+        customer.setEmail(newEmail)
+        self.isObjListUpdated[3] = True
+
+    def changeCustomerCard(self, customer, newCard):
+        customer.setCard(newCard)
+        self.isObjListUpdated[3] = True
     
+    def changeCustomerAddress(self, customer, newAddress):
+        customer.setAddress(newAddress)
+        self.isObjListUpdated[3] = True
+
+    def changeUserPassword(self, user, newPassword):
+        for admin in self.admins:
+            if admin == user:
+                admin.UpdatePassword(newPassword)
+                self.isObjListUpdated[2] = True
+                return
+        
+        for employee in self.employees:
+            if employee == user:
+                employee.UpdatePassword(newPassword)
+                self.isObjListUpdated[2] = True
+                return
+            
+    def changeUserUsername(self, user, newUsername):
+        for admin in self.admins:
+            if admin == user:
+                admin.UpdateUserName(newUsername)
+                self.isObjListUpdated[2] = True
+                return
+        
+        for employee in self.employees:
+            if employee == user:
+                employee.UpdateUserName(newUsername)
+                self.isObjListUpdated[2] = True
+                return
+            
     def viewOrders(self):
         return self.orders
     
@@ -208,13 +245,14 @@ class Interface(InterfaceObjects):
         self.isObjListUpdated[3] = True
 
     def LogOut(self):
+        print(self.isObjListUpdated)
         if self.isObjListUpdated[0]:
             writeJson.writeJson(self.inventory)
         if self.isObjListUpdated[1]:
             writeJson.writeJson(self.orders)
         if self.isObjListUpdated[2]:
-            allusers = self.admins + self.employees
-            writeJson.writeJson(allusers)
+            allUsers = self.admins + self.employees
+            writeJson.writeJson(allUsers)
         if self.isObjListUpdated[3]:
             writeJson.writeJson(self.customers)
 
