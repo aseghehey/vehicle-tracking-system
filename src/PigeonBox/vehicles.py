@@ -73,7 +73,7 @@ class Car ():
         self.price = newprice
 
     def getDetails(self):
-        res = f"""{bcolors.BOLD}{self.vin}{bcolors.ENDC} with {self.package} package
+        res = f"""\n{bcolors.BOLD}{self.vin}{bcolors.ENDC} with {self.package} package
         Performance
         Engine: {self.performance['engine']}, Transmission: {self.performance['transmission']}
         Mileage: {self.info['mileage']} miles
