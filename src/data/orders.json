@@ -40,5 +40,12 @@
     "buyer": "emanuel@gmail.com",
     "soldBy": "test",
     "dateBought": "2022-09-07"
+  },
+  {
+    "id": 8,
+    "carVin": "3GYFNFEY5BS383193",
+    "buyer": "isibbit2@bandcamp.com",
+    "soldBy": "test",
+    "dateBought": "2023-04-08"
   }
 ]

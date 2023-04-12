@@ -2553,7 +2553,7 @@
   },
   {
     "vin": "3GYFNFEY5BS383193",
-    "status": "available",
+    "status": "ordered",
     "info": [
       {
         "model": "Grand Caravan",
@@ -3246,5 +3246,58 @@
     ],
     "package": "sports",
     "price": 6789837298341
+  },
+  {
+    "vin": "TESTTEST",
+    "status": "available",
+    "info": [
+      {
+        "model": "fusion",
+        "make": "ford",
+        "mileage": 160000,
+        "year": 2015,
+        "color": "grey"
+      }
+    ],
+    "performance": [
+      {
+        "engine": "idk",
+        "transmission": "lol"
+      }
+    ],
+    "design": [
+      {
+        "interior": [
+          "fabric"
+        ],
+        "exterior": [
+          {
+            "paint": "acrylic",
+            "extra": [
+              "normal"
+            ]
+          }
+        ]
+      }
+    ],
+    "handling": [
+      "automatic"
+    ],
+    "comfort": [
+      "none"
+    ],
+    "audio": [
+      "idk"
+    ],
+    "protection": [
+      {
+        "maintenance": "idk",
+        "warranty": [
+          "oof"
+        ]
+      }
+    ],
+    "package": "none",
+    "price": 6000
   }
 ]
