@@ -2,7 +2,6 @@ from PigeonBox.interface import *
 from PigeonBox.session import Auth
 from PigeonBox.bcolors import *
 
-
 ''' Command line interface '''
 def displayData(data):
     """ Given an array, display each element in the array along with the index"""
@@ -58,6 +57,7 @@ def validateUsername():
             PrintFormat("Invalid", "Username already taken")
             return
     return newUsername
+
 def ChangeUsernameMenu():
     newUsername = validateUsername()
     if not newUsername: return
@@ -720,9 +720,6 @@ def menu():
          "5": ManageEmployeesMenu,
          "a": AccountSettingsMenu}[action]()
     
-    # TODO: Log off and write to files, awaiting Kate's update
-    # interface.LogOut()
-
 def run():
     global user 
     global interface
@@ -739,6 +736,7 @@ def run():
         else: 
             interface = AdminInterface()
         menu()
+        
         interface.LogOut()
         if ConfirmSelection(msg="Would you like to log in again?"): continue
         break

@@ -292,7 +292,7 @@ class AdminInterface(Interface):
     def ordersMadeByUser(self, user):
         orders = []
         for order in self.orders:
-            if order.salesBy == user:
+            if order.getSeller() == user:
                 orders.append(order)
         return orders
 
