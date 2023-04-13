@@ -520,7 +520,13 @@ def addOrderMenu(carToOrder, customers):
     order = interface.MakeOrder(customer, carToOrder, seller=user)
     if not order:
         PrintFormat("Invalid", "Failed to make order. This car has already been ordered by someone else.")
+        
+        # add to back order
+        confirmMessage = "Would you like to add this car to back order instead?" 
+        if ConfirmSelection(msg=confirmMessage):
+            interface.changeCarStatus(carToOrder, "backorder")
         return
+    
     PrintFormat("Success", order)
 
 def OrderMenu():
