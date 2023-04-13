@@ -123,6 +123,18 @@ class Interface(InterfaceObjects):
                 if customer == currentCustomer:
                     customer.orders.append(order)
 
+    def changeCarStatus(self, car, status):
+        car.SetStatus(status)
+        self.isObjListUpdated[0] = True
+
+    def changeCarPrice(self, car, newPrice):
+        car.UpdatePrice(newPrice)
+        self.isObjListUpdated[0] = True
+    
+    def changeCarMileage(self, car, newMileage):
+        car.UpdateMileage(newMileage)
+        self.isObjListUpdated[0] = True
+
     def changeCustomerEmail(self, customer, newEmail):
         customer.setEmail(newEmail)
         self.isObjListUpdated[3] = True

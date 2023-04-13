@@ -159,8 +159,10 @@ def GetObject(objectList):
 def updateCarStatus(car):
     statuses = {"0": "available", "1": "ordered", "2": "backorder", "3": "delivered"}
     statusChoice = displayStatusOptions()
-    if not statusChoice: return
-    car.SetStatus(statuses[statusChoice])
+    if not statusChoice: 
+        return
+    
+    interface.changeCarStatus(car, statuses[statusChoice])
     PrintFormat("Success", f"{car}")
     
 ''' helper menus'''
@@ -335,11 +337,11 @@ def modifyCarMenu(car):
     elif action == "2":
         newPrice = ValidateUserInput("new price", True)
         if not newPrice: return
-        car.UpdatePrice(newPrice)
+        interface.changeCarPrice(car, newPrice)
     elif action == "3":
         newMileage = ValidateUserInput("new mileage", True)
         if not newMileage: return
-        car.UpdateMileage(newMileage)
+        interface.changeCarMileage(car, newMileage)
     else:
         newWarranty = ValidateUserInput("new warranty plans")
         if not newWarranty: return
