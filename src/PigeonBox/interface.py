@@ -288,11 +288,24 @@ class AdminInterface(Interface):
         self.employees.append(newEmployee)
         self.isObjListUpdated[2] = True
         return True
+    
+    def ordersMadeByUser(self, user):
+        orders = []
+        for order in self.orders:
+            if order.salesBy == user:
+                orders.append(order)
+        return orders
 
     def RemoveUser(self, userToRemove) -> bool:
         if not self.UserExists(userToRemove):
             return False
-        
+
+        # remove all orders made by that user
+        userOrders = self.ordersMadeByUser(userToRemove)
+        if userOrders:
+            for order in userOrders:
+                self.UndoOrder(order)
+
         if (isinstance(userToRemove, users.Admin)):
             self.admins.remove(userToRemove)
         else:

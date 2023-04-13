@@ -195,7 +195,8 @@ def RemoveEmployeeMenu():
     if not employeeToDelete:
         return
     
-    confirmMessage = f"\nAre you sure you want to delete {employeeToDelete}"
+    confirmMessage = f"\nAre you sure you want to delete {employeeToDelete}."
+    confirmMessage += " They may have made orders, which will be deleted with them."
     if not ConfirmSelection(msg=confirmMessage): 
         return
     
@@ -299,7 +300,7 @@ def DeleteCustomerMenu(customerToDelete):
     confirmMessage = f"\nAre you sure you want to delete {customerToDelete}? "
     if numOrders >= 1:
         confirmMessage += f"They have {numOrders} order(s)."
-        
+
     if not ConfirmSelection(msg=confirmMessage): 
         return
         
