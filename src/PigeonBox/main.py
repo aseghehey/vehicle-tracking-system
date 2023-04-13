@@ -188,10 +188,13 @@ def AddEmployee():
         return
     PrintFormat("Success", f"User {firstName, lastName} successfully added")
 
-def RemoveEmployee():
+def RemoveEmployeeMenu():
     """ 'Menu' for removing an employee, will ask user to pick from a list of employees
     and then confirm the selection. If the user confirms, the employee will be removed"""
     employeeToDelete = GetObject(interface.getEmployeeList()) # select employee to delete
+    if not employeeToDelete:
+        return
+    
     confirmMessage = f"\nAre you sure you want to delete {employeeToDelete}"
     if not ConfirmSelection(msg=confirmMessage): 
         return
@@ -291,9 +294,15 @@ def AddCustomer():
     PrintFormat('Success',f"\nAdded {customer} with success")
     return customer
 
-def DeleteCustomer(customerToDelete):
-    confirmMessage = f"\nAre you sure you want to delete {customerToDelete}"
-    if not ConfirmSelection(msg=confirmMessage): return
+def DeleteCustomerMenu(customerToDelete):
+    numOrders = len(customerToDelete.orders)
+    confirmMessage = f"\nAre you sure you want to delete {customerToDelete}? "
+    if numOrders >= 1:
+        confirmMessage += f"They have {numOrders} order(s)."
+        
+    if not ConfirmSelection(msg=confirmMessage): 
+        return
+        
     interface.RemoveCustomer(customerToDelete)
     PrintFormat("Success", "Removed customer successfully")
 
@@ -575,7 +584,7 @@ def ManageEmployeesMenu():
                 if not employee: break
                 print(employee.getDetails()) # print info like when employee joined
             else:
-                RemoveEmployee()
+                RemoveEmployeeMenu()
 
         StallUntilUserInput() # to get user time to read message before going back to next iteration of menu
 
@@ -641,7 +650,7 @@ def ManageCustomersMenu():
                 confirmMessage = "Would you like to update customer details?"
                 if ConfirmSelection(msg=confirmMessage): modifyCustomerDetails(customer)
             elif action == "3":
-                DeleteCustomer(customer)
+                DeleteCustomerMenu(customer)
             else:
                 modifyCustomerDetails(customer)
 
