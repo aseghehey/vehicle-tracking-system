@@ -197,6 +197,7 @@ def RemoveEmployee():
     isRemoved = interface.RemoveUser(employeeToDelete) # remove employee
     if not isRemoved: # check if employee was removed and notify user
         PrintFormat("Invalid", "Employee not found")
+        return
 
     PrintFormat("Success", "Removed employee successfully")
 
