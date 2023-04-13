@@ -65,11 +65,19 @@ def ChangeUsernameMenu():
     PrintFormat("Success", "Username changed successfully")
 
 ''' Checkers and validators '''
-def ConfirmSelection(response = {"y", "yes"}, msg="") -> bool:
-    if not msg: msg = "\nAre you sure you want to proceed?"
+def ConfirmSelection(response = {"y", "yes", "n", "no"}, msg="") -> bool:
+    if not msg: 
+        msg = "\nAre you sure you want to proceed?"
     PrintFormat("Warning", msg)
-    confirm = input("Enter [y/n] to confirm: ")
-    if confirm.lower() not in response:
+    confirm = ""
+    while True:
+        confirm = input("Enter [y/n] to confirm: ").lower()
+        if confirm not in response:
+            PrintFormat("Invalid", "Answer needs to be y/n")
+            continue
+        break
+
+    if confirm in {"n", "no"}:
         return False
     PrintFormat("Success", "Action confirmed")
     return True
@@ -79,7 +87,7 @@ def ValidateUserInput(action="action", isNum=False, isEmail=False):
     while True:
         userInput = input(f"Enter {action}: ")
         if userInput.lower() == 'q':
-            PrintFormat("Warning", "Exitting\n")
+            PrintFormat("Warning", "Exiting\n")
             return
         if not userInput: 
             PrintFormat("Invalid", "Bad input")
@@ -99,7 +107,7 @@ def getAction(validSet={"1", "2", "3"}, msg="Enter action:"):
     PrintFormat("Important", "\nPress 'q' to exit")
     action = input(f"{bcolors.UNDERLINE}{msg}{bcolors.ENDC} ").lower()
     if action == "q":
-        PrintFormat("Warning", "Exitting\n")
+        PrintFormat("Warning", "Exiting\n")
         return
     if action not in validSet:
         PrintFormat("Invalid", "Invalid action")
@@ -116,8 +124,8 @@ def PickIndex(arr):
         PrintFormat('Action', '\nPick index from the dislayed list above')
         index = input(f"Enter index [0-{arrLength}] OR enter 'q' to exit: ")
         if index == 'q': 
-            PrintFormat("Warning", "Exitting\n")
-            return # exitting
+            PrintFormat("Warning", "Exiting\n")
+            return # Exiting
         
         # validation
         if not index.isdigit():
@@ -142,7 +150,7 @@ def SeparateInputToList(inpt):
 def GetObject(objectList):
     """ selects and returns an object once user chooses it from a list (calls on PickIndex)"""
     index = PickIndex(objectList)
-    if index is None: return # exitting
+    if index is None: return # Exiting
 
     object = objectList[index]
     PrintFormat('Success',f"\nPicked: {object}") # success message for user

@@ -245,7 +245,6 @@ class Interface(InterfaceObjects):
         self.isObjListUpdated[3] = True
 
     def LogOut(self):
-        print(self.isObjListUpdated)
         if self.isObjListUpdated[0]:
             writeJson.writeJson(self.inventory)
         if self.isObjListUpdated[1]:
