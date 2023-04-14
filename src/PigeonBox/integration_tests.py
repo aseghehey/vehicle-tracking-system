@@ -4,12 +4,27 @@ from PigeonBox.bcolors import *
 from PigeonBox.main import *
 import unittest
 from unittest.mock import patch
+from unittest import TestCase, mock
+
 
 #testcase 1: customer buying a car (success expected)
 class TestBuyCar(unittest.TestCase):
-    def test_buy_car_success(self):
-        self.assertEqual(1+1,2)
+    @mock.patch('PigeonBox.run', create=True)
+    @mock.patch('PigeonBox.MakeOrder', create=True)
     
+    def test_buy_car_success(self, mocked_input_1, action2):
+        
+        mocked_input_1 = "1"
+        action1 = run()
+        #self.assertEqual(action1, mocked_input_1)
+        action2 = interface.MakeOrder
+        assert action2.called()
+
+
+        
+
+
+
     def test_buy_car_fail(self):
         #testcode goes here
         pass
@@ -18,7 +33,7 @@ class TestBuyCar(unittest.TestCase):
 #testcase 2: adding a car to inventory
 class TestAddCar(unittest.TestCase):
     def test_add_car_success(self):
-        pass
+        pass    
     def test_add_car_fail(self):
         pass
 

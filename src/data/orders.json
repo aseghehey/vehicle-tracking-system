@@ -47,5 +47,19 @@
     "buyer": "isibbit2@bandcamp.com",
     "soldBy": "test",
     "dateBought": "2023-04-08"
+  },
+  {
+    "id": 9,
+    "carVin": "WBAAV53401J273479",
+    "buyer": "dmacgeffen4@wix.com",
+    "soldBy": "test",
+    "dateBought": "2023-04-13"
+  },
+  {
+    "id": 10,
+    "carVin": "TESTTEST",
+    "buyer": "emanuel@gmail.com",
+    "soldBy": "test",
+    "dateBought": "2023-04-13"
   }
 ]
