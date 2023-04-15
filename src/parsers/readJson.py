@@ -17,17 +17,41 @@ PURPOSE:
 The code consists of four functions that load data from JSON files in order to create objects for a vehicle inventory, users, orders, and customers
 
 Methods:
-LoadInventory(): This function loads car inventory data from a JSON file and creates Car objects using the data.
-    The function returns a list of Car objects.
+Name:LoadInventory()
+    # One-line description:Loads the car inventory data from a JSON file and creates a list of Car objects.
+    # General description:The LoadInventory function reads car inventory data from a JSON file, 
+    #     creates Car objects using the data, and returns a list of Car objects.
+    # Typical calling examples:inventory = LoadInventory()
+    # Accessibility: The function can be accessed by importing the module that it belongs to.
+    # Function prototype:def LoadInventory() -> List[vehicles.Car]:
 
-LoadUsers(): This function loads user data from a JSON file and creates Employee and Admin objects based on
-     the user type information in the file. The function returns two lists of Employee and Admin objects respectively.
+Name:LoadUsers()
+    # One-line description: Loads user data from a JSON file and creates Employee and Admin objects accordingly.
+    # General description: This function reads user data from a JSON file and creates Employee and Admin objects 
+    #   based on the user type information in the file. The function returns two lists of Employee and Admin objects respectively.
+    # Typical calling examples:
+    #   employees, admins = LoadUsers()
+    # Accessibility: This function is accessible within the module where it is defined.
+    # Function prototype:def LoadUsers() -> Tuple[List[users.Employee], List[users.Admin]]:
 
-LoadOrders(): This function loads a list of orders from a JSON file and returns the list.
+Name:LoadOrders()
+    # One-line description: Loads a list of orders from a JSON file.
+    # General description: This function loads a list of orders from a JSON file and returns the list.
+    # Typical calling examples:
+    #    orders = LoadOrders()
+    # Accessibility: This function can be accessed within the module it is defined in.
+    # Function prototype:def LoadOrders() -> List[orders.Order]:
 
-LoadCustomers(): This function loads customer data from a JSON file and creates Customer 
-    objects for each customer record. The function returns a list of Customer objects.
-
+Name:LoadCustomers()
+    # One-line description: Loads and returns a list of Customer objects from a JSON file.
+    # Genera description: This function reads a JSON file containing customer data, creates 
+    #   Customer objects for each customer record, and appends them to a list. The list of Customer objects is then returned.
+    # Typical calling examples:
+    #   customers = LoadCustomers()
+    # Accessibility: This function is likely intended to be used within a larger system, but could be called from
+    #    anywhere within the scope of the project as long as the necessary files are accessible.
+    # Function prototype:def LoadCustomers() -> List[users.Customer]:
+    
 ////////////////
 DATA STRUCTURES:
 DataStructures:
@@ -69,15 +93,8 @@ ORDERS_PATH = "data/orders.json"
 CUSTOMER_PATH = "data/customers.json"
 
 
-
-    # One-line description: Loads the car inventory data from a JSON file and creates a list of Car objects.
-    # General description: The LoadInventory function reads car inventory data from a JSON file, creates 
-    #   Car objects using the data, and returns a list of Car objects.
-    # Typical calling examples:
-    #   inventory = LoadInventory()
-    # Accessibility: The function can be accessed by importing the module that it belongs to.
-    # Function prototype: def LoadInventory() -> List[vehicles.Car]:
 def LoadInventory():
+    """Loads the car inventory data from a JSON file and creates a list of Car objects."""
     cars = []
     with open(INVENTORY_PATH, 'r') as jsonFile:
         carsJson = json.load(jsonFile)
@@ -89,16 +106,8 @@ def LoadInventory():
             cars.append(current_car)
     return cars
 
-
-
-# One-line description: Loads user data from a JSON file and creates Employee and Admin objects accordingly.
-# General description: This function reads user data from a JSON file and creates Employee and Admin objects 
-#   based on the user type information in the file. The function returns two lists of Employee and Admin objects respectively.
-# Typical calling examples:
-#   employees, admins = LoadUsers()
-# Accessibility: This function is accessible within the module where it is defined.
-# Function prototype:def LoadUsers() -> Tuple[List[users.Employee], List[users.Admin]]:
 def LoadUsers():
+    """Loads user data from a JSON file and creates Employee and Admin objects accordingly."""
     employees, admins = [], []
     with open(USERS_PATH, 'r') as jsonFile:
         usersJson = json.load(jsonFile)
@@ -117,16 +126,9 @@ def LoadUsers():
                                 date_joined=currentUser['dateJoined'])
                 admins.append(admin)
     return employees, admins
-                
 
-
-# One-line description: Loads a list of orders from a JSON file.
-# General description: This function loads a list of orders from a JSON file and returns the list.
-# Typical calling examples:
-#    orders = LoadOrders()
-# Accessibility: This function can be accessed within the module it is defined in.
-# Function prototype:def LoadOrders() -> List[orders.Order]:
 def LoadOrders():
+    """Loads a list of orders from a JSON file."""
     orderList = []
     with open(ORDERS_PATH, 'r') as jsonFile:
         ordersJson = json.load(jsonFile)
@@ -138,15 +140,8 @@ def LoadOrders():
 
 
 
-# One-line description: Loads and returns a list of Customer objects from a JSON file.
-# Genera description: This function reads a JSON file containing customer data, creates 
-#   Customer objects for each customer record, and appends them to a list. The list of Customer objects is then returned.
-# Typical calling examples:
-#   customers = LoadCustomers()
-# Accessibility: This function is likely intended to be used within a larger system, but could be called from
-#    anywhere within the scope of the project as long as the necessary files are accessible.
-# Function prototype:def LoadCustomers() -> List[users.Customer]:
 def LoadCustomers():
+    """Loads and returns a list of Customer objects from a JSON file."""
     customers = []
     with open(CUSTOMER_PATH, 'r') as jsonFile:
         customersJson = json.load(jsonFile)
