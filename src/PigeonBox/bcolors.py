@@ -23,7 +23,16 @@ The function then selects the appropriate color code based on the color_status p
 prints the print_info string with the selected color code using the print() function.
 
 Methods:
-None
+Name: PrintFormat()
+    # One-line description: A function that prints formatted text in different colors.
+    # General description: The function takes two parameters, the color status and the text to be printed, and prints the text in the specified color. 
+    #   It works like the print()
+    #   function but allows the user to select from different color and formatting options.
+    # Typical calling examples: PrintFormat("Success", "The operation was successful.") would print "The operation was successful." in green text.
+        PrintFormat("Important", "Please enter your credentials.")
+    #   would print "Please enter your credentials." in bold text.
+    # Accessibility: This function can be accessed from within the module where it is defined.
+    # Function prototype: def PrintFormat(color_status, print_info)
 
 ////////////////
 DATA STRUCTURES:
@@ -41,8 +50,8 @@ No explicit error handling.
 '''
 ####################################################################################################################
 
-#   define a class the contains various colros to format output text
 class bcolors:
+    """define a class the contains various colros to format output text"""
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
     OKCYAN = '\033[96m'
@@ -54,13 +63,6 @@ class bcolors:
     UNDERLINE = '\033[4m'
 
 
-# One-line description: A function that prints formatted text in different colors.
-# General description: The function takes two parameters, the color status and the text to be printed, and prints the text in the specified color. It works like the print()
-#   function but allows the user to select from different color and formatting options.
-# Typical calling examples: PrintFormat("Success", "The operation was successful.") would print "The operation was successful." in green text. PrintFormat("Important", "Please enter your credentials.")
-#   would print "Please enter your credentials." in bold text.
-# Accessibility: This function can be accessed from within the module where it is defined.
-# Function prototype: def PrintFormat(color_status, print_info)
 def PrintFormat(color_status, print_info):
     """
         There are various colors and formatting for one to choose from, like bold, underline, etc.
