@@ -1,10 +1,10 @@
 from PigeonBox import vehicles, users, orders
 import json
 
-INVENTORY_PATH = "/Users/emanuelaseghehey/Development/vehicle-tracking-system/src/data/inventory.json"
-USERS_PATH = "/Users/emanuelaseghehey/Development/vehicle-tracking-system/src/data/users.json"
-ORDERS_PATH = "/Users/emanuelaseghehey/Development/vehicle-tracking-system/src/data/orders.json"
-CUSTOMER_PATH = "/Users/emanuelaseghehey/Development/vehicle-tracking-system/src/data/customers.json"
+INVENTORY_PATH = "/Users/dariya/OneDrive - University of South Florida/University/3.2/CEN 4020/vehicle-tracking-system/src/data/inventory.json"
+USERS_PATH = "/Users/dariya/OneDrive - University of South Florida/University/3.2/CEN 4020/vehicle-tracking-system/src/data/users.json"
+ORDERS_PATH = "/Users/dariya/OneDrive - University of South Florida/University/3.2/CEN 4020/vehicle-tracking-system/src/data/orders.json"
+CUSTOMER_PATH = "/Users/dariya/OneDrive - University of South Florida/University/3.2/CEN 4020/vehicle-tracking-system/src/data/customers.json"
 
 def LoadInventory():
     cars = []

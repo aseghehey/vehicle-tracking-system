@@ -1,3 +1,5 @@
+#from typing import Self
+from datetime import datetime
 from PigeonBox.interface import *
 from PigeonBox.session import Auth
 from PigeonBox.bcolors import *
@@ -10,6 +12,15 @@ def displayData(data):
 
     for i, val in enumerate(data):
         print(f"{i}: {val}")
+
+
+def displaySales(data):
+    """ Given an array, display each element in the array along with the index"""
+    if isEmpty(data):
+        return
+
+    for i, val in enumerate(data):
+        print(f"{i}: {val.viewSales()}")
 
 def StallUntilUserInput():
     """ Stalls the program, waits for user to press enter, 
@@ -119,6 +130,37 @@ def PickIndex(arr):
 
         return index
     
+###
+
+
+def PickIndexSales(arr):
+    """  Will display elements in array and ask user to pick one, will return the index of the element picked
+        Useful for when choosing an element to view or remove. Like when removing a car, this will point to its index in the list
+        and the user will be able to remove it by index."""
+    arrLength = len(arr) - 1  # length to give user bounds to pick from
+    while True:
+        displaySales(arr)  # displays with (index: element) pair
+        PrintFormat('Action', '\nPick index from the dislayed list above')
+        index = input(f"Enter index [0-{arrLength}] OR enter 'q' to exit: ")
+        if index == 'q':
+            PrintFormat("Warning", "Exitting\n")
+            return  # exitting
+
+        # validation
+        if not index.isdigit():
+            PrintFormat('Invalid', f"Invalid index! Must be a number")
+            StallUntilUserInput()
+            continue
+
+        index = int(index)
+        if index < 0 or index > arrLength:
+            PrintFormat(
+                'Invalid', f"Invalid index! Must be greater than 0 AND smaller than maximum length")
+            StallUntilUserInput()
+            continue
+
+        return index
+    
 def SeparateInputToList(inpt):
     """ Takes in a string and returns an array of the string separated by commas"""
     inpt = inpt.split(',')
@@ -134,12 +176,24 @@ def GetObject(objectList):
     PrintFormat('Success',f"\nPicked: {object}") # success message for user
     return object
 
+
+def GetObjectSales(objectList):
+    """ selects and returns an object once user chooses it from a list (calls on PickIndex)"""
+    index = PickIndexSales(objectList)
+    if index is None:
+        return  # exitting
+
+    object = objectList[index]
+    PrintFormat('Success', f"\nPicked: {object}")  # success message for user
+    return object
+
 def updateCarStatus(car):
     statuses = {"0": "available", "1": "ordered", "2": "backorder", "3": "delivered"}
     statusChoice = displayStatusOptions()
     if not statusChoice: return
     car.SetStatus(statuses[statusChoice])
     PrintFormat("Success", f"{car}")
+    return statuses[statusChoice]
     
 ''' helper menus'''
 def AddEmployee():
@@ -523,7 +577,12 @@ def OrderMenu():
                 print(orderToView.orderDetails())
                 # change status
                 confirmMessage = "Would you like to change the order status?"
-                if ConfirmSelection(msg=confirmMessage): updateCarStatus(orderToView.getCar())
+                if ConfirmSelection(msg=confirmMessage): 
+                    x = updateCarStatus(orderToView.getCar())
+                    if x == "delivered":
+                        orderToView.deliveryDate = datetime.strptime(datetime.today(), "%Y-%m-%d")
+                       
+
 
         StallUntilUserInput()
 
@@ -623,10 +682,48 @@ def ManageCustomersMenu():
         StallUntilUserInput()
 
 def CarSalesMenu():
-    #TODO: Assigned to Dariya
-    # display orders
-    # Set order statuses to delivered 
-    pass
+    print('\nCAR SALES MENU')
+    #printing the sales list of orders
+    sales = interface.viewSales()
+    displaySales(sales)
+    #asking for the menu option 
+    options = ["1. View sale details?"]
+
+    while True:
+        PrintFormat('Action', '\nWhat whould you like to do?')
+        print("\n".join(options))
+        print("\nPress 'q' to exit car sales menu")
+
+        action = input("Enter action: ")
+
+        if action == 'q':
+            break
+        if action not in {"1"}:
+            print("Invalid choice.")
+            continue
+
+        if action == '1':
+            sales = interface.viewSales()
+       
+
+           #orderToView = GetObject(sales)
+           #delivery_date = orders.getDate()
+
+            orderToView = GetObjectSales(sales)
+            if not orderToView:
+                break
+            print(orderToView.orderDetails())
+            print("Delivery Date: ", orderToView.deliveryDate)
+
+        elif action == '2':
+            #orders = interface.viewOrders()
+            orderToView = GetObject(orders)
+            # change status to delivered
+            confirmMessage = "Would you like to change the order status?"
+            if ConfirmSelection(msg=confirmMessage):updateCarStatus(orderToView.getCar())
+            
+
+            
 
 def AccountSettingsMenu():
     """ This is the menu users interact with when they want to change their account details such as password or username """
