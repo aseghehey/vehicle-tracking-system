@@ -3,7 +3,7 @@ from PigeonBox.bcolors import bcolors
 
 class Order():
     """ Class represents orders made, works like a database one-to-one relationship with a buyer and a car"""
-    def __init__(self, id, car=None, buyer=None, dateBought=None, employee=None) -> None:
+    def __init__(self, id, car=None, buyer=None, dateBought=None, employee=None, deliveryDate = "") -> None:
         self.id = id 
         if car:  car.SetStatus('ordered')  #  set car status to ordered
         self.car = car        
@@ -13,6 +13,7 @@ class Order():
         if not dateBought: dateBought = datetime.today()
         else: dateBought = datetime.strptime(dateBought, "%Y-%m-%d")
         self.when = dateBought
+        self.deliveryDate = datetime.strptime(deliveryDate, "%Y-%m-%d")
      
     def getUser(self):
         return self.buyer
@@ -38,7 +39,8 @@ class Order():
             "carVin": self.car.getVin(),
             "buyer": self.buyer.getEmail(),
             "soldBy": self.salesBy.getUsername(),
-            "dateBought": self.when.strftime("%Y-%m-%d")
+            "dateBought": self.when.strftime("%Y-%m-%d"),
+            "deliveryDate": self.deliveryDate.strftime("%Y-%m-%d") if self.deliveryDate != "" else ""
         }
     
     def serialize(order):
@@ -60,6 +62,14 @@ class Order():
         salesBy = " ".join(salesBy.split(" ")[:3])
         return f"Order #{self.id} {bcolors.BOLD}Made by {salesBy}{bcolors.ENDC}: {self.car.getCarInfo()['make']} {self.car.getCarInfo()['model']} for {bcolors.BOLD}{self.buyer.getLastName()}, {self.buyer.getFirstName()}{bcolors.ENDC}"
     
+    
+    def viewSales(self):
+        salesBy = self.salesBy.__str__()
+        salesBy = " ".join(salesBy.split(" ")[:3])
+        delivery_text = f", on {self.deliveryDate}{bcolors.ENDC}" if self.deliveryDate not in (None, '') else ""
+        return f"Sales #{self.id} {bcolors.BOLD}Made by {salesBy}{bcolors.ENDC}: {self.car.getCarInfo()['make']} {self.car.getCarInfo()['model']} for {bcolors.BOLD}{self.buyer.getLastName()}, {self.buyer.getFirstName()}{bcolors.ENDC}{delivery_text}"
+
+
     """ Overriding the equality operator to compare two Order objects"""
     def __eq__(self, value) -> bool:
         if isinstance(value, Order):
