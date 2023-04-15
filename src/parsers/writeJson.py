@@ -23,10 +23,16 @@ It determines the appropriate file path and serializes the data before writing i
 This function is used to save various data types such as inventory, orders, customers, and users to their respective JSON files in the program.
 
 Methods:
-- writeJson(data): Function to write data to a JSON file based on object type. 
-    This function writes data to a JSON file based on the object type in an array. 
-    It determines the file path based on the object type and serializes the data using the 
-    object's serialization function before writing it to the file.
+Name: writeJson(data)
+# One-line description: This function writes data to a json filePath, it will determine what kind of data is being loaded and write to 
+#   the appopriate json filePath with the proper formatting.
+# General description: This function writes data to a JSON file based on the object type in an array.
+#    It determines the file path based on the object type and serializes the data using the object's serialization function before writing it to the file.
+# Typical calling examples:
+#    writeJson(inventory) to write the inventory list to the inventory JSON file.
+#   writeJson(orders) to write the orders list to the orders JSON file.
+# Accessibility: This function is accessible from anywhere within the program.
+# Function prototype: def writeJson(data):
 
 ////////////////
 DATA STRUCTURES:
@@ -60,21 +66,12 @@ INDENTATION = 2
 
 
 
-
-# One-line description: Function to write data to a JSON file based on object type.
-# General description: This function writes data to a JSON file based on the object type in an array.
-#    It determines the file path based on the object type and serializes the data using the object's serialization function before writing it to the file.
-# Typical calling examples:
-#    writeJson(inventory) to write the inventory list to the inventory JSON file.
-#   writeJson(orders) to write the orders list to the orders JSON file.
-# Accessibility: This function is accessible from anywhere within the program.
-# Function prototype: def writeJson(data):
 def writeJson(data):
-    '''
+    """
     This function writes data to a json filePath, it will determine what kind of data is being loaded and write to 
     the appopriate json filePath with the proper formatting
-    '''
-# decide which filePath based on objct type in array
+    """
+    # decide which filePath based on objct type in array
     dataType = None
     if isinstance(data[0], vehicles.Car):
         filePath = INVENTORY_PATH
