@@ -5,10 +5,11 @@ PROGRAM bcolors:   print colored text in the console for improved readability an
 
 ////////////////
 PROGRAMMER: Emanuel Aseghehey emanueldejes@usf.edu
+DOCUMENTOR: Alexander Ashmore atashmore@usf.edu
 
 ////////////////
-VERSION 1: written [day] [month] 2023 by [firstInitial]. [lastName]
-REVISION [revision# ex: 1.1]: [day] [month] 2023 by [firstInitial]. [lastName] to [purpose of revision]
+VERSION 1: written 13 March 2023 by E. Aseghehey
+REVISION: revision history can be found on the project GitHub
 
 ////////////////
 PURPOSE:
@@ -52,7 +53,14 @@ class bcolors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
-#   prints text with colors and formatting
+
+# One-line description: A function that prints formatted text in different colors.
+# General description: The function takes two parameters, the color status and the text to be printed, and prints the text in the specified color. It works like the print()
+#   function but allows the user to select from different color and formatting options.
+# Typical calling examples: PrintFormat("Success", "The operation was successful.") would print "The operation was successful." in green text. PrintFormat("Important", "Please enter your credentials.")
+#   would print "Please enter your credentials." in bold text.
+# Accessibility: This function can be accessed from within the module where it is defined.
+# Function prototype: def PrintFormat(color_status, print_info)
 def PrintFormat(color_status, print_info):
     """
         There are various colors and formatting for one to choose from, like bold, underline, etc.
