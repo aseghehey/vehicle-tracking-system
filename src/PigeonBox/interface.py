@@ -111,7 +111,8 @@ class Interface(InterfaceObjects):
                                             car=self.vinToCar(order['carVin']), 
                                             buyer=self.emailToCustomer(order['buyer']), 
                                             employee=self.usernameToUser(order['soldBy']), 
-                                            dateBought=order['dateBought']))
+                                            dateBought=order['dateBought'],
+                                            deliveryDate=order['deliveryDate']))
 
         # 0: inv, 1: order, 2: users, 3: customer
         self.isObjListUpdated = [False] * 4
@@ -138,6 +139,12 @@ class Interface(InterfaceObjects):
     def changeCustomerEmail(self, customer, newEmail):
         customer.setEmail(newEmail)
         self.isObjListUpdated[3] = True
+
+    def updateSale(self, sale):
+        for order in self.orders:
+            if order == sale:
+                order.updateDeliveryDate()
+        self.isObjListUpdated[1] = True
 
     def changeCustomerCard(self, customer, newCard):
         customer.setCard(newCard)
@@ -175,6 +182,13 @@ class Interface(InterfaceObjects):
             
     def viewOrders(self):
         return self.orders
+    
+    def getDeliveredOrders(self):
+        delivered = []
+        for order in self.orders:
+            if order.car.getStatus() == status.Status.DELIVERED:
+                delivered.append(order)
+        return delivered
     
     def getOrderslist(self):
         return self.orders

@@ -30,6 +30,9 @@ class Car ():
     def getVin(self):
         return self.vin
     
+    def isDelivered(self):
+        return True if self.status == st.Status.DELIVERED else False
+    
     def getStatus(self):
         return self.status
     
