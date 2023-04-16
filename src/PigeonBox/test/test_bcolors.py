@@ -36,3 +36,4 @@ def test_bcolors(): #not really needed, super straight forward. Included just in
     assert bcolors.ENDC == '\033[0m'
     assert bcolors.BOLD == '\033[1m'
     assert bcolors.UNDERLINE == '\033[4m'
+
