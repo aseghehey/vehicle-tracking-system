@@ -3,7 +3,6 @@ import pytest
 from unittest import mock
 from datetime import datetime
 
-# super straight forward file to test the class and its methods. May require some minor changes
 @pytest.fixture
 def sample_order():
     sample_car = mock.MagicMock()
