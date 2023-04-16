@@ -1249,14 +1249,7 @@ def AccountSettingsMenu():
             print(f"\nUser {user.getUsername()} details:\n{user}")
 
         StallUntilUserInput()
-
-
-
-#   One-line description: Main menu that allows the user to access different sub-menus and account settings.
-#   General description: This function presents a main menu to the user, displaying different options based on their user type, and calls other sub-menus based on the user's choice. It also allows users to access their account settings to change their password or username.
-#   Typical calling examples: This function is called when the program starts or when the user goes back to the main menu from any of the sub-menus.
-#   Accessibility: This function is accessible to all users.
-#   Function prototype: def menu():
+        
 def menu():
     """ Main menu that the users will first interact with. Calls on otther menus """
     # made these global because almost all menus need it
