@@ -15,21 +15,6 @@ def displayData(data):
     for i, val in enumerate(data):
         print(f"{i}: {val}")
 
-# only sales with the status changed from ordered to delivered should be displayed
-def displaySales(data):
-    delivered_sales = []
-    """ Given an array, display each element in the array along with the index"""
-    
-    count = 0
-    for i, val in enumerate(data):
-        if val.car.getStatusStr().lower() == "delivered":
-            print(f"{count}: {val.viewSales()}")
-            delivered_sales.append(val)
-            count += 1
-
-    return delivered_sales
-
-
 def StallUntilUserInput():
     """ Stalls the program, waits for user to press enter, 
     to let them view whatever output was printed post an action"""
@@ -183,51 +168,11 @@ def PickIndex(arr):
 
         return index
 
-###
-
-
-def PickIndexSales(arr):
-    """  Will display elements in array and ask user to pick one, will return the index of the element picked
-        Useful for when choosing an element to view or remove. Like when removing a car, this will point to its index in the list
-        and the user will be able to remove it by index."""
-    index = 0
-    arrLength = len(arr) - 1  # length to give user bounds to pick from
-    while True:
-        delivered_sales = displaySales(arr)
-        #displaySales(arr)  # displays with (index: element) pair
-        PrintFormat('Action', '\nPick index from the dislayed list above')
-        if len(delivered_sales) == 0:
-            PrintFormat('Warning', 'No car sales delivered')
-            return index, delivered_sales
-        else:
-            index = input(f"Enter index [0-{len(delivered_sales)-1}] OR enter 'q' to exit: ")
-
-        if index == 'q':
-            PrintFormat("Warning", "Exitting\n")
-            return  # exitting
-
-        # validation
-        if not index.isdigit():
-            PrintFormat('Invalid', f"Invalid index! Must be a number")
-            StallUntilUserInput()
-            continue
-
-        index = int(index)
-        if index < 0 or index > arrLength:
-            PrintFormat(
-                'Invalid', f"Invalid index! Must be greater than 0 AND smaller than maximum length")
-            StallUntilUserInput()
-            continue
-
-        return index, delivered_sales
-
-
 def SeparateInputToList(inpt):
     """ Takes in a string and returns an array of the string separated by commas"""
     inpt = inpt.split(',')
     inpt = list(map(lambda x: x.strip(), inpt))
     return inpt
-
 
 def GetObject(objectList):
     """ selects and returns an object once user chooses it from a list (calls on PickIndex)"""
@@ -238,22 +183,6 @@ def GetObject(objectList):
     object = objectList[index]
     PrintFormat('Success', f"\nPicked: {object}")  # success message for user
     return object
-
-
-def GetObjectSales(objectList):
-    """ selects and returns an object once user chooses it from a list (calls on PickIndex)"""
-    only_delivered = []
-    index, only_delivered = PickIndexSales(objectList)
-
-    if index is None:
-        return  # exitting
-    if only_delivered:
-        object = only_delivered[index] 
-    else:
-        return
-    PrintFormat('Success', f"\nPicked: {object}")  # success message for user
-    return object
-
 
 def updateCarStatus(car):
     statuses = {"0": "available", "1": "ordered",
@@ -742,13 +671,17 @@ def OrderMenu():
                 orderToView = GetObject(orders)
                 if not orderToView:
                     break
+                
                 print(orderToView.orderDetails())
+
                 # change status
                 confirmMessage = "Would you like to change the order status?"
-                if ConfirmSelection(msg=confirmMessage):
-                    x = updateCarStatus(orderToView.getCar())
-                    if x == "delivered":
-                        orderToView.deliveryDate = datetime.today().strftime("%Y/%m/%d")
+                if not ConfirmSelection(msg=confirmMessage):
+                    break
+
+                newStatus = updateCarStatus(orderToView.getCar())
+                if newStatus == "delivered":
+                    interface.updateSale(orderToView)
 
         StallUntilUserInput()
 
@@ -870,43 +803,33 @@ def ManageCustomersMenu():
 
 
 def CarSalesMenu():
-    print('\nCAR SALES MENU')
-    # printing the sales list of orders
-    sales = interface.viewSales()
-    displaySales(sales)
-
-    # displaySales(sales)
-    # asking for the menu option
-    options = ["1. View sale details?"]
+    PrintFormat('Purple','\nCar Sales Menu')
+    options = ["1. View sale details"]
+    formattedOptions = "\n" + "\n".join(options)
 
     while True:
-        PrintFormat('Action', '\nWhat whould you like to do?')
-        print("\n".join(options))
-        print("\nPress 'q' to exit car sales menu")
+        PrintFormat('Purple','\nDelivered Cars:')
+        sales = interface.getDeliveredOrders()
+        displayData(sales)
+        print(formattedOptions)
+        PrintFormat('Action', 'What would you like to do?')
 
-        action = input("Enter action: ")
+        validateSet = {"1"}
+        action = getAction(validSet=validateSet)
 
-        if action == 'q':
+        if not action:
             break
-        if action not in {"1"}:
-            print("Invalid choice.")
-            continue
 
         if action == '1':
-            sales = interface.viewSales()
-            orderToView = GetObjectSales(sales)
-            if not orderToView:
+            saleToView = GetObject(sales)
+            
+            if not saleToView:
                 break
-            print(orderToView.orderDetails())
-            print("Delivery Date:", orderToView.deliveryDate)
 
-        # elif action == '2':
-        #     #orders = interface.viewOrders()
-        #     orderToView = GetObject(orders)
-        #     # change status to delivered
-        #     confirmMessage = "Would you like to change the order status?"
-        #     if ConfirmSelection(msg=confirmMessage):updateCarStatus(orderToView.getCar())
+            print(saleToView.orderDetails())
+            print("Delivery date:", saleToView.getDeliveryDate())
 
+        StallUntilUserInput()
 
 def AccountSettingsMenu():
     """ This is the menu users interact with when they want to change their account details such as password or username """

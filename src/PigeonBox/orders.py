@@ -3,9 +3,12 @@ from PigeonBox.bcolors import bcolors
 
 class Order():
     """ Class represents orders made, works like a database one-to-one relationship with a buyer and a car"""
-    def __init__(self, id, car=None, buyer=None, dateBought=None, employee=None, deliveryDate = "") -> None:
+    def __init__(self, id, car=None, buyer=None, dateBought=None, employee=None, deliveryDate = None) -> None:
         self.id = id 
-        if car:  car.SetStatus('ordered')  #  set car status to ordered
+        
+        if car and not deliveryDate:  
+            car.SetStatus('ordered')  #  set car status to ordered
+
         self.car = car        
         self.buyer = buyer #the user id
         self.salesBy = employee
@@ -13,8 +16,11 @@ class Order():
         if not dateBought: dateBought = datetime.today()
         else: dateBought = datetime.strptime(dateBought, "%Y-%m-%d")
         self.when = dateBought
+
+        if deliveryDate:
+            deliveryDate = datetime.strptime(deliveryDate, "%Y-%m-%d")
+
         self.deliveryDate = deliveryDate
-        #self.deliveryDate = None
      
     def getUser(self):
         return self.buyer
@@ -41,9 +47,16 @@ class Order():
             "buyer": self.buyer.getEmail(),
             "soldBy": self.salesBy.getUsername(),
             "dateBought": self.when.strftime("%Y-%m-%d"),
-            "deliveryDate": self.deliveryDate,
+            "deliveryDate": "" if not self.deliveryDate else self.deliveryDate.strftime("%Y-%m-%d"),
         }
     
+    def updateDeliveryDate(self):
+        today = datetime.today()
+        self.deliveryDate = today
+
+    def getDeliveryDate(self):
+        return self.deliveryDate.strftime("%Y-%m-%d")
+
     def serialize(order):
         if isinstance(order, Order):
             return order.to_dict()
@@ -61,17 +74,11 @@ class Order():
     def __str__(self):
         salesBy = self.salesBy.__str__()
         salesBy = " ".join(salesBy.split(" ")[:3])
-        return f"Order #{self.id} {bcolors.BOLD}Made by {salesBy}{bcolors.ENDC}: {self.car.getCarInfo()['make']} {self.car.getCarInfo()['model']} for {bcolors.BOLD}{self.buyer.getLastName()}, {self.buyer.getFirstName()}{bcolors.ENDC}"
-    
-    
-    def viewSales(self):
-        salesBy = self.salesBy.__str__()
-        salesBy = " ".join(salesBy.split(" ")[:3])
-        delivery_text = f",on {self.deliveryDate}{bcolors.ENDC}" if self.deliveryDate not in (None, '') else ""
-        return f"Sales #{self.id} {bcolors.BOLD}Made by {salesBy}{bcolors.ENDC}: {self.car.getCarInfo()['make']} {self.car.getCarInfo()['model']} for {bcolors.BOLD}{self.buyer.getLastName()}, {self.buyer.getFirstName()}{bcolors.ENDC}{delivery_text}"
+        # print(self.car.getStatus())
+        # orderType = "Sale" if self.car.isDelivered() else "Order"
 
-   
-
+        return f"ID: #{self.id} {bcolors.BOLD}Made by {salesBy}{bcolors.ENDC}: {self.car.getCarInfo()['make']} {self.car.getCarInfo()['model']} for {bcolors.BOLD}{self.buyer.getLastName()}, {self.buyer.getFirstName()}{bcolors.ENDC}"
+    
     """ Overriding the equality operator to compare two Order objects"""
     def __eq__(self, value) -> bool:
         if isinstance(value, Order):
