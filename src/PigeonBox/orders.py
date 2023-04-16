@@ -13,14 +13,15 @@ class Order():
         if not dateBought: dateBought = datetime.today()
         else: dateBought = datetime.strptime(dateBought, "%Y-%m-%d")
         self.when = dateBought
-        self.deliveryDate = datetime.strptime(deliveryDate, "%Y-%m-%d")
+        self.deliveryDate = deliveryDate
+        #self.deliveryDate = None
      
     def getUser(self):
         return self.buyer
     
     def getCar(self):
         return self.car
-    
+        
     def getSeller(self):
         return self.salesBy
     
@@ -40,7 +41,7 @@ class Order():
             "buyer": self.buyer.getEmail(),
             "soldBy": self.salesBy.getUsername(),
             "dateBought": self.when.strftime("%Y-%m-%d"),
-            "deliveryDate": self.deliveryDate.strftime("%Y-%m-%d") if self.deliveryDate != "" else ""
+            "deliveryDate": self.deliveryDate,
         }
     
     def serialize(order):
@@ -66,9 +67,10 @@ class Order():
     def viewSales(self):
         salesBy = self.salesBy.__str__()
         salesBy = " ".join(salesBy.split(" ")[:3])
-        delivery_text = f", on {self.deliveryDate}{bcolors.ENDC}" if self.deliveryDate not in (None, '') else ""
+        delivery_text = f",on {self.deliveryDate}{bcolors.ENDC}" if self.deliveryDate not in (None, '') else ""
         return f"Sales #{self.id} {bcolors.BOLD}Made by {salesBy}{bcolors.ENDC}: {self.car.getCarInfo()['make']} {self.car.getCarInfo()['model']} for {bcolors.BOLD}{self.buyer.getLastName()}, {self.buyer.getFirstName()}{bcolors.ENDC}{delivery_text}"
 
+   
 
     """ Overriding the equality operator to compare two Order objects"""
     def __eq__(self, value) -> bool:
