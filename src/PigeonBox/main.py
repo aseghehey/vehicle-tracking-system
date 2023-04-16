@@ -314,7 +314,15 @@ Name: ManageCustomersMenu()
     #   function prototype: def ManageCustomersMenu():
 
 Name: CarSalesMenu()
-
+    # One-line description: Displays the car sales menu and allows the user to view the sale details of delivered cars.
+    # General description: This function displays the car sales menu and allows the user to view the sale details of delivered cars.
+        It retrieves the list of delivered orders from the interface and displays it using the displayData function.
+        It then prompts the user to select an action and calls the corresponding function based on the user's input. 
+        If the user selects the "View sale details" option, it prompts the user to select a specific sale to view and 
+        displays the sale details along with its delivery date.
+    # Typical calling example: CarSalesMenu()
+    # Accessibility: This function can be accessed from anywhere within the program.
+    # Function prototype: def CarSalesMenu():
 
 Name: AccountSettingsMenu()
     #   One-line description: Account settings menu for changing password, username, and viewing account details.
@@ -1224,10 +1232,35 @@ def ManageCustomersMenu():
         StallUntilUserInput()
 
 def CarSalesMenu():
-    #TODO: Assigned to Dariya
-    # display orders
-    # Set order statuses to delivered 
-    pass
+    """Displays the car sales menu and allows the user to view the sale details of delivered cars."""
+    PrintFormat('Purple','\nCar Sales Menu')
+    options = ["1. View sale details"]
+    formattedOptions = "\n" + "\n".join(options)
+
+    while True:
+        PrintFormat('Purple','\nDelivered Cars:')
+        sales = interface.getDeliveredOrders()
+        
+        displayData(sales)
+        PrintFormat('Action', '\nWhat would you like to do?')
+        print(formattedOptions)
+
+        validateSet = {"1"}
+        action = getAction(validSet=validateSet)
+
+        if not action:
+            break
+
+        if action == '1':
+            saleToView = GetObject(sales)
+            
+            if not saleToView:
+                break
+
+            print(saleToView.orderDetails())
+            print("Delivery date:", saleToView.getDeliveryDate())
+
+        StallUntilUserInput()
 
 def AccountSettingsMenu():
     """ This is the menu users interact with when they want to change their account details such as password or username """
@@ -1249,7 +1282,7 @@ def AccountSettingsMenu():
             print(f"\nUser {user.getUsername()} details:\n{user}")
 
         StallUntilUserInput()
-        
+
 def menu():
     """ Main menu that the users will first interact with. Calls on otther menus """
     # made these global because almost all menus need it
