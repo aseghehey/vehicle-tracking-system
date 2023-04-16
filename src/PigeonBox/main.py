@@ -810,9 +810,10 @@ def CarSalesMenu():
     while True:
         PrintFormat('Purple','\nDelivered Cars:')
         sales = interface.getDeliveredOrders()
+        
         displayData(sales)
+        PrintFormat('Action', '\nWhat would you like to do?')
         print(formattedOptions)
-        PrintFormat('Action', 'What would you like to do?')
 
         validateSet = {"1"}
         action = getAction(validSet=validateSet)
