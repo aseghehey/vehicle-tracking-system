@@ -19,27 +19,7 @@ and manipulate the status of cars in a car sales inventory system,
 and to allow for easy conversion between string representations and enum values.
 
 Methods:
-Name: strToStatus(status: str)
-    # One-line description: Convert a string representation of car status to its corresponding enum value.
-    # General description: This function takes a string representation of a car status, such as "available" or "ordered", 
-        and returns the corresponding enum value from the predefined STATUS_DICT dictionary.
-    #   If the input status string is not found in the dictionary, the function returns None.
-    # Typical calling examples:
-    #   strToStatus("available") returns Status.AVAILABLE.
-    #   strToStatus("backorder") returns Status.BACKORDER.
-    #   strToStatus("sold") returns None.
-    # Accessibility: The function is defined globally and can be accessed from anywhere in the program.
-    # Function prototype: def strToStatus(status: str) -> Union[Status, None]
-
-Name: StatusToStr(status: Status)
-    # One-line description: Converts a Status enum value to its string representation.
-    # General description: This function takes in a Status enum value and returns its corresponding string representation based on
-    #   the values defined in the STATUS_DICT dictionary.
-    # Typical calling examples:
-    #   StatusToStr(Status.AVAILABLE) returns "available"
-    #   StatusToStr(Status.ORDERED) returns "ordered"
-    # Accessibility: This function can be accessed anywhere within the codebase where the st module is imported.
-    # Function prototype: def StatusToStr(status: Status) -> str:
+Each function and their description, typcial calling example, accessibility, and prototype information can be found in documentation_functionDescription.txt
 
 ////////////////
 DATA STRUCTURES:
