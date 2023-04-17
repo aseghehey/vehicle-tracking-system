@@ -264,15 +264,15 @@
     "type": "Employee"
   },
   {
-    "username": "packxs",
-    "password": "1234567",
+    "username": "pepelopez",
+    "password": "testtest123!",
     "name": [
       {
-        "firstName": "Emanuel",
-        "lastName": "Packas"
+        "firstName": "pepe",
+        "lastName": "lopez"
       }
     ],
-    "dateJoined": "2023-04-07",
+    "dateJoined": "2023-04-17",
     "type": "Employee"
   }
 ]
