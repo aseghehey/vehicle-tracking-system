@@ -23,16 +23,7 @@ The function then selects the appropriate color code based on the color_status p
 prints the print_info string with the selected color code using the print() function.
 
 Methods:
-Name: PrintFormat()
-    # One-line description: A function that prints formatted text in different colors.
-    # General description: The function takes two parameters, the color status and the text to be printed, and prints the text in the specified color. 
-    #   It works like the print()
-    #   function but allows the user to select from different color and formatting options.
-    # Typical calling examples: PrintFormat("Success", "The operation was successful.") would print "The operation was successful." in green text.
-        PrintFormat("Important", "Please enter your credentials.")
-    #   would print "Please enter your credentials." in bold text.
-    # Accessibility: This function can be accessed from within the module where it is defined.
-    # Function prototype: def PrintFormat(color_status, print_info)
+Each function and their description, typcial calling example, accessibility, and prototype information can be found in documentation_functionDescription.txt
 
 ////////////////
 DATA STRUCTURES:
