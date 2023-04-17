@@ -813,7 +813,7 @@ def CarSalesMenu():
         
         displayData(sales)
         PrintFormat('Action', '\nWhat would you like to do?')
-        print(formattedOptions)
+        PrintFormat('Action', f'{formattedOptions}')
 
         validateSet = {"1"}
         action = getAction(validSet=validateSet)
