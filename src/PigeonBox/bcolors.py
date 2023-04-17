@@ -49,6 +49,8 @@ No explicit error handling.
 ////////////////
 '''
 ####################################################################################################################
+from colorama import init
+init()
 
 class bcolors:
     """define a class the contains various colros to format output text"""
