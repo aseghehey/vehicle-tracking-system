@@ -41,7 +41,8 @@ def test_to_dict(sample_order):
         "carVin": sample_order.car.getVin(),
         "buyer": sample_order.buyer.getEmail(),
         "soldBy": sample_order.salesBy.getUsername(),
-        "dateBought": '2022-04-15'
+        "dateBought": '2022-04-15',
+        "deliveryDate": ""
     }
     assert sample_order.to_dict() == expected_output
 
@@ -52,10 +53,10 @@ def test_serialize(sample_order):
         "carVin": sample_order.car.getVin(),
         "buyer": sample_order.buyer.getEmail(),
         "soldBy": sample_order.salesBy.getUsername(),
-        "dateBought": '2022-04-15'
+        "dateBought": '2022-04-15',
+        "deliveryDate": ""
     }
     assert Order.serialize(sample_order) == expected_output
-
 
 def test_RemoveOrder(sample_order):
     sample_order.buyer.orders = [sample_order]
