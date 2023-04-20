@@ -262,17 +262,5 @@
     ],
     "dateJoined": "2022-01-10",
     "type": "Employee"
-  },
-  {
-    "username": "packxs",
-    "password": "1234567",
-    "name": [
-      {
-        "firstName": "Emanuel",
-        "lastName": "Packas"
-      }
-    ],
-    "dateJoined": "2023-04-07",
-    "type": "Employee"
   }
 ]
