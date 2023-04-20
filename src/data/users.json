@@ -262,17 +262,5 @@
     ],
     "dateJoined": "2022-01-10",
     "type": "Employee"
-  },
-  {
-    "username": "pepelopez",
-    "password": "testtest123!",
-    "name": [
-      {
-        "firstName": "pepe",
-        "lastName": "lopez"
-      }
-    ],
-    "dateJoined": "2023-04-17",
-    "type": "Employee"
   }
 ]

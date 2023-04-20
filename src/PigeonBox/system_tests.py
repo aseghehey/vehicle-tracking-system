@@ -25,16 +25,8 @@ import unittest
 #time testing: test the timing of the individual functionality
 
 class TestTiming(unittest.TestCase):
-    #im still figuring out how to use the patches to automate input
 
-#main menu
-# 1. Customer Orders
-# 2. Car Sales
-# 3. Car Inventory
-# 5. Manage Employees
-# A: Account settings
-
-#4. management of customers
+    #adding and deleting an employee
     @mock.patch('builtins.input', create=True)
     def test_addUser(self, mocked_input):
         mocked_input.side_effect = ['test', 'test', '5', '2', 'pepelopez', 'testtest123!', 'pepe', 'lopez', 'n', 'j', 'q', 'q', 'n']
@@ -43,17 +35,58 @@ class TestTiming(unittest.TestCase):
         t1 = time.time()
         total = t1-t0
         assert(total < 100)
-
-
+    
     @mock.patch('builtins.input', create=True)
     def test_removeUser(self, mocked_input):
         mocked_input.side_effect = ['test', 'test', '5', '3', '18', 'y', 'j', 'q', 'q', 'n']
-        result = run()
+        t0 = time.time()
+        run()
+        t1 = time.time()
+        total = t1-t0
+        assert(total < 100)
 
 
-#volume testing: test the system with large volumes of data
+    #adding a car
+    @mock.patch('builtins.input', create=True)
+    def test_addCar(self, mocked_input):
+        mocked_input.side_effect = ['test', 'test', '3', '4', '1', '500500500', 'Ford, Fusion, 2015', '500, Grey', '100000', '4 Cylinder, Automatic', 'Fabric, Normal', 'Normal', 'Normal', 'Bluetooth', 'None', 'Base', '5 Years, Average', 'Available', 'j', 'q', 'q', 'n']
+        t0 = time.time()
+        run()
+        t1 = time.time()
+        total = t1-t0
+        assert(total < 100)
 
 
+
+    #adding and deleting an order
+    @mock.patch('builtins.input', create=True)
+    def test_addOrder(self, mocked_input):
+        mocked_input.side_effect = ['test', 'test', '1', '1', '51', 'y', 'n', '5', 'j', 'q', 'q', 'n']
+        t0 = time.time()
+        run()
+        t1 = time.time()
+        total = t1-t0
+        assert(total < 100)
+
+
+    @mock.patch('builtins.input', create=True)
+    def test_deleteOrder(self, mocked_input):
+        mocked_input.side_effect = ['test', 'test', '1', '2', '6', 'y', 'j', 'q', 'q', 'n']
+        t0 = time.time()
+        run()
+        t1 = time.time()
+        total = t1-t0
+        assert(total < 100)
+
+    #delete the car
+    @mock.patch('builtins.input', create=True)
+    def test_removeCar(self, mocked_input):
+        mocked_input.side_effect = ['test', 'test', '3', '4', '2', '51', 'y', 'j', 'q', 'q', 'n']
+        t0 = time.time()
+        run()
+        t1 = time.time()
+        total = t1-t0
+        assert(total < 100)
 
 
 if __name__ == '__main__':
