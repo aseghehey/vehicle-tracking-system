@@ -2553,7 +2553,7 @@
   },
   {
     "vin": "3GYFNFEY5BS383193",
-    "status": "available",
+    "status": "ordered",
     "info": [
       {
         "model": "Grand Caravan",
@@ -3068,7 +3068,7 @@
   },
   {
     "vin": "WBAAV53401J273479",
-    "status": "available",
+    "status": "ordered",
     "info": [
       {
         "model": "XC90",

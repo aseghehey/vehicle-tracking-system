@@ -1,6 +1,11 @@
-import pytest
+
 from unittest import *
 from PigeonBox.bcolors import *
+from pytest_mock import *
+import warnings
+from pytest import PytestCollectionWarning
+warnings.filterwarnings("ignore", category=PytestCollectionWarning) #resolves strange warnings regarding __init__ despite there being no __init__
+
 
 def test_PrintFormat(mocker):
     # Create a mock object for the print function
