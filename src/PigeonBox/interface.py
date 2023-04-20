@@ -111,7 +111,8 @@ class Interface(InterfaceObjects):
                                             car=self.vinToCar(order['carVin']), 
                                             buyer=self.emailToCustomer(order['buyer']), 
                                             employee=self.usernameToUser(order['soldBy']), 
-                                            dateBought=order['dateBought']))
+                                            dateBought=order['dateBought'],
+                                            deliveryDate=order['deliveryDate']))
 
         # 0: inv, 1: order, 2: users, 3: customer
         self.isObjListUpdated = [False] * 4
@@ -123,9 +124,71 @@ class Interface(InterfaceObjects):
                 if customer == currentCustomer:
                     customer.orders.append(order)
 
+    def changeCarStatus(self, car, status):
+        car.SetStatus(status)
+        self.isObjListUpdated[0] = True
+
+    def changeCarPrice(self, car, newPrice):
+        car.UpdatePrice(newPrice)
+        self.isObjListUpdated[0] = True
     
+    def changeCarMileage(self, car, newMileage):
+        car.UpdateMileage(newMileage)
+        self.isObjListUpdated[0] = True
+
+    def changeCustomerEmail(self, customer, newEmail):
+        customer.setEmail(newEmail)
+        self.isObjListUpdated[3] = True
+
+    def updateSale(self, sale):
+        for order in self.orders:
+            if order == sale:
+                order.updateDeliveryDate()
+        self.isObjListUpdated[1] = True
+
+    def changeCustomerCard(self, customer, newCard):
+        customer.setCard(newCard)
+        self.isObjListUpdated[3] = True
+    
+    def changeCustomerAddress(self, customer, newAddress):
+        customer.setAddress(newAddress)
+        self.isObjListUpdated[3] = True
+
+    def changeUserPassword(self, user, newPassword):
+        for admin in self.admins:
+            if admin == user:
+                admin.UpdatePassword(newPassword)
+                self.isObjListUpdated[2] = True
+                return
+        
+        for employee in self.employees:
+            if employee == user:
+                employee.UpdatePassword(newPassword)
+                self.isObjListUpdated[2] = True
+                return
+            
+    def changeUserUsername(self, user, newUsername):
+        for admin in self.admins:
+            if admin == user:
+                admin.UpdateUserName(newUsername)
+                self.isObjListUpdated[2] = True
+                return
+        
+        for employee in self.employees:
+            if employee == user:
+                employee.UpdateUserName(newUsername)
+                self.isObjListUpdated[2] = True
+                return
+            
     def viewOrders(self):
         return self.orders
+    
+    def getDeliveredOrders(self):
+        delivered = []
+        for order in self.orders:
+            if order.car.getStatus() == status.Status.DELIVERED:
+                delivered.append(order)
+        return delivered
     
     def getOrderslist(self):
         return self.orders
@@ -213,8 +276,8 @@ class Interface(InterfaceObjects):
         if self.isObjListUpdated[1]:
             writeJson.writeJson(self.orders)
         if self.isObjListUpdated[2]:
-            allusers = self.admins + self.employees
-            writeJson.writeJson(allusers)
+            allUsers = self.admins + self.employees
+            writeJson.writeJson(allUsers)
         if self.isObjListUpdated[3]:
             writeJson.writeJson(self.customers)
 
@@ -239,11 +302,24 @@ class AdminInterface(Interface):
         self.employees.append(newEmployee)
         self.isObjListUpdated[2] = True
         return True
+    
+    def ordersMadeByUser(self, user):
+        orders = []
+        for order in self.orders:
+            if order.getSeller() == user:
+                orders.append(order)
+        return orders
 
     def RemoveUser(self, userToRemove) -> bool:
         if not self.UserExists(userToRemove):
             return False
-        
+
+        # remove all orders made by that user
+        userOrders = self.ordersMadeByUser(userToRemove)
+        if userOrders:
+            for order in userOrders:
+                self.UndoOrder(order)
+
         if (isinstance(userToRemove, users.Admin)):
             self.admins.remove(userToRemove)
         else:

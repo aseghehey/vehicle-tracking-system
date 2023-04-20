@@ -30,6 +30,9 @@ class Car ():
     def getVin(self):
         return self.vin
     
+    def isDelivered(self):
+        return True if self.status == st.Status.DELIVERED else False
+    
     def getStatus(self):
         return self.status
     
@@ -73,7 +76,7 @@ class Car ():
         self.price = newprice
 
     def getDetails(self):
-        res = f"""{bcolors.BOLD}{self.vin}{bcolors.ENDC} with {self.package} package
+        res = f"""\n{bcolors.BOLD}{self.vin}{bcolors.ENDC} with {self.package} package
         Performance
         Engine: {self.performance['engine']}, Transmission: {self.performance['transmission']}
         Mileage: {self.info['mileage']} miles
