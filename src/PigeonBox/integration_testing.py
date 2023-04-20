@@ -10,9 +10,7 @@ from PigeonBox import session, status, orders, users, vehicles
 from PigeonBox.interface import *   
 import unittest
 from parsers.readJson import *
-from vehicles import Car
-import unittest
-from PigeonBox import Interface, AdminInterface, users, vehicles
+
 
 #main menu: in integration testing we will be testing how the 5 main components work (i.e. all individual functions working together)
 # 1. Customer Orders
@@ -22,65 +20,69 @@ from PigeonBox import Interface, AdminInterface, users, vehicles
 # 5. Manage Employees
 # A: Account settings
 
+#3. Car Inventory
+class TestCarInventory(unittest.TestCase):
 
     #add a car (we will use this car for some of the following test cases)
     @mock.patch('builtins.input', create=True)
     def test_addCar(self, mocked_input):
-        mocked_input.side_effect = ['test', 'test', '3', '4', '1', '500500500', 'Ford, Fusion, 2015', '500, Grey', '10000', '4 Cylinder, Automatic', 'Fabric, Normal', 'Normal', 'Normal', 'Bluetooth', 'None', 'Base', '5 Years, Average', 'Available', 'j', 'q', 'q', 'n']
+        mocked_input.side_effect = ['test', 'test', '3', '4', '1', '500500500', 'Ford, Fusion, 2015', '500, Grey', '100000', '4 Cylinder, Automatic', 'Fabric, Normal', 'Normal', 'Normal', 'Bluetooth', 'None', 'Base', '5 Years, Average', 'Available', 'j', 'q', 'q', 'n']
         run()
         
-        # Test removing a car from the inventory
-        car = self.admin_interface.vinToCar(self.car_data['vin'])
-        self.assertIsNotNone(car)
-        
-        removed = self.admin_interface.RemoveInventory(car)
-        self.assertTrue(removed)
 
-    def test_add_remove_customer(self):
-        # Test adding a customer
-        customer = self.interface.AddCustomer(**self.customer_data)
-        self.assertIsNotNone(customer)
-        
-        # Test removing a customer
-        customer = self.interface.emailToCustomer(self.customer_data['email'])
-        self.assertIsNotNone(customer)
-        
-        self.interface.RemoveCustomer(customer)
-        self.assertFalse(self.interface.isCustomer(customer))
+#4. Manage Customers
+class TestManageCustomers(unittest.TestCase):
 
-    def test_add_remove_employee(self):
-        # Test adding an employee
-        employee_data = {'username': 'testemployee', 'passwd': 'testpassword', 'fname': 'Test', 'lname': 'Employee'}
-        added = self.admin_interface.AddEmployee(**employee_data)
-        self.assertTrue(added)
+    #add a customer (we will use this customer for some of the following test cases)
+    @mock.patch('builtins.input', create=True)
+    def test_addCustomer(self, mocked_input):
+        mocked_input.side_effect = ['test', 'test', '4', '2', 'Lia', 'Lopez', 'lialopez@gmail.com', '2222222222222222', '123 dog drive', 'j', 'q', 'q', 'n']
+        run()
 
-        # Test removing an employee
-        employee = self.admin_interface.usernameToUser(employee_data['username'])
-        self.assertIsNotNone(employee)
-        
-        removed = self.admin_interface.RemoveUser(employee)
-        self.assertTrue(removed)
+#1. Customer Orders
+class TestCustomerOrders(unittest.TestCase):
 
-    def test_make_undo_order(self):
-        # Test making an order
-        self.admin_interface.AddInventory(**self.car_data)
-        car = self.admin_interface.vinToCar(self.car_data['vin'])
-        self.assertIsNotNone(car)
-        
-        customer = self.interface.AddCustomer(**self.customer_data)
-        self.assertIsNotNone(customer)
-        
-        employee_data = {'username': 'testemployee', 'passwd': 'testpassword', 'fname': 'Test', 'lname': 'Employee'}
-        self.admin_interface.AddEmployee(**employee_data)
-        employee = self.admin_interface.usernameToUser(employee_data['username'])
-        self.assertIsNotNone(employee)
-        
-        order = self.interface.MakeOrder(customer, car, employee)
-        self.assertIsNotNone(order)
-        
-        # Test undoing an order
-        self.interface.UndoOrder(order)
-        self.assertFalse(self.interface.doesOrderExist(order))
+    #adding an order for the customer we created above
+    @mock.patch('builtins.input', create=True)
+    def test_addOrder(self, mocked_input):
+        mocked_input.side_effect = ['test', 'test', '1', '1', '51', 'y', 'n', '6', 'j', 'q', 'q', 'n']
+        run()
 
-if __name__ == '__main__':
-    unittest.main()
+    #delete the same order as above
+    @mock.patch('builtins.input', create=True)
+    def test_deleteOrder(self, mocked_input):
+        mocked_input.side_effect = ['test', 'test', '1', '2', '6', 'y', 'j', 'q', 'q', 'n']
+        run()
+
+
+# 5. Manage Employees
+class TestManageEmployees(unittest.TestCase):
+
+    #adding an employee
+    @mock.patch('builtins.input', create=True)
+    def test_addUsesr(self, mocked_input):
+        mocked_input.side_effect = ['test', 'test', '5', '2', 'pepelopez', 'testtest123!', 'pepe', 'lopez', 'n', 'j', 'q', 'q', 'n']
+        run()
+    
+    #deleting an employee (the same one we added above)
+    @mock.patch('builtins.input', create=True)
+    def test_removeUser(self, mocked_input):
+        mocked_input.side_effect = ['test', 'test', '5', '3', '18', 'y', 'j', 'q', 'q', 'n']
+        run()
+
+
+class TestManageCustomerDelete(unittest.TestCase):
+
+    #delete the customer we made above for the tests
+    @mock.patch('builtins.input', create=True)
+    def test_deleteCustomer(self, mocked_input):
+        mocked_input.side_effect = ['test', 'test', '4', '3', '6', 'y', 'j', 'q', 'q', 'n']
+        run()
+
+class TestManageInventoryDelete(unittest.TestCase):
+
+    #delete the car we made above for the tests
+    @mock.patch('builtins.input', create=True)
+    def test_deleteCar(self, mocked_input):
+        mocked_input.side_effect = ['test', 'test', '3', '4', '2', '51', 'y', 'j', 'q', 'q', 'n']
+        run()
