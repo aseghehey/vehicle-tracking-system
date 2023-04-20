@@ -58,6 +58,7 @@ def test_serialize(sample_order):
     }
     assert Order.serialize(sample_order) == expected_output
 
+
 def test_RemoveOrder(sample_order):
     sample_order.buyer.orders = [sample_order]
     sample_order.RemoveOrder()
@@ -79,7 +80,7 @@ def test_str(sample_order):
     sample_buyer_last_name = sample_order.buyer.getLastName()
     sample_buyer_first_name = sample_order.buyer.getFirstName()
     sample_employee_str = ' '.join(sample_order.salesBy.__str__().split(" ")[:3])
-    expected_output = f"Order #1 {bcolors.BOLD}Made by {sample_employee_str}{bcolors.ENDC}: {sample_car_make} {sample_car_model} for {bcolors.BOLD}{sample_buyer_last_name}, {sample_buyer_first_name}{bcolors.ENDC}"
+    expected_output = f"ID: #1 {bcolors.BOLD}Made by {sample_employee_str}{bcolors.ENDC}: {sample_car_make} {sample_car_model} for {bcolors.BOLD}{sample_buyer_last_name}, {sample_buyer_first_name}{bcolors.ENDC}"
     assert str(sample_order) == expected_output
 
 
